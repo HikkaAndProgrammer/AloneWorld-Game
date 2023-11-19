@@ -1,0 +1,13 @@
+{
+    "path_prefix": "res/textures/",
+    "atlas": [
+        { 
+            "key": "sakura",
+            "val": "example.jpg"
+        },
+        {
+            "key": "tiles",
+            "val": "tiles.png"
+        }
+    ]
+}

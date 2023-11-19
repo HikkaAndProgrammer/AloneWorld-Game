@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Taur\Core.cpp" />
+    <ClCompile Include="src\Taur\RenderModule.cpp" />
+    <ClCompile Include="src\Taur\TextureModule.cpp" />
+    <ClCompile Include="src\Taur\Tilemap.cpp" />
+    <ClCompile Include="src\Taur\Camera.cpp" />
+    <ClCompile Include="src\Taur\Util.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Taur\RenderModule.hpp" />
+    <ClInclude Include="src\Taur\Core.hpp" />
+    <ClInclude Include="src\Taur\TextureModule.hpp" />
+    <ClInclude Include="src\Taur\Tilemap.hpp" />
+    <ClInclude Include="src\Taur\Camera.hpp" />
+    <ClInclude Include="src\Taur\Util.hpp" />
+  </ItemGroup>
+</Project>
