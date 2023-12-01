@@ -7,40 +7,40 @@ namespace taur {
 	}
 
 	void ThreadPool::resize(size_t size) {
-		if (!m_is_stop && !m_is_done) {
-			size_t _size = m_threads.size();
+		if (!this->m_is_stop && !this->m_is_done) {
+			size_t _size = this->m_threads.size();
 			if (_size <= size) {
-				m_threads.resize(size);
-				m_flags.resize(size);
+				this->m_threads.resize(size);
+				this->m_flags.resize(size);
 
 				for (size_t i = _size; i != size; i++) {
-					m_flags[i] = std::make_shared <std::atomic_bool>(false);
+					this->m_flags[i] = std::make_shared <std::atomic_bool>(false);
 					set_thread(i);
 				}
 			} else {
 				for (size_t i = size; i != _size; i++) {
-					m_flags[i]->store(true);
-					m_threads[i]->detach();
+					this->m_flags[i]->store(true);
+					this->m_threads[i]->detach();
 				}
 				{
-					std::unique_lock lock(m_mutex);
-					m_cv.notify_all();
+					std::unique_lock lock(this->m_mutex);
+					this->m_cv.notify_all();
 				}
-				m_threads.resize(size);
-				m_flags.resize(size);
+				this->m_threads.resize(size);
+				this->m_flags.resize(size);
 			}
 		}
 	}
 
 	void ThreadPool::clear_queue() {
 		Task* task;
-		while (m_queue.pop(task))
+		while (this->m_queue.pop(task))
 			delete task;
 	}
 
 	Task ThreadPool::pop() {
 		Task* task = nullptr;
-		m_queue.pop(task);
+		this->m_queue.pop(task);
 		std::unique_ptr <Task> func(task);
 
 		Task wraped_task;
@@ -51,30 +51,30 @@ namespace taur {
 
 	void ThreadPool::stop(bool is_wait) {
 		if (!is_wait) {
-			if (!m_is_stop)
+			if (!this->m_is_stop)
 				return;
 
-			m_is_stop = true;
-			for (size_t i = 0, size = m_threads.size(); i != size; i++)
+			this->m_is_stop = true;
+			for (size_t i = 0, size = this->m_threads.size(); i != size; i++)
 				m_flags[i]->store(true);
 			clear_queue();
 		} else {
-			if (m_is_stop || m_is_done)
+			if (this->m_is_stop || this->m_is_done)
 				return;
-			m_is_done = true;
+			this->m_is_done = true;
 		}
 		{
-			std::unique_lock lock(m_mutex);
-			m_cv.notify_all();
+			std::unique_lock lock(this->m_mutex);
+			this->m_cv.notify_all();
 		}
 		
-		for (size_t i = 0; i != m_threads.size(); i++)
-			if (m_threads[i]->joinable())
-				m_threads[i]->join();
+		for (size_t i = 0; i != this->m_threads.size(); i++)
+			if (this->m_threads[i]->joinable())
+				this->m_threads[i]->join();
 
 		clear_queue();
-		m_threads.clear();
-		m_flags.clear();
+		this->m_threads.clear();
+		this->m_flags.clear();
 	}
 
 	void ThreadPool::set_thread(size_t id) {
@@ -82,7 +82,7 @@ namespace taur {
 		auto thread_loop = [this, id, flag]() {
 			std::atomic_bool& _flag = *flag;
 			Task* task;
-			bool is_pop = m_queue.pop(task);
+			bool is_pop = this->m_queue.pop(task);
 
 			while (true) {
 				while (is_pop) {
@@ -91,21 +91,21 @@ namespace taur {
 
 					if (_flag)
 						return;;
-					is_pop = m_queue.pop(task);
+					is_pop = this->m_queue.pop(task);
 				}
 
-				std::unique_lock lock(m_mutex);
-				m_idle_count++;
-				m_cv.wait(lock, [this, &task, &is_pop, &_flag]() {
-					is_pop = m_queue.pop(task);
-					return is_pop || m_is_done || _flag;
+				std::unique_lock lock(this->m_mutex);
+				this->m_idle_count++;
+				this->m_cv.wait(lock, [this, &task, &is_pop, &_flag]() {
+					is_pop = this->m_queue.pop(task);
+					return is_pop || this->m_is_done || _flag;
 				});
-				m_idle_count--;
+				this->m_idle_count--;
 
 				if (!is_pop)
 					return;;
 			}
 		};
-		m_threads[id].reset(new std::thread(thread_loop));
+		this->m_threads[id].reset(new std::thread(thread_loop));
 	}
 }

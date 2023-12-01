@@ -9,7 +9,7 @@
 
 namespace taur {
 	void Camera::render() {
-		auto& tilemap = *m_observed;
+		auto& tilemap = *this->m_observed;
 		auto width = tilemap.width(), height = tilemap.width();
 		//every quad tile consists of 2 triangles, triangle consists of 3 points
 		auto request = sf::VertexArray(sf::Triangles, width * height * 6);

@@ -10,15 +10,15 @@ namespace taur {
 		auto settings = toml::parse("./res/settings.toml");
 
 		auto texture_info = toml::find <std::string>(settings, "textures_path");
-		textures.load(texture_info);
+		this->textures.load(texture_info);
 
-		renderer.init();
+		this->renderer.init();
 
-		engine = std::make_unique <script::ChaiScript>();
+		this->engine = std::make_unique <script::ChaiScript>();
 	}
 	void core_t::release() {
-		if (window.isOpen())
-			window.close();
-		engine = nullptr;
+		if (this->window.isOpen())
+			this->window.close();
+		this->engine = nullptr;
 	}
 }

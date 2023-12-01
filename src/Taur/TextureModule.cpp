@@ -7,7 +7,7 @@
 
 namespace taur {
 	std::shared_ptr <sf::Texture> TextureManager::operator[](KeyType id) {
-		return m_storage[id];
+		return this->m_storage[id];
 	}
 
 	void TextureManager::load(std::string path) {

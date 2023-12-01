@@ -77,11 +77,11 @@ namespace taur {
 
 	class Tilemap {
 	public:
-		tile_t& at(size_t x, size_t y) { return m_content.at(x + y * m_width); }
-		const tile_t& at(size_t x, size_t y) const { return m_content.at(x + y * m_width); }
+		tile_t& at(size_t x, size_t y) { return this->m_content.at(x + y * this->m_width); }
+		const tile_t& at(size_t x, size_t y) const { return this->m_content.at(x + y * this->m_width); }
 
 		const tile_t& at_try(size_t x, size_t y) const {
-			if (x >= 0 && x < m_width && y >= 0 && y < m_height)
+			if (x >= 0 && x < this->m_width && y >= 0 && y < this->m_height)
 				return at(x, y);
 			return nulled;
 		}
@@ -91,14 +91,14 @@ namespace taur {
 		bool save(std::string filename) const;
 		bool load(std::string filename);
 
-		size_t width() { return m_width; }
-		size_t height() { return m_height; }
+		size_t width() { return this->m_width; }
+		size_t height() { return this->m_height; }
 
 	protected:
 		std::vector <tile_t> m_content;
 		std::vector <TileBlank> m_catalog;
 		size_t m_width = 0, m_height = 0;
 		const size_t tile_size = 16;
-		const tile_t nulled = tile_t(0, 0, 0, 0);
+		static const tile_t nulled;
 	};
 }

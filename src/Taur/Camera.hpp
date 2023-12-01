@@ -9,7 +9,7 @@ namespace taur {
 	class Camera {
 	public:
 		void link(Tilemap* observed) {
-			m_observed = observed;
+			this->m_observed = observed;
 		}
 
 		void set_offset(sf::Vector2f offset) {
@@ -17,23 +17,23 @@ namespace taur {
 		}
 		void set_size(sf::Vector2f size) {
 			this->m_size = size;
-			m_view.setSize(size);
+			this->m_view.setSize(size);
 		}
 		void set_position(sf::Vector2f position) {
-			m_position = position;
-			m_view.setCenter(position);
+			this->m_position = position;
+			this->m_view.setCenter(position);
 		}
 
 		sf::View& get_view() {
-			return m_view;
+			return this->m_view;
 		}
 		const sf::View& get_view() const {
-			return m_view;
+			return this->m_view;
 		}
 
 		void move(sf::Vector2f offset) {
-			m_position.x += offset.x;
-			m_position.y += offset.y;
+			this->m_position.x += offset.x;
+			this->m_position.y += offset.y;
 		}
 
 		void render();

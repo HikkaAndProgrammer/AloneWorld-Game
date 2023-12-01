@@ -19,10 +19,10 @@ namespace taur {
 		void load(std::string path);
 
 		std::unordered_map <KeyType, std::shared_ptr <sf::Texture>>::iterator begin() {
-			return m_storage.begin();
+			return this->m_storage.begin();
 		}
 		std::unordered_map <KeyType, std::shared_ptr <sf::Texture>>::iterator end() {
-			return m_storage.end();
+			return this->m_storage.end();
 		}
 
 	private:

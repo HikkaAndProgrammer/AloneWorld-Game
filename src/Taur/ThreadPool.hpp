@@ -21,9 +21,9 @@ namespace taur {
 		ThreadPool(size_t threads_count, size_t queue_size); 
 		~ThreadPool() { stop(true); }
 
-		size_t size() const { return m_threads.size(); }
-		size_t idle_count() const { return m_idle_count; }
-		std::thread& operator[](size_t id) { return *m_threads[id]; }
+		size_t size() const { return this->m_threads.size(); }
+		size_t idle_count() const { return this->m_idle_count; }
+		std::thread& operator[](size_t id) { return *this->m_threads[id]; }
 
 		void resize(size_t threads_count);
 
@@ -37,12 +37,12 @@ namespace taur {
 			auto pck = std::make_shared <std::packaged_task <decltype(func(0, args...))(size_t)>>(
 				std::bind(std::forward <_Func>(func), std::placeholders::_1, std::forward <_Args>(args)...));
 			
-			m_queue.push(new Task([pck](size_t id) {
+			this->m_queue.push(new Task([pck](size_t id) {
 				(*pck)(id);
 			}));
 
-			std::unique_lock lock(m_mutex);
-			m_cv.notify_one();
+			std::unique_lock lock(this->m_mutex);
+			this->m_cv.notify_one();
 
 			return pck->get_future();
 		}
@@ -50,12 +50,12 @@ namespace taur {
 		auto push(_Func&& func) -> std::future <decltype(func(0))> {
 			auto pck = std::make_shared <std::packaged_task <decltype(func(0))(size_t)>>(std::forward <_Func>(func));
 
-			m_queue.push(new Task([pck](size_t id) {
+			this->m_queue.push(new Task([pck](size_t id) {
 				(*pck)(id);
 			}));
 
-			std::unique_lock lock(m_mutex);
-			m_cv.notify_one();
+			std::unique_lock lock(this->m_mutex);
+			this->m_cv.notify_one();
 
 			return pck->get_future();
 		}
@@ -64,9 +64,9 @@ namespace taur {
 		void set_thread(size_t id);
 
 		void init() {
-			m_idle_count = 0;
-			m_is_stop = false;
-			m_is_done = false;
+			this->m_idle_count = 0;
+			this->m_is_stop = false;
+			this->m_is_done = false;
 		}
 
 		std::vector <std::unique_ptr <std::thread>> m_threads;
