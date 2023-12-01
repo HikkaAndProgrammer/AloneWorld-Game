@@ -19,6 +19,7 @@ namespace taur {
 		void init();
 		void release();
 
+		const size_t tile_size = 16;
 		sf::RenderWindow window;
 		Renderer renderer;
 		TextureManager textures;

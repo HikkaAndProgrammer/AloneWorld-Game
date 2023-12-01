@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\eilrovisoft\programming\cpp\AloneWorld-Game\src;C:\eilrovisoft\lib\ChaiScript-6.1.0\include;C:\eilrovisoft\lib\json-3.11.2\include;C:\eilrovisoft\lib\SFML-2.6.1\include;C:\eilrovisoft\lib\toml11-3.7.1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\eilrovisoft\programming\cpp\AloneWorld-Game\src;C:\eilrovisoft\lib\ChaiScript-6.1.0\include;C:\eilrovisoft\lib\json-3.11.2\include;C:\eilrovisoft\lib\SFML-2.6.1\include;C:\eilrovisoft\lib\toml11-3.7.1;C:\eilrovisoft\lib\boost_1_83_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/Zc:__cplusplus /bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -135,6 +135,8 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Taur\Camera.cpp" />
+    <ClCompile Include="src\Taur\StateMachine.cpp" />
+    <ClCompile Include="src\Taur\ThreadPool.cpp" />
     <ClCompile Include="src\Taur\Tilemap.cpp" />
     <ClCompile Include="src\Taur\Core.cpp" />
     <ClCompile Include="src\Taur\RenderModule.cpp" />
@@ -143,6 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Taur\Camera.hpp" />
+    <ClInclude Include="src\Taur\StateMachine.hpp" />
+    <ClInclude Include="src\Taur\ThreadPool.hpp" />
     <ClInclude Include="src\Taur\Tilemap.hpp" />
     <ClInclude Include="src\Taur\Core.hpp" />
     <ClInclude Include="src\Taur\RenderModule.hpp" />

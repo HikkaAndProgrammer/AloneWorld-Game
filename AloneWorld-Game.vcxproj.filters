@@ -8,6 +8,8 @@
     <ClCompile Include="src\Taur\Tilemap.cpp" />
     <ClCompile Include="src\Taur\Camera.cpp" />
     <ClCompile Include="src\Taur\Util.cpp" />
+    <ClCompile Include="src\Taur\ThreadPool.cpp" />
+    <ClCompile Include="src\Taur\StateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Taur\RenderModule.hpp" />
@@ -16,5 +18,7 @@
     <ClInclude Include="src\Taur\Tilemap.hpp" />
     <ClInclude Include="src\Taur\Camera.hpp" />
     <ClInclude Include="src\Taur\Util.hpp" />
+    <ClInclude Include="src\Taur\ThreadPool.hpp" />
+    <ClInclude Include="src\Taur\StateMachine.hpp" />
   </ItemGroup>
 </Project>
