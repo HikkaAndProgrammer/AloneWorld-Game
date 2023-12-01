@@ -8,17 +8,18 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <queue>
 
 //taur
 #include <Taur/Util.hpp>
 
 namespace taur {
 	enum class StateStatus {
-		Idle = 0,
-		Active = 1,
+		OnEnable = 0,
+		OnDisable = 1,
 		OnCreate,
 		OnDelete,
-		Count = 6
+		Count
 	};
 
 	class BaseState : public util::Updatable {
@@ -33,25 +34,29 @@ namespace taur {
 		virtual void onDetele() {}
 
 	private:
-		StateStatus m_current_status, m_new_status;
+		bool is_active;
 	};
 	using IState = std::shared_ptr <BaseState>;
 
 	class StateMachine {
 	public:
-		void init(size_t render_levels) { this->m_process_levels.resize(render_levels); }
-
+		void init(size_t process_levels) { this->m_process_levels.resize(process_levels); }
+		//void startup();
 		void update();
 
-		void request(std::string id, StateStatus status) {
-			auto state = this->m_states[id];
-			if (state->m_current_status != status && state->m_new_status != status)
-				this->m_pending.emplace_back(state, status);
+		void add_state(std::string id, IState state) {
+			this->m_states.emplace(id, state);
+			this->request_status_change(id, StateStatus::OnCreate);
+			state->is_active = false;
+		}
+
+		void request_status_change(std::string id, StateStatus status) {
+			this->m_requested_updates.emplace(this->m_states[id], status);
 		}
 
 		void set_render_level(std::string state_id, size_t level) {
 			auto state = m_states[state_id];
-			this->m_process_levels[level].push_back({ state, false });
+			this->m_process_levels[level].push_back(state);
 		}
 		void clear_render_level(size_t level) {
 			this->m_process_levels[level].clear();
@@ -59,10 +64,11 @@ namespace taur {
 
 	protected:
 		std::unordered_map <std::string, IState> m_states;
-		std::vector <std::list <std::pair <IState, std::atomic_bool>>> m_process_levels;
-		std::list <std::pair <IState, StateStatus>> m_pending;
+		std::vector <std::vector <IState>> m_process_levels;
+		std::queue <std::pair <IState, StateStatus>> m_requested_updates;
 
 		std::mutex m_mutex;
 		std::condition_variable m_cv;
+		std::atomic_size_t m_active_states = 0;
 	};
 }

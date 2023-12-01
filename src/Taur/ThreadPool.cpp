@@ -45,6 +45,9 @@ namespace taur {
 	}
 
 	void ThreadPool::stop(bool is_wait) {
+		if (this->m_threads.size() == 0)
+			return;
+
 		if (!is_wait) {
 			if (!this->m_is_stop)
 				return;

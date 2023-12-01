@@ -4,7 +4,7 @@
 namespace taur {
 	void Renderer::init() {
 		this->m_target = &core.window;
-		for (auto& it : core.textures) {
+		for (auto& it : *core.textures) {
 			this->m_requests.emplace(it.second, std::list <sf::VertexArray>());
 		}
 	}

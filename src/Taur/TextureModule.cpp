@@ -10,6 +10,10 @@ namespace taur {
 		return this->m_storage[id];
 	}
 
+	std::shared_ptr<sf::Texture> TextureManager::at(KeyType id) {
+		return this->m_storage[id];
+	}
+
 	void TextureManager::load(std::string path) {
 		std::ifstream file(path);
 		nlohmann::json data = nlohmann::json::parse(file);

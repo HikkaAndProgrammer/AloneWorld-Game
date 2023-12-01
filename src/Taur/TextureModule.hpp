@@ -14,6 +14,7 @@ namespace taur {
 		using KeyType = std::string;
 
 		std::shared_ptr <sf::Texture> operator[](KeyType id);
+		std::shared_ptr <sf::Texture> at(KeyType id);
 
 		//void init();
 		void load(std::string path);

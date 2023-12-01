@@ -10,6 +10,7 @@
     <ClCompile Include="src\Taur\Util.cpp" />
     <ClCompile Include="src\Taur\ThreadPool.cpp" />
     <ClCompile Include="src\Taur\StateMachine.cpp" />
+    <ClCompile Include="src\Game\RenderState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Taur\RenderModule.hpp" />
@@ -20,5 +21,6 @@
     <ClInclude Include="src\Taur\Util.hpp" />
     <ClInclude Include="src\Taur\ThreadPool.hpp" />
     <ClInclude Include="src\Taur\StateMachine.hpp" />
+    <ClInclude Include="src\Game\RenderState.hpp" />
   </ItemGroup>
 </Project>

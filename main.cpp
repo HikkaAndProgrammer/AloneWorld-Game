@@ -17,6 +17,9 @@
 //script
 #include <chaiscript/chaiscript.hpp>
 
+//game
+#include <Game/RenderState.hpp>
+
 using namespace taur;
 
 namespace util {
@@ -75,51 +78,17 @@ namespace util {
 }
 
 int main() {
-	core.init();
+	core.init(false);
 
-	//std::cout << sizeof(tile_t);
+	taur::core.tilemap.load("res/saves/Admin/main.sav");
+	taur::core.state_machine->add_state("render_state", std::make_shared <game::RenderState>());
+	taur::core.state_machine->set_render_level("render_state", 0);
 
-	auto& rend = core.renderer;
-	auto& window = core.window;
-	Tilemap tilemap;
-	tilemap.load("res/saves/Admin/main.sav");
-
-	/*util::generate(tilemap, 10, 10);
-	util::print(std::cout, tilemap);*/
-
-	float width = tilemap.width() * 16, height = tilemap.height() * 16, zoom = 1.f / 3;
-
-	window.create(sf::VideoMode(width / zoom, height / zoom), "Alone World");
-
-	Camera camera;
-	auto& view = camera.get_view();
-	camera.link(&tilemap);
-
-	view.setCenter(width / 2, height / 2);
-	view.setSize(width / zoom, height / zoom);
-	view.zoom(zoom);
-
-	while (window.isOpen()) {
-		rend->begin();
-		window.clear(sf::Color::White);
-
-		sf::Event event;
-		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed)
-				window.close();
-			/*else if (event.type == sf::Event::Resized)
-				window;*/
-		}
-
-		camera.render();
-		window.setView(view);
-
-		rend->draw();
-		window.display();
-		rend->end();
+	while (taur::core.flag) {
+		taur::core.state_machine->update();
 	}
 
-	tilemap.save("res/saves/Admin/main.sav");
+	core.tilemap.save("res/saves/Admin/main.sav");
 
 	core.release();
 	return 0;

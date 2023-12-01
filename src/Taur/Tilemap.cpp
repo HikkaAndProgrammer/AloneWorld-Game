@@ -37,7 +37,7 @@ namespace taur {
 		file.read((char*)&this->m_width, sizeof(size_t)).read((char*)&this->m_height, sizeof(size_t));
 		resize_and_clear(this->m_width, this->m_height);
 
-		for (size_t i = 0; i != this->m_content.size();; i++)
+		for (size_t i = 0; i != this->m_content.size(); i++)
 			file.read((char*)&this->m_content[i], sizeof(tile_t));
 
 		file.close();

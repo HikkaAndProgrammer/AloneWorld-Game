@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Game\RenderState.cpp" />
     <ClCompile Include="src\Taur\Camera.cpp" />
     <ClCompile Include="src\Taur\StateMachine.cpp" />
     <ClCompile Include="src\Taur\ThreadPool.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="src\Taur\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game\RenderState.hpp" />
     <ClInclude Include="src\Taur\Camera.hpp" />
     <ClInclude Include="src\Taur\StateMachine.hpp" />
     <ClInclude Include="src\Taur\ThreadPool.hpp" />
