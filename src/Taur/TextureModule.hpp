@@ -1,9 +1,9 @@
 #pragma once
 //std
-#include <unordered_map>
-#include <string>
-#include <memory>
 #include <fstream>
+#include <memory>
+#include <string>
+#include <unordered_map>
 
 //sf
 #include <SFML/Graphics/Texture.hpp>

@@ -8,11 +8,12 @@
 //taur
 #include <Taur/RenderModule.hpp>
 #include <Taur/TextureModule.hpp>
+#include <Taur/ThreadPool.hpp>
 
 //chaiscript
 #include <chaiscript/chaiscript.hpp>
 
-namespace script = chaiscript;
+namespace chai = chaiscript;
 
 namespace taur {
 	struct core_t {
@@ -20,10 +21,15 @@ namespace taur {
 		void release();
 
 		const size_t tile_size = 16;
+		
 		sf::RenderWindow window;
-		Renderer renderer;
-		TextureManager textures;
-		std::unique_ptr <script::ChaiScript> engine;
+		sf::Clock clock;
+
+		std::shared_ptr <Renderer> renderer;
+		std::shared_ptr <TextureManager> textures;
+		std::shared_ptr <ThreadPool> thread_pool;
+
+		std::unique_ptr <chai::ChaiScript> engine;
 	};
 
 	extern core_t core;

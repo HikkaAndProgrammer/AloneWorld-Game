@@ -1,13 +1,13 @@
 #pragma once
 //std
-#include <vector>
-#include <thread>
 #include <atomic>
-#include <memory>
 #include <exception>
-#include <future>
-#include <mutex>
 #include <functional>
+#include <future>
+#include <memory>
+#include <mutex>
+#include <thread>
+#include <vector>
 
 //boost
 #include <boost/lockfree/queue.hpp>
@@ -17,9 +17,16 @@ namespace taur {
 
 	class ThreadPool {
 	public:
-		ThreadPool() { init(); }
-		ThreadPool(size_t threads_count, size_t queue_size); 
+		ThreadPool(size_t queue_size) : m_queue(queue_size) {}
 		~ThreadPool() { stop(true); }
+
+		void init(size_t threads_count) {
+			this->m_idle_count = 0;
+			this->m_is_stop = false;
+			this->m_is_done = false;
+
+			this->resize(threads_count);
+		}
 
 		size_t size() const { return this->m_threads.size(); }
 		size_t idle_count() const { return this->m_idle_count; }
@@ -62,12 +69,6 @@ namespace taur {
 
 	protected:
 		void set_thread(size_t id);
-
-		void init() {
-			this->m_idle_count = 0;
-			this->m_is_stop = false;
-			this->m_is_done = false;
-		}
 
 		std::vector <std::unique_ptr <std::thread>> m_threads;
 		std::vector <std::shared_ptr <std::atomic_bool>> m_flags;

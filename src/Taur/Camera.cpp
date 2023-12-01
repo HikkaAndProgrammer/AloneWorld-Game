@@ -1,4 +1,4 @@
-#include "Camera.hpp"
+#include <Taur/Camera.hpp>
 
 //sf
 #include <SFML/Graphics/VertexArray.hpp>

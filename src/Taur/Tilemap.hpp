@@ -1,7 +1,7 @@
 #pragma once
 //std
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 //sf
 #include <SFML/Graphics.hpp>

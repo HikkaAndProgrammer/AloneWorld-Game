@@ -1,11 +1,6 @@
-#include "ThreadPool.hpp"
+#include <Taur/ThreadPool.hpp>
 
 namespace taur {
-	ThreadPool::ThreadPool(size_t threads_count, size_t queue_size) : m_queue(queue_size) {
-		init();
-		resize(threads_count);
-	}
-
 	void ThreadPool::resize(size_t size) {
 		if (!this->m_is_stop && !this->m_is_done) {
 			size_t _size = this->m_threads.size();

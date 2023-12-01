@@ -1,5 +1,5 @@
-#include <Taur/RenderModule.hpp>
 #include <Taur/Core.hpp>
+#include <Taur/RenderModule.hpp>
 
 namespace taur {
 	void Renderer::init() {

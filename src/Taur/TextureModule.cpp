@@ -1,6 +1,6 @@
 //taur
-#include <Taur/TextureModule.hpp>
 #include <Taur/Core.hpp>
+#include <Taur/TextureModule.hpp>
 
 //json
 #include <nlohmann/json.hpp>

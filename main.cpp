@@ -1,9 +1,9 @@
 //std
+#include <array>
+#include <functional>
 #include <iostream>
 #include <memory>
 #include <string>
-#include <array>
-#include <functional>
 
 //sf
 #include <SFML/Window.hpp>
@@ -11,8 +11,8 @@
 //taur
 #include <Taur/Camera.hpp>
 #include <Taur/Core.hpp>
-#include <Taur/Tilemap.hpp>
 #include <Taur/ThreadPool.hpp>
+#include <Taur/Tilemap.hpp>
 
 //script
 #include <chaiscript/chaiscript.hpp>
@@ -100,7 +100,7 @@ int main() {
 	view.zoom(zoom);
 
 	while (window.isOpen()) {
-		rend.begin();
+		rend->begin();
 		window.clear(sf::Color::White);
 
 		sf::Event event;
@@ -114,9 +114,9 @@ int main() {
 		camera.render();
 		window.setView(view);
 
-		rend.draw();
+		rend->draw();
 		window.display();
-		rend.end();
+		rend->end();
 	}
 
 	tilemap.save("res/saves/Admin/main.sav");
