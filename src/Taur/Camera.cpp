@@ -8,6 +8,34 @@
 #include <Taur/Util.hpp>
 
 namespace taur {
+	void Camera::link(Tilemap* observed) {
+		this->m_observed = observed;
+	}
+
+	void Camera::set_offset(sf::Vector2f offset) {
+		this->m_offset = offset;
+	}
+	void Camera::set_size(sf::Vector2f size) {
+		this->m_size = size;
+		this->m_view.setSize(size);
+	}
+	void Camera::set_position(sf::Vector2f position) {
+		this->m_position = position;
+		this->m_view.setCenter(position);
+	}
+
+	sf::View& Camera::get_view() {
+		return this->m_view;
+	}
+	const sf::View& Camera::get_view() const {
+		return this->m_view;
+	}
+
+	void Camera::move(sf::Vector2f offset) {
+		this->m_position.x += offset.x;
+		this->m_position.y += offset.y;
+	}
+
 	void Camera::render() {
 		auto& tilemap = *this->m_observed;
 		auto width = tilemap.width(), height = tilemap.width();

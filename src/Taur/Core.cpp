@@ -13,7 +13,8 @@ namespace taur {
 		auto settings = toml::parse("./res/settings.toml");
 		auto texture_info = toml::find <std::string>(settings, "textures_path");
 
-		this->input_manager->add_input_handler(0, InputType::Mouse, (size_t)sf::Mouse::Left);
+		this->input_manager.reset(new InputManager());
+		this->input_manager->add_input_handler("left_click", InputType::Mouse, (size_t)sf::Mouse::Left);
 
 		this->texture_manager.reset(new TextureManager());
 		this->texture_manager->load(texture_info);
@@ -28,8 +29,10 @@ namespace taur {
 		this->state_machine.reset(new StateMachine());
 		this->state_machine->init(1);
 
+#ifdef INCLUDE_SCRIPT_ENGINE
 		if (is_start_script_engine)
 			this->script_engine.reset(new chai::ChaiScript());
+#endif
 	}
 	void core_t::release() {
 		if (this->window.isOpen())
@@ -37,6 +40,8 @@ namespace taur {
 
 		this->thread_pool->stop(true);
 
+#ifdef INCLUDE_SCRIPT_ENGINE
 		this->script_engine.reset();
+#endif
 	}
 }

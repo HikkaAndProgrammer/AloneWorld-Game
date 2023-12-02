@@ -49,19 +49,8 @@ namespace taur {
 	};
 
 	struct tile_t {
-		tile_t() {
-			block_id = 0;
-			wall_id = 0;
-			block_type = 0;
-			wall_type = 0;
-		}
-
-		tile_t(size_t bid, uint8_t bs, size_t wid, size_t ws) {
-			block_id = bid;
-			block_type = bs;
-			wall_id = wid;
-			wall_type = ws;
-		}
+		tile_t();
+		tile_t(size_t bid, uint8_t bs, size_t wid, size_t ws);
 
 		size_t block_id, wall_id;
 		uint8_t block_type, wall_type;
@@ -77,22 +66,18 @@ namespace taur {
 
 	class Tilemap {
 	public:
-		tile_t& at(size_t x, size_t y) { return this->m_content.at(x + y * this->m_width); }
-		const tile_t& at(size_t x, size_t y) const { return this->m_content.at(x + y * this->m_width); }
+		tile_t& at(size_t x, size_t y);
+		const tile_t& at(size_t x, size_t y) const;
 
-		const tile_t& at_try(size_t x, size_t y) const {
-			if (x >= 0 && x < this->m_width && y >= 0 && y < this->m_height)
-				return at(x, y);
-			return nulled;
-		}
+		tile_t at_try(size_t x, size_t y) const;
 
 		void resize_and_clear(size_t width, size_t height);
 
 		bool save(std::string filename) const;
 		bool load(std::string filename);
 
-		size_t width() { return this->m_width; }
-		size_t height() { return this->m_height; }
+		size_t width() const;
+		size_t height() const;
 
 	protected:
 		std::vector <tile_t> m_content;

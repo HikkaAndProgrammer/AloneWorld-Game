@@ -1,6 +1,26 @@
 #include <Taur/ThreadPool.hpp>
 
 namespace taur {
+	ThreadPool::ThreadPool(size_t queue_size) : m_queue(queue_size) {}
+	ThreadPool::~ThreadPool() { 
+		this->stop(true); 
+	}
+	
+	void ThreadPool::init(size_t threads_count) {
+		this->m_idle_count = 0;
+		this->m_is_stop = false;
+		this->m_is_done = false;
+
+		this->resize(threads_count);
+	}
+
+	size_t ThreadPool::size() const { 
+		return this->m_threads.size(); 
+	}
+	size_t ThreadPool::idle_count() const { 
+		return this->m_idle_count; 
+	}
+
 	void ThreadPool::resize(size_t size) {
 		if (!this->m_is_stop && !this->m_is_done) {
 			size_t _size = this->m_threads.size();
@@ -73,6 +93,34 @@ namespace taur {
 		clear_queue();
 		this->m_threads.clear();
 		this->m_flags.clear();
+	}
+
+	template<class _Func, class ..._Args>
+	auto ThreadPool::push(_Func&& func, _Args && ...args) -> std::future <decltype(func(0, args ...))> {
+		auto pck = std::make_shared <std::packaged_task <decltype(func(0, args...))(size_t)>>(
+			std::bind(std::forward <_Func>(func), std::placeholders::_1, std::forward <_Args>(args)...));
+
+		this->m_queue.push(new Task([pck](size_t id) {
+			(*pck)(id);
+		}));
+
+		std::unique_lock lock(this->m_mutex);
+		this->m_cv.notify_one();
+
+		return pck->get_future();
+	}
+	template<class _Func>
+	auto ThreadPool::push(_Func&& func) -> std::future <decltype(func(0))> {
+		auto pck = std::make_shared <std::packaged_task <decltype(func(0))(size_t)>>(std::forward <_Func>(func));
+
+		this->m_queue.push(new Task([pck](size_t id) {
+			(*pck)(id);
+		}));
+
+		std::unique_lock lock(this->m_mutex);
+		this->m_cv.notify_one();
+
+		return pck->get_future();
 	}
 
 	void ThreadPool::set_thread(size_t id) {

@@ -1,4 +1,6 @@
 #pragma once
+#pragma warning
+
 //std
 #include <atomic>
 #include <memory>
@@ -15,9 +17,10 @@
 #include <Taur/Tilemap.hpp>
 
 //chaiscript
+#ifdef INCLUDE_SCRIPT_ENGINE
 #include <chaiscript/chaiscript.hpp>
-
 namespace chai = chaiscript;
+#endif
 
 namespace taur {
 	struct core_t {
@@ -36,7 +39,9 @@ namespace taur {
 		std::shared_ptr <ThreadPool> thread_pool;
 		std::shared_ptr <StateMachine> state_machine;
 
+#ifdef INCLUDE_CHAI_SCRIPT
 		std::unique_ptr <chai::ChaiScript> script_engine;
+#endif
 
 		Tilemap tilemap;
 	};

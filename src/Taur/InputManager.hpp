@@ -24,53 +24,49 @@ namespace taur {
 
 		void update();
 
-		bool is_key_pressing() const { return this->curr; }
-		bool is_key_pressed() const { return this->curr && !this->prev; }
-		bool is_key_upped() const { return !this->curr && this->prev; }
+		bool is_key_pressing() const;
+		bool is_key_pressed() const;
+		bool is_key_upped() const;
 	};
-	using Input = std::shared_ptr <input_t>;
 
 	struct cursor_t {
 		sf::Vector2i prev, curr;
 
 		void update();
 
-		sf::Vector2i get_position() { return this->curr; }
-		sf::Vector2i get_difference() { return this->prev - this->curr; }
+		sf::Vector2i get_position() const;
+		sf::Vector2i get_difference() const;
 	};
-	using Cursor = std::shared_ptr <cursor_t>;
 
 	class DragDistanceHandler {
 	public:
-		DragDistanceHandler(Cursor cursor, Input input) : input(input), cursor(cursor) {}
+		DragDistanceHandler(std::shared_ptr <cursor_t> cursor, std::shared_ptr <input_t> input) : input(input), cursor(cursor) {}
 
 		void update();
 
-		sf::Vector2i get_drag_distance() { return this->difference; }
+		sf::Vector2i get_drag_distance() const;
 
 	private:
 		sf::Vector2i start_position, difference;
-		Cursor cursor;
-		Input input;
+		std::shared_ptr <cursor_t> cursor;
+		std::shared_ptr <input_t> input;
 	};
 
 	//every keyboard/mouse event has to be unique
 	class InputManager {
 	public:
-		void add_input_handler(std::string key, InputType type, uint8_t id) {
-			this->m_handlers.emplace(key, std::make_shared <input_t>(new input_t(type, id)));
-		}
+		void add_input_handler(std::string key, InputType type, uint8_t id);
 
 		void update();
 
 		void load_config();
 		void save_config();
 
-		std::shared_ptr <cursor_t> get_cursor() const { return this->m_cursor; }
-		std::shared_ptr <input_t> get_handler(std::string key) const { return this->m_handlers.at(key); }
+		std::shared_ptr <cursor_t> get_cursor() const;
+		std::shared_ptr <input_t> get_handler(std::string key) const;
 
 	protected:
-		std::unordered_map <std::string, Input> m_handlers;
-		Cursor m_cursor;
+		std::unordered_map <std::string, std::shared_ptr <input_t>> m_handlers;
+		std::shared_ptr <cursor_t> m_cursor;
 	};
 }

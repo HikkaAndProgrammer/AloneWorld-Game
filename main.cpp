@@ -14,8 +14,11 @@
 #include <Taur/ThreadPool.hpp>
 #include <Taur/Tilemap.hpp>
 
+
 //script
+#ifdef INCLUDE_SCRIPT_ENGINE
 #include <chaiscript/chaiscript.hpp>
+#endif
 
 //game
 #include <Game/RenderState.hpp>
@@ -78,7 +81,7 @@ namespace util {
 }
 
 int main() {
-	core.init(false);
+	core.init(false, false);
 
 	taur::core.tilemap.load("res/saves/Admin/main.sav");
 	taur::core.state_machine->add_state("render_state", std::make_shared <game::RenderState>());

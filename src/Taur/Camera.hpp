@@ -8,33 +8,16 @@
 namespace taur {
 	class Camera {
 	public:
-		void link(Tilemap* observed) {
-			this->m_observed = observed;
-		}
+		void link(Tilemap* observed);
 
-		void set_offset(sf::Vector2f offset) {
-			this->m_offset = offset;
-		}
-		void set_size(sf::Vector2f size) {
-			this->m_size = size;
-			this->m_view.setSize(size);
-		}
-		void set_position(sf::Vector2f position) {
-			this->m_position = position;
-			this->m_view.setCenter(position);
-		}
+		void set_offset(sf::Vector2f offset);
+		void set_size(sf::Vector2f size);
+		void set_position(sf::Vector2f position);
 
-		sf::View& get_view() {
-			return this->m_view;
-		}
-		const sf::View& get_view() const {
-			return this->m_view;
-		}
+		sf::View& get_view();
+		const sf::View& get_view() const;
 
-		void move(sf::Vector2f offset) {
-			this->m_position.x += offset.x;
-			this->m_position.y += offset.y;
-		}
+		void move(sf::Vector2f offset);
 
 		void render();
 
