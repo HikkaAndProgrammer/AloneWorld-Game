@@ -35,6 +35,6 @@ namespace taur {
 			}
 		}
 
-		core.renderer->request(std::move(request), core.textures->at("tiles"));
+		core.render_module->request(std::move(request), core.texture_manager->at("tiles"));
 	}
 }

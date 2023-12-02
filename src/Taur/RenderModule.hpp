@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 
 namespace taur {
-	class Renderer {
+	class RenderModule {
 	public:
 		sf::RenderTarget& get_target();
 

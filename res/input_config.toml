@@ -1,0 +1,11 @@
+[left_click]
+button_id = 0
+type = "mouse"
+
+[right_click]
+button_id = 1
+type = "mouse"
+
+[esc]
+button_id = 36
+type = "keyboard"

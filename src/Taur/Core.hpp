@@ -7,6 +7,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 //taur
+#include <Taur/InputManager.hpp>
 #include <Taur/RenderModule.hpp>
 #include <Taur/StateMachine.hpp>
 #include <Taur/TextureModule.hpp>
@@ -20,7 +21,7 @@ namespace chai = chaiscript;
 
 namespace taur {
 	struct core_t {
-		void init(bool is_alloc_thread_pool);
+		void init(bool is_alloc_thread_pool, bool is_start_script_engine);
 		void release();
 
 		std::atomic_bool flag;
@@ -29,12 +30,13 @@ namespace taur {
 		sf::RenderWindow window;
 		sf::Clock clock;
 
-		std::shared_ptr <Renderer> renderer;
-		std::shared_ptr <TextureManager> textures;
+		std::shared_ptr <InputManager> input_manager;
+		std::shared_ptr <RenderModule> render_module;
+		std::shared_ptr <TextureManager> texture_manager;
 		std::shared_ptr <ThreadPool> thread_pool;
 		std::shared_ptr <StateMachine> state_machine;
 
-		std::unique_ptr <chai::ChaiScript> engine;
+		std::unique_ptr <chai::ChaiScript> script_engine;
 
 		Tilemap tilemap;
 	};
