@@ -2,12 +2,16 @@
 //std
 #include <memory>
 #include <list>
-#include <unordered_map>
 
 //sf
 #include <SFML/Graphics.hpp>
 
 namespace taur {
+	struct request_t {
+		sf::VertexArray vertices;
+		std::shared_ptr <sf::Texture> texture;
+	};
+
 	class RenderModule {
 	public:
 		sf::RenderTarget& get_target();
@@ -23,6 +27,6 @@ namespace taur {
 
 	protected:
 		sf::RenderTarget* m_target;
-		std::unordered_map <std::shared_ptr <sf::Texture>, std::list <sf::VertexArray>> m_requests;
+		std::list <request_t> m_requests;
 	};
 }

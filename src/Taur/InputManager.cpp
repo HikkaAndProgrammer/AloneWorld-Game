@@ -1,7 +1,7 @@
 #include <Taur/InputManager.hpp>
 
 //taur
-#include <Taur/Core.hpp>
+#include <Taur/GameManager.hpp>
 
 namespace taur {
 	//input_t
@@ -33,7 +33,7 @@ namespace taur {
 
 	void cursor_t::update() {
 		this->prev = this->curr;
-		this->curr = sf::Mouse::getPosition(taur::core.window);
+		this->curr = sf::Mouse::getPosition(taur::core->window);
 	}
 
 	sf::Vector2i cursor_t::get_position() const { 

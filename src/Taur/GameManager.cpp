@@ -1,17 +1,18 @@
-#include <Taur/Core.hpp>
+#include <Taur/GameManager.hpp>
 
 //toml
 #include <toml.hpp>
 
 namespace taur {
-	core_t core;
-
-	void core_t::init(bool is_alloc_thread_pool, bool is_start_script_engine) {
+	void GameManager::init(bool is_alloc_thread_pool, bool is_start_script_engine) {
 		this->flag = true;
 		this->clock.restart();
 
 		auto settings = toml::parse("./res/settings.toml");
 		auto texture_info = toml::find <std::string>(settings, "textures_path");
+		auto table = toml::find <toml::table>(settings, "shared_data");
+		for (auto& [key, val] : table)
+			this->shared_data.emplace(key, val.as_string());
 
 		this->input_manager.reset(new InputManager());
 		this->input_manager->add_input_handler("left_click", InputType::Mouse, (size_t)sf::Mouse::Left);
@@ -34,7 +35,7 @@ namespace taur {
 			this->script_engine.reset(new chai::ChaiScript());
 #endif
 	}
-	void core_t::release() {
+	void GameManager::release() {
 		if (this->window.isOpen())
 			this->window.close();
 

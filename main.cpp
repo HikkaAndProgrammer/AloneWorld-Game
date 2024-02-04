@@ -9,11 +9,12 @@
 #include <SFML/Window.hpp>
 
 //taur
-#include <Taur/Camera.hpp>
-#include <Taur/Core.hpp>
+#include <Taur/GameManager.hpp>
 #include <Taur/ThreadPool.hpp>
-#include <Taur/Tilemap.hpp>
 
+//game_objects
+#include <GameObjects/Camera.hpp>
+#include <GameObjects/Tilemap.hpp>
 
 //script
 #ifdef INCLUDE_SCRIPT_ENGINE
@@ -23,15 +24,21 @@
 //game
 #include <Game/Console.hpp>
 #include <Game/RenderState.hpp>
+#include <Game/Tile.hpp>
+#include <Game/GameEngine.hpp>
 
-using namespace taur;
+using BasicTilemap = game_objects::Tilemap <game::tile_t>;
+
+namespace taur {
+	std::unique_ptr <GameManager> core = std::make_unique <game::GameEngine>();
+}
 
 namespace util {
-	void generate(Tilemap& tm, size_t width, size_t height) {
+	void generate(BasicTilemap& tm, size_t width, size_t height) {
 		//adjacent 3 - left, 2 - down, 1 - right, 0 - upper
-		std::function choose_type = [](tile_t original, std::array <tile_t, 4> adjacent) {
-			using enum block_state_t;
-			static const std::array <block_state_t, 16> variants = {
+		std::function choose_type = [](game::tile_t original, std::array <game::tile_t, 4> adjacent) {
+			using enum game::block_state_t;
+			static const std::array <game::block_state_t, 16> variants = {
 				solid, q3_dn, q3_lt, q2_dl,
 				q3_up, q2_lr, q2_ul, q1_lt,
 				q3_rt, q2_dr, q2_ud, q1_dn,
@@ -47,21 +54,21 @@ namespace util {
 
 		//tm.at(0, 0) = tile_t(1, 0, 0, 0);
 		for (size_t i = 0; i != width; i++) {
-			tm.at(i, 0) = tile_t(1, 0, 0, 0);
-			tm.at(i, height - 1) = tile_t(1, 0, 0, 0);
+			tm.at(i, 0) = game::tile_t(1, 0, 0, 0);
+			tm.at(i, height - 1) = game::tile_t(1, 0, 0, 0);
 		}
 
 		for (size_t j = 1; j != height - 1; j++) {
-			tm.at(0, j) = tile_t(1, 0, 0, 0);
-			tm.at(width - 1, j) = tile_t(1, 0, 0, 0);
+			tm.at(0, j) = game::tile_t(1, 0, 0, 0);
+			tm.at(width - 1, j) = game::tile_t(1, 0, 0, 0);
 			for (size_t i = 1; i != tm.width() - 1; i++)
-				tm.at(i, j) = tile_t(0, 0, 0, 0);
+				tm.at(i, j) = game::tile_t(0, 0, 0, 0);
 		}
 
 		for (size_t i = 0; i != width; i++) {
 			for (size_t j = 0; j != height; j++) {
-				tile_t& current = tm.at(i, j);
-				std::array <tile_t, 4> adjacent = {
+				game::tile_t& current = tm.at(i, j);
+				std::array <game::tile_t, 4> adjacent = {
 					tm.at_try(i, j - 1),
 					tm.at_try(i + 1, j),
 					tm.at_try(i, j + 1),
@@ -71,7 +78,7 @@ namespace util {
 			}
 		}
 	}
-	void print(std::ostream& os,Tilemap& tm) {
+	void print(std::ostream& os, BasicTilemap& tm) {
 		os << "width: " << tm.width() << "\nheight: " << tm.height() << '\n';
 		for (size_t i = 0; i != tm.height(); i++) {
 			for (size_t j = 0; j != tm.width(); j++)
@@ -79,7 +86,28 @@ namespace util {
 			os << '\n';
 		}
 	}
+	void init_console_functions(game::Console& console) {
+		console.add_function("start_game", [&](std::istream& is) {
+			taur::core->state_machine->add_state("render_state", std::make_shared <game::RenderState>());
+			taur::core->state_machine->set_render_level("render_state", 0);
 
+			while (taur::core->flag) {
+				taur::core->state_machine->update();
+			}
+
+			return 0;
+		});
+		console.add_function("compile_atlas", [&](std::istream& is) {
+
+
+			return 0;
+		});
+		console.add_function("generate_texture", [&](std::istream& is) {
+
+
+			return 0;
+		});
+	}
 	void generate_atlas() {
 
 	}
@@ -87,33 +115,12 @@ namespace util {
 
 int main() {
 	game::Console console;
-	core.init(false, false);
-	taur::core.tilemap.load("res/saves/Admin/main.sav");
+	taur::core->init(false, false);
 
-	console.add_function("start_game", [&](std::istream& is) {
-		taur::core.state_machine->add_state("render_state", std::make_shared <game::RenderState>());
-		taur::core.state_machine->set_render_level("render_state", 0);
+	do {
+		console.process(std::cin);
+	} while (taur::core->flag);
 
-		while (taur::core.flag) {
-			taur::core.state_machine->update();
-		}
-
-		return 0;
-	});
-	console.add_function("compile_atlas", [&](std::istream& is) {
-		
-		
-		return 0;
-	});
-	console.add_function("generate_texture", [&](std::istream& is) {
-		
-
-		return 0;
-	});
-
-	console.process(std::cin);
-
-	core.tilemap.save("res/saves/Admin/main.sav");
-	core.release();
+	taur::core->release();
 	return 0;
 }

@@ -1,7 +1,7 @@
 #include <Taur/StateMachine.hpp>
 
 //taur
-#include <Taur/Core.hpp>
+#include <Taur/GameManager.hpp>
 
 namespace taur {
 	void StateMachine::init(size_t process_levels) {
@@ -9,8 +9,6 @@ namespace taur {
 	}
 
 	void StateMachine::update() {
-		core.clock.restart();
-
 		bool is_recalculate_active_states = !this->m_requested_updates.empty();
 
 		while(!this->m_requested_updates.empty()) {
@@ -48,7 +46,6 @@ namespace taur {
 			}
 		}
 
-		float delta = core.clock.getElapsedTime().asSeconds();
 		auto& active = this->m_active_states;
 		auto& mutex = this->m_mutex;
 		auto& cv = this->m_cv;
@@ -58,10 +55,10 @@ namespace taur {
 				for (size_t i = 1; i < container.size(); i++) {
 					auto& state = container[i];
 					if (state->is_active) {
-						core.thread_pool->push([delta, state, &active, &mutex, &cv](size_t id) {
+						core->thread_pool->push([state, &active, &mutex, &cv](size_t id) {
 							std::unique_lock lock(mutex);
 							active++;
-							state->update(delta);
+							state->update();
 							active--;
 							cv.notify_one();
 						});
@@ -71,7 +68,7 @@ namespace taur {
 
 			auto& state = container.front();
 			if (state->is_active)
-				state->update(delta);
+				state->update();
 
 			if (active_count > 1) {
 				std::unique_lock lock(mutex);

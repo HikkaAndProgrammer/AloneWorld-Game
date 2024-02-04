@@ -1,5 +1,4 @@
 //taur
-#include <Taur/Core.hpp>
 #include <Taur/TextureModule.hpp>
 
 //json

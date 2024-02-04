@@ -4,6 +4,7 @@
 //std
 #include <atomic>
 #include <memory>
+#include <unordered_map>
 
 //sf
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -14,7 +15,6 @@
 #include <Taur/StateMachine.hpp>
 #include <Taur/TextureModule.hpp>
 #include <Taur/ThreadPool.hpp>
-#include <Taur/Tilemap.hpp>
 
 //chaiscript
 #ifdef INCLUDE_SCRIPT_ENGINE
@@ -23,12 +23,15 @@ namespace chai = chaiscript;
 #endif
 
 namespace taur {
-	struct core_t {
+	//Singletone
+	class GameManager {
+	public:
 		void init(bool is_alloc_thread_pool, bool is_start_script_engine);
 		void release();
 
 		std::atomic_bool flag;
 		const size_t tile_size = 16;
+		std::unordered_map <std::string, std::string> shared_data;
 		
 		sf::RenderWindow window;
 		sf::Clock clock;
@@ -42,9 +45,7 @@ namespace taur {
 #ifdef INCLUDE_CHAI_SCRIPT
 		std::unique_ptr <chai::ChaiScript> script_engine;
 #endif
-
-		Tilemap tilemap;
 	};
 
-	extern core_t core;
+	extern std::unique_ptr <GameManager> core;
 }

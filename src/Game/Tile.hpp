@@ -1,15 +1,8 @@
 #pragma once
 //std
-#include <algorithm>
-#include <vector>
+#include <cstdint>
 
-//sf
-#include <SFML/Graphics.hpp>
-
-//nlohman
-#include <nlohmann/json.hpp>
-
-namespace taur {
+namespace game {
 	enum class block_state_t : uint8_t {
 		solid = 0x00,
 		empty = 0x01,
@@ -49,41 +42,20 @@ namespace taur {
 	};
 
 	struct tile_t {
-		tile_t();
-		tile_t(size_t bid, uint8_t bs, size_t wid, size_t ws);
+		tile_t() { 
+			block_id = 0;
+			wall_id = 0;
+			block_type = 0;
+			wall_type = 0;
+		}
+		tile_t(size_t bid, uint8_t bs, size_t wid, size_t ws) {
+			block_id = bid;
+			block_type = bs;
+			wall_id = wid;
+			wall_type = ws;
+		}
 
 		size_t block_id, wall_id;
 		uint8_t block_type, wall_type;
-	};
-
-	class TileBlank {
-		friend class Tilemap;
-	public:
-
-	protected:
-		std::shared_ptr <sf::Texture> m_texture;
-	};
-
-	class Tilemap {
-	public:
-		tile_t& at(size_t x, size_t y);
-		const tile_t& at(size_t x, size_t y) const;
-
-		tile_t at_try(size_t x, size_t y) const;
-
-		void resize_and_clear(size_t width, size_t height);
-
-		bool save(std::string filename) const;
-		bool load(std::string filename);
-
-		size_t width() const;
-		size_t height() const;
-
-	protected:
-		std::vector <tile_t> m_content;
-		std::vector <TileBlank> m_catalog;
-		size_t m_width = 0, m_height = 0;
-		const size_t tile_size = 16;
-		static const tile_t nulled;
 	};
 }

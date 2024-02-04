@@ -1,15 +1,19 @@
-#include "RenderState.hpp"
+//game
+#include <Game/RenderState.hpp>
+
+//taur
+#include <Taur/GameManager.hpp>
 
 namespace game {
-	void RenderState::update(float dt) {
-		taur::core.render_module->begin();
-		taur::core.window.clear(sf::Color::White);
+	void RenderState::update() {
+		taur::core->render_module->begin();
+		taur::core->window.clear(sf::Color::White);
 
 		sf::Event event;
-		while (taur::core.window.pollEvent(event)) {
+		while (taur::core->window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
-				taur::core.window.close();
-				taur::core.flag.store(false);
+				taur::core->window.close();
+				taur::core->flag.store(false);
 			}
 		}
 
@@ -37,16 +41,17 @@ namespace game {
 			taur::core.window.draw(shape, states);
 		}*/
 
-		this->camera.render();
-		taur::core.window.setView(this->camera.get_view());
+		this->camera->render();
+		taur::core->window.setView(this->camera->get_view());
 
-		taur::core.render_module->draw();
-		taur::core.window.display();
-		taur::core.render_module->end();
+		taur::core->render_module->draw();
+		taur::core->window.display();
+		taur::core->render_module->end();
 	}
 
+	//TODO
 	void RenderState::onCreate() {
-		float width = taur::core.tilemap.width() * 16,
+		/*float width = taur::core.tilemap.width() * 16,
 			height = taur::core.tilemap.height() * 16,
 			zoom = 1.f / 3;
 		auto& view = this->camera.get_view();
@@ -57,6 +62,6 @@ namespace game {
 		view.setSize(width / zoom, height / zoom);
 		view.zoom(zoom);
 
-		this->camera.link(&taur::core.tilemap);
+		this->camera.link(&taur::core.tilemap);*/
 	}
 }
