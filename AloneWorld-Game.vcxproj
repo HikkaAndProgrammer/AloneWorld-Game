@@ -154,8 +154,9 @@
     <ClCompile Include="src\Taur\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game\TilemapCamera.hpp" />
     <ClInclude Include="src\Game\Console.hpp" />
-    <ClInclude Include="src\Game\GameEngine.hpp" />
+    <ClInclude Include="src\Game\Engine.hpp" />
     <ClInclude Include="src\Game\RenderState.hpp" />
     <ClInclude Include="src\GameObjects\Camera.hpp" />
     <ClInclude Include="src\Game\Tile.hpp" />

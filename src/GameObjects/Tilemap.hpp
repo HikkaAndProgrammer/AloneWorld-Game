@@ -20,7 +20,7 @@ namespace game_objects {
 	};
 
 	template <class _TileType>
-	class Tilemap {
+	class BaseTilemap {
 	public:
 		_TileType& at(size_t x, size_t y) {
 			return this->m_content.at(x + y * this->m_width);

@@ -26,11 +26,10 @@ namespace taur {
 	//Singletone
 	class GameManager {
 	public:
-		void init(bool is_alloc_thread_pool, bool is_start_script_engine);
-		void release();
+		virtual void init(bool is_alloc_thread_pool, bool is_start_script_engine);
+		virtual void release();
 
 		std::atomic_bool flag;
-		const size_t tile_size = 16;
 		std::unordered_map <std::string, std::string> shared_data;
 		
 		sf::RenderWindow window;
@@ -47,5 +46,5 @@ namespace taur {
 #endif
 	};
 
-	extern std::unique_ptr <GameManager> core;
+	extern std::shared_ptr <GameManager> core;
 }
