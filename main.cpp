@@ -25,16 +25,15 @@
 #include <Game/Console.hpp>
 #include <Game/RenderState.hpp>
 #include <Game/Tile.hpp>
-#include <Game/GameEngine.hpp>
-
-using BasicTilemap = game_objects::Tilemap <game::tile_t>;
+#include <Game/Engine.hpp>
 
 namespace taur {
-	std::unique_ptr <GameManager> core = std::make_unique <game::GameEngine>();
+	std::shared_ptr <GameManager> core = std::make_shared <game::Engine>();
+	std::shared_ptr <game::Engine> engine = std::dynamic_pointer_cast <game::Engine>(core);
 }
 
 namespace util {
-	void generate(BasicTilemap& tm, size_t width, size_t height) {
+	void generate(game::Tilemap& tm, size_t width, size_t height) {
 		//adjacent 3 - left, 2 - down, 1 - right, 0 - upper
 		std::function choose_type = [](game::tile_t original, std::array <game::tile_t, 4> adjacent) {
 			using enum game::block_state_t;
@@ -78,7 +77,7 @@ namespace util {
 			}
 		}
 	}
-	void print(std::ostream& os, BasicTilemap& tm) {
+	void print(std::ostream& os, game::Tilemap& tm) {
 		os << "width: " << tm.width() << "\nheight: " << tm.height() << '\n';
 		for (size_t i = 0; i != tm.height(); i++) {
 			for (size_t j = 0; j != tm.width(); j++)
