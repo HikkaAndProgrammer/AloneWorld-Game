@@ -21,6 +21,7 @@
 #endif
 
 //game
+#include <Game/Console.hpp>
 #include <Game/RenderState.hpp>
 
 using namespace taur;
@@ -78,21 +79,41 @@ namespace util {
 			os << '\n';
 		}
 	}
+
+	void generate_atlas() {
+
+	}
 }
 
 int main() {
+	game::Console console;
 	core.init(false, false);
-
 	taur::core.tilemap.load("res/saves/Admin/main.sav");
-	taur::core.state_machine->add_state("render_state", std::make_shared <game::RenderState>());
-	taur::core.state_machine->set_render_level("render_state", 0);
 
-	while (taur::core.flag) {
-		taur::core.state_machine->update();
-	}
+	console.add_function("start_game", [&](std::istream& is) {
+		taur::core.state_machine->add_state("render_state", std::make_shared <game::RenderState>());
+		taur::core.state_machine->set_render_level("render_state", 0);
+
+		while (taur::core.flag) {
+			taur::core.state_machine->update();
+		}
+
+		return 0;
+	});
+	console.add_function("compile_atlas", [&](std::istream& is) {
+		
+		
+		return 0;
+	});
+	console.add_function("generate_texture", [&](std::istream& is) {
+		
+
+		return 0;
+	});
+
+	console.process(std::cin);
 
 	core.tilemap.save("res/saves/Admin/main.sav");
-
 	core.release();
 	return 0;
 }

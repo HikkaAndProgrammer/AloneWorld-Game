@@ -12,6 +12,7 @@
     <ClCompile Include="src\Taur\StateMachine.cpp" />
     <ClCompile Include="src\Game\RenderState.cpp" />
     <ClCompile Include="src\Taur\InputManager.cpp" />
+    <ClCompile Include="src\Game\Console.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Taur\RenderModule.hpp" />
@@ -24,5 +25,6 @@
     <ClInclude Include="src\Taur\StateMachine.hpp" />
     <ClInclude Include="src\Game\RenderState.hpp" />
     <ClInclude Include="src\Taur\InputManager.hpp" />
+    <ClInclude Include="src\Game\Console.hpp" />
   </ItemGroup>
 </Project>

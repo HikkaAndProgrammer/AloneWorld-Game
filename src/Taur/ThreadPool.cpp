@@ -95,34 +95,6 @@ namespace taur {
 		this->m_flags.clear();
 	}
 
-	template<class _Func, class ..._Args>
-	auto ThreadPool::push(_Func&& func, _Args && ...args) -> std::future <decltype(func(0, args ...))> {
-		auto pck = std::make_shared <std::packaged_task <decltype(func(0, args...))(size_t)>>(
-			std::bind(std::forward <_Func>(func), std::placeholders::_1, std::forward <_Args>(args)...));
-
-		this->m_queue.push(new Task([pck](size_t id) {
-			(*pck)(id);
-		}));
-
-		std::unique_lock lock(this->m_mutex);
-		this->m_cv.notify_one();
-
-		return pck->get_future();
-	}
-	template<class _Func>
-	auto ThreadPool::push(_Func&& func) -> std::future <decltype(func(0))> {
-		auto pck = std::make_shared <std::packaged_task <decltype(func(0))(size_t)>>(std::forward <_Func>(func));
-
-		this->m_queue.push(new Task([pck](size_t id) {
-			(*pck)(id);
-		}));
-
-		std::unique_lock lock(this->m_mutex);
-		this->m_cv.notify_one();
-
-		return pck->get_future();
-	}
-
 	void ThreadPool::set_thread(size_t id) {
 		auto flag = m_flags[id];
 		auto thread_loop = [this, id, flag]() {
@@ -149,7 +121,7 @@ namespace taur {
 				this->m_idle_count--;
 
 				if (!is_pop)
-					return;;
+					return;
 			}
 		};
 		this->m_threads[id].reset(new std::thread(thread_loop));

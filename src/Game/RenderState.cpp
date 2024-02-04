@@ -13,6 +13,30 @@ namespace game {
 			}
 		}
 
+		/*{
+			sf::VertexArray shape(sf::PrimitiveType::Triangles, 6);
+
+			size_t w = 120, h = 120;
+
+			shape[0].position = { 0, 0 };
+			shape[1].position = { 1.0f * w, 0 };
+			shape[2].position = { 0.5f * w, 0.5f * h };
+			shape[3].position = { 0, 0 };
+			shape[4].position = { 0, 1.0f * h };
+			shape[5].position = { 0.5f * w, 0.5f * h };
+
+			shape[0].texCoords = { 0, 0 };
+			shape[1].texCoords = { 640, 0 };
+			shape[2].texCoords = { 640, 640 };
+			shape[3].texCoords = { 0, 0 };
+			shape[4].texCoords = { 0, 640 };
+			shape[5].texCoords = { 640, 640 };
+			
+			sf::RenderStates states;
+			states.texture = taur::core.texture_manager->at("sakura").get();
+			taur::core.window.draw(shape, states);
+		}*/
+
 		this->camera.render();
 		taur::core.window.setView(this->camera.get_view());
 

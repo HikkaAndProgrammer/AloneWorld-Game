@@ -9,6 +9,8 @@
 #include <SFML/Graphics/Texture.hpp>
 
 namespace taur {
+	
+
 	class TextureManager {
 	public:
 		using KeyType = std::string;

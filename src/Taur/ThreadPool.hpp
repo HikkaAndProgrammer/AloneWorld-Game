@@ -34,9 +34,32 @@ namespace taur {
 		void stop(bool is_wait = false);
 
 		template <class _Func, class ..._Args>
-		auto push(_Func&& func, _Args&&... args) -> std::future <decltype(func(0, args...))>;
+		auto push(_Func&& func, _Args&&... args) -> std::future <decltype(func(0, args...))> {
+			auto pck = std::make_shared <std::packaged_task <decltype(func(0, args...))(size_t)>>(
+				std::bind(std::forward <_Func>(func), std::placeholders::_1, std::forward <_Args>(args)...));
+
+			this->m_queue.push(new Task([pck](size_t id) {
+				(*pck)(id);
+			}));
+
+			std::unique_lock lock(this->m_mutex);
+			this->m_cv.notify_one();
+
+			return pck->get_future();
+		}
 		template <class _Func>
-		auto push(_Func&& func) -> std::future <decltype(func(0))>;
+		auto push(_Func&& func) -> std::future <decltype(func(0))> {
+			auto pck = std::make_shared <std::packaged_task <decltype(func(0))(size_t)>>(std::forward <_Func>(func));
+
+			this->m_queue.push(new Task([pck](size_t id) {
+				(*pck)(id);
+			}));
+
+			std::unique_lock lock(this->m_mutex);
+			this->m_cv.notify_one();
+
+			return pck->get_future();
+		}
 
 	protected:
 		void set_thread(size_t id);
