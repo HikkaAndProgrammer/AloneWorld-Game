@@ -9,6 +9,8 @@
 #include <SFML/Graphics/Texture.hpp>
 
 namespace taur {
+	
+
 	class TextureManager {
 	public:
 		using KeyType = std::string;
@@ -19,12 +21,8 @@ namespace taur {
 		//void init();
 		void load(std::string path);
 
-		std::unordered_map <KeyType, std::shared_ptr <sf::Texture>>::iterator begin() {
-			return this->m_storage.begin();
-		}
-		std::unordered_map <KeyType, std::shared_ptr <sf::Texture>>::iterator end() {
-			return this->m_storage.end();
-		}
+		std::unordered_map <KeyType, std::shared_ptr <sf::Texture>>::iterator begin();
+		std::unordered_map <KeyType, std::shared_ptr <sf::Texture>>::iterator end();
 
 	private:
 		std::unordered_map <KeyType, std::shared_ptr <sf::Texture>> m_storage;

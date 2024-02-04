@@ -2,25 +2,38 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\Taur\Core.cpp" />
+    <ClCompile Include="src\Taur\GameManager.cpp" />
     <ClCompile Include="src\Taur\RenderModule.cpp" />
     <ClCompile Include="src\Taur\TextureModule.cpp" />
-    <ClCompile Include="src\Taur\Tilemap.cpp" />
-    <ClCompile Include="src\Taur\Camera.cpp" />
+    <ClCompile Include="src\GameObjects\Camera.cpp" />
     <ClCompile Include="src\Taur\Util.cpp" />
     <ClCompile Include="src\Taur\ThreadPool.cpp" />
     <ClCompile Include="src\Taur\StateMachine.cpp" />
     <ClCompile Include="src\Game\RenderState.cpp" />
+    <ClCompile Include="src\Taur\InputManager.cpp" />
+    <ClCompile Include="src\Game\Console.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Taur\RenderModule.hpp" />
-    <ClInclude Include="src\Taur\Core.hpp" />
+    <ClInclude Include="src\Taur\GameManager.hpp" />
     <ClInclude Include="src\Taur\TextureModule.hpp" />
-    <ClInclude Include="src\Taur\Tilemap.hpp" />
-    <ClInclude Include="src\Taur\Camera.hpp" />
+    <ClInclude Include="src\GameObjects\Tilemap.hpp" />
+    <ClInclude Include="src\GameObjects\Camera.hpp" />
     <ClInclude Include="src\Taur\Util.hpp" />
     <ClInclude Include="src\Taur\ThreadPool.hpp" />
     <ClInclude Include="src\Taur\StateMachine.hpp" />
     <ClInclude Include="src\Game\RenderState.hpp" />
+    <ClInclude Include="src\Taur\InputManager.hpp" />
+    <ClInclude Include="src\Game\Console.hpp" />
+    <ClInclude Include="src\Game\Tile.hpp" />
+    <ClInclude Include="src\Game\GameEngine.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include=".gitattributes" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LICENSE.txt" />
   </ItemGroup>
 </Project>

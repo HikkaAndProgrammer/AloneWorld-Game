@@ -8,6 +8,18 @@
         {
             "key": "tiles",
             "val": "tiles.png"
+        },
+        {
+            "key": "mask",
+            "val": "mask.png"
+        },
+        {
+            "key": "grid",
+            "val": "grid.png"
+        },
+        {
+            "key": "tile_1",
+            "val": "tile1.png"
         }
     ]
 }

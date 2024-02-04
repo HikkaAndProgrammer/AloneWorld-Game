@@ -1,43 +1,51 @@
 #pragma once
+#pragma warning
+
 //std
 #include <atomic>
 #include <memory>
+#include <unordered_map>
 
 //sf
 #include <SFML/Graphics/RenderWindow.hpp>
 
 //taur
+#include <Taur/InputManager.hpp>
 #include <Taur/RenderModule.hpp>
 #include <Taur/StateMachine.hpp>
 #include <Taur/TextureModule.hpp>
 #include <Taur/ThreadPool.hpp>
-#include <Taur/Tilemap.hpp>
 
 //chaiscript
+#ifdef INCLUDE_SCRIPT_ENGINE
 #include <chaiscript/chaiscript.hpp>
-
 namespace chai = chaiscript;
+#endif
 
 namespace taur {
-	struct core_t {
-		void init(bool is_alloc_thread_pool);
+	//Singletone
+	class GameManager {
+	public:
+		void init(bool is_alloc_thread_pool, bool is_start_script_engine);
 		void release();
 
 		std::atomic_bool flag;
 		const size_t tile_size = 16;
+		std::unordered_map <std::string, std::string> shared_data;
 		
 		sf::RenderWindow window;
 		sf::Clock clock;
 
-		std::shared_ptr <Renderer> renderer;
-		std::shared_ptr <TextureManager> textures;
+		std::shared_ptr <InputManager> input_manager;
+		std::shared_ptr <RenderModule> render_module;
+		std::shared_ptr <TextureManager> texture_manager;
 		std::shared_ptr <ThreadPool> thread_pool;
 		std::shared_ptr <StateMachine> state_machine;
 
-		std::unique_ptr <chai::ChaiScript> engine;
-
-		Tilemap tilemap;
+#ifdef INCLUDE_CHAI_SCRIPT
+		std::unique_ptr <chai::ChaiScript> script_engine;
+#endif
 	};
 
-	extern core_t core;
+	extern std::unique_ptr <GameManager> core;
 }

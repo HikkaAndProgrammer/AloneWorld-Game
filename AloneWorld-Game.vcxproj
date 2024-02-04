@@ -72,10 +72,12 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -84,12 +86,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,6 +112,8 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/Zc:__cplusplus /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,12 +124,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,26 +142,39 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Game\Console.cpp" />
     <ClCompile Include="src\Game\RenderState.cpp" />
-    <ClCompile Include="src\Taur\Camera.cpp" />
+    <ClCompile Include="src\GameObjects\Camera.cpp" />
+    <ClCompile Include="src\Taur\InputManager.cpp" />
     <ClCompile Include="src\Taur\StateMachine.cpp" />
     <ClCompile Include="src\Taur\ThreadPool.cpp" />
-    <ClCompile Include="src\Taur\Tilemap.cpp" />
-    <ClCompile Include="src\Taur\Core.cpp" />
+    <ClCompile Include="src\Taur\GameManager.cpp" />
     <ClCompile Include="src\Taur\RenderModule.cpp" />
     <ClCompile Include="src\Taur\TextureModule.cpp" />
     <ClCompile Include="src\Taur\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game\Console.hpp" />
+    <ClInclude Include="src\Game\GameEngine.hpp" />
     <ClInclude Include="src\Game\RenderState.hpp" />
-    <ClInclude Include="src\Taur\Camera.hpp" />
+    <ClInclude Include="src\GameObjects\Camera.hpp" />
+    <ClInclude Include="src\Game\Tile.hpp" />
+    <ClInclude Include="src\Taur\InputManager.hpp" />
     <ClInclude Include="src\Taur\StateMachine.hpp" />
     <ClInclude Include="src\Taur\ThreadPool.hpp" />
-    <ClInclude Include="src\Taur\Tilemap.hpp" />
-    <ClInclude Include="src\Taur\Core.hpp" />
+    <ClInclude Include="src\GameObjects\Tilemap.hpp" />
+    <ClInclude Include="src\Taur\GameManager.hpp" />
     <ClInclude Include="src\Taur\RenderModule.hpp" />
     <ClInclude Include="src\Taur\TextureModule.hpp" />
     <ClInclude Include="src\Taur\Util.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

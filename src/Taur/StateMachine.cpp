@@ -1,11 +1,15 @@
 #include <Taur/StateMachine.hpp>
 
 //taur
-#include <Taur/Core.hpp>
+#include <Taur/GameManager.hpp>
 
 namespace taur {
+	void StateMachine::init(size_t process_levels) {
+		this->m_process_levels.resize(process_levels);
+	}
+
 	void StateMachine::update() {
-		core.clock.restart();
+		bool is_recalculate_active_states = !this->m_requested_updates.empty();
 
 		while(!this->m_requested_updates.empty()) {
 			auto& [state, status] = this->m_requested_updates.front();
@@ -17,7 +21,7 @@ namespace taur {
 				state->is_active = true;
 				break;
 			case OnDelete:
-				state->onDetele();
+				state->onDelete();
 				state->is_active = false;
 				break;
 			case OnEnable:
@@ -33,33 +37,64 @@ namespace taur {
 			this->m_requested_updates.pop();
 		}
 
-		float delta = core.clock.getElapsedTime().asSeconds();
+		if (is_recalculate_active_states) {
+			for (auto& [container, active_count] : this->m_process_levels) {
+				active_count = 0;
+				for (auto state : container)
+					if (state->is_active)
+						active_count++;
+			}
+		}
+
 		auto& active = this->m_active_states;
 		auto& mutex = this->m_mutex;
 		auto& cv = this->m_cv;
 
-		for (auto& level : this->m_process_levels) {
-			for (size_t i = 1; i < level.size(); i++) {
-				auto& state = level[i];
-				if (state->is_active) {
-					core.thread_pool->push([delta, state, &active, &mutex, &cv](size_t id) {
-						std::unique_lock lock(mutex);
-						active++;
-						state->update(delta);
-						active--;
-						cv.notify_one();
-					});
+		for (auto& [container, active_count] : this->m_process_levels) {
+			if (active_count > 1) {
+				for (size_t i = 1; i < container.size(); i++) {
+					auto& state = container[i];
+					if (state->is_active) {
+						core->thread_pool->push([state, &active, &mutex, &cv](size_t id) {
+							std::unique_lock lock(mutex);
+							active++;
+							state->update();
+							active--;
+							cv.notify_one();
+						});
+					}
 				}
 			}
 
-			auto& state = level.front();
+			auto& state = container.front();
 			if (state->is_active)
-				state->update(delta);
+				state->update();
 
-			if (level.size() > 1) {
+			if (active_count > 1) {
 				std::unique_lock lock(mutex);
 				this->m_cv.wait(lock, [&active]() { return active == 0; });
 			}
 		}
+	}
+
+	void StateMachine::add_state(std::string id, IState state) {
+		this->m_states.emplace(id, state);
+		this->request_status_change(id, StateStatus::OnCreate);
+		state->is_active = false;
+	}
+
+	void StateMachine::request_status_change(std::string id, StateStatus status) {
+		this->m_requested_updates.emplace(this->m_states[id], status);
+	}
+
+	void StateMachine::set_render_level(std::string state_id, size_t level) {
+		auto state = m_states[state_id];
+		auto& [container, flag] = this->m_process_levels[level];
+		container.push_back(state);
+	}
+	void StateMachine::clear_render_level(size_t level) {
+		auto& [container, flag] = this->m_process_levels[level];
+		container.clear();
+		flag = 0;
 	}
 }

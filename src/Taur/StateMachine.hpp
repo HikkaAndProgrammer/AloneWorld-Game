@@ -31,7 +31,7 @@ namespace taur {
 		virtual void onDisable() {}
 
 		virtual void onCreate() {}
-		virtual void onDetele() {}
+		virtual void onDelete() {}
 
 	private:
 		bool is_active;
@@ -40,31 +40,19 @@ namespace taur {
 
 	class StateMachine {
 	public:
-		void init(size_t process_levels) { this->m_process_levels.resize(process_levels); }
-		//void startup();
+		void init(size_t process_levels);
 		void update();
 
-		void add_state(std::string id, IState state) {
-			this->m_states.emplace(id, state);
-			this->request_status_change(id, StateStatus::OnCreate);
-			state->is_active = false;
-		}
+		void add_state(std::string id, IState state);
 
-		void request_status_change(std::string id, StateStatus status) {
-			this->m_requested_updates.emplace(this->m_states[id], status);
-		}
+		void request_status_change(std::string id, StateStatus status);
 
-		void set_render_level(std::string state_id, size_t level) {
-			auto state = m_states[state_id];
-			this->m_process_levels[level].push_back(state);
-		}
-		void clear_render_level(size_t level) {
-			this->m_process_levels[level].clear();
-		}
+		void set_render_level(std::string state_id, size_t level);
+		void clear_render_level(size_t level);
 
 	protected:
 		std::unordered_map <std::string, IState> m_states;
-		std::vector <std::vector <IState>> m_process_levels;
+		std::vector <std::pair <std::vector <IState>, size_t>> m_process_levels;
 		std::queue <std::pair <IState, StateStatus>> m_requested_updates;
 
 		std::mutex m_mutex;

@@ -1,5 +1,4 @@
 //taur
-#include <Taur/Core.hpp>
 #include <Taur/TextureModule.hpp>
 
 //json
@@ -10,7 +9,7 @@ namespace taur {
 		return this->m_storage[id];
 	}
 
-	std::shared_ptr<sf::Texture> TextureManager::at(KeyType id) {
+	std::shared_ptr <sf::Texture> TextureManager::at(KeyType id) {
 		return this->m_storage[id];
 	}
 
@@ -29,5 +28,11 @@ namespace taur {
 			value->loadFromFile(path_prefix + filename);
 			this->m_storage.emplace(key, std::move(value));
 		}
+	}
+	std::unordered_map <TextureManager::KeyType, std::shared_ptr <sf::Texture>>::iterator TextureManager::begin() {
+		return this->m_storage.begin();
+	}
+	std::unordered_map <TextureManager::KeyType, std::shared_ptr <sf::Texture>>::iterator TextureManager::end() {
+		return this->m_storage.end();
 	}
 }
