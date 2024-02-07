@@ -29,7 +29,10 @@
 
 namespace taur {
 	std::shared_ptr <GameManager> core = std::make_shared <game::Engine>();
-	std::shared_ptr <game::Engine> engine = std::dynamic_pointer_cast <game::Engine>(core);
+}
+
+namespace game {
+	std::shared_ptr <Engine> engine = std::dynamic_pointer_cast <Engine>(taur::core);
 }
 
 namespace util {
@@ -49,39 +52,39 @@ namespace util {
 			return variants[flag];
 		};
 
-		tm.resize_and_clear(width, height);
+		tm->resize_and_clear(width, height);
 
 		//tm.at(0, 0) = tile_t(1, 0, 0, 0);
 		for (size_t i = 0; i != width; i++) {
-			tm.at(i, 0) = game::tile_t(1, 0, 0, 0);
-			tm.at(i, height - 1) = game::tile_t(1, 0, 0, 0);
+			tm->at(i, 0) = game::tile_t(1, 0, 0, 0);
+			tm->at(i, height - 1) = game::tile_t(1, 0, 0, 0);
 		}
 
 		for (size_t j = 1; j != height - 1; j++) {
-			tm.at(0, j) = game::tile_t(1, 0, 0, 0);
-			tm.at(width - 1, j) = game::tile_t(1, 0, 0, 0);
-			for (size_t i = 1; i != tm.width() - 1; i++)
-				tm.at(i, j) = game::tile_t(0, 0, 0, 0);
+			tm->at(0, j) = game::tile_t(1, 0, 0, 0);
+			tm->at(width - 1, j) = game::tile_t(1, 0, 0, 0);
+			for (size_t i = 1; i != tm->width() - 1; i++)
+				tm->at(i, j) = game::tile_t(0, 0, 0, 0);
 		}
 
 		for (size_t i = 0; i != width; i++) {
 			for (size_t j = 0; j != height; j++) {
-				game::tile_t& current = tm.at(i, j);
+				game::tile_t& current = tm->at(i, j);
 				std::array <game::tile_t, 4> adjacent = {
-					tm.at_try(i, j - 1),
-					tm.at_try(i + 1, j),
-					tm.at_try(i, j + 1),
-					tm.at_try(i - 1, j)
+					tm->at_try(i, j - 1),
+					tm->at_try(i + 1, j),
+					tm->at_try(i, j + 1),
+					tm->at_try(i - 1, j)
 				};
 				current.block_type = (uint8_t) choose_type(current, adjacent);
 			}
 		}
 	}
 	void print(std::ostream& os, game::Tilemap& tm) {
-		os << "width: " << tm.width() << "\nheight: " << tm.height() << '\n';
-		for (size_t i = 0; i != tm.height(); i++) {
-			for (size_t j = 0; j != tm.width(); j++)
-				os << std::to_string(tm.at(j, i).block_type) << '\t';
+		os << "width: " << tm->width() << "\nheight: " << tm->height() << '\n';
+		for (size_t i = 0; i != tm->height(); i++) {
+			for (size_t j = 0; j != tm->width(); j++)
+				os << std::to_string(tm->at(j, i).block_type) << '\t';
 			os << '\n';
 		}
 	}
@@ -100,18 +103,23 @@ namespace util {
 			taur::core->flag = false;
 			return 0;
 		});
+		console.add_function("generate_tilemap", [&](std::istream& is) {
+			auto tm = std::dynamic_pointer_cast <game_objects::BaseTilemap <game::tile_t>>(game::engine->tilemap);
+			generate(tm, 10, 10);
+			return 0;
+		});
 	}
 }
 
 int main() {
 	game::Console console;
-	taur::core->init(false, false);
+	game::engine->init(/*false, false*/);
 	util::init_console_functions(console);
 
 	do {
 		console.process(std::cin);
 	} while (taur::core->flag);
 
-	taur::core->release();
+	game::engine->release();
 	return 0;
 }

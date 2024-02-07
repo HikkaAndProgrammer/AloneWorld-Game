@@ -2,7 +2,10 @@
 #include <Game/RenderState.hpp>
 
 //taur
-#include <Taur/GameManager.hpp>
+#include <Game/Engine.hpp>
+
+//game
+#include <Game/TilemapCamera.hpp>
 
 namespace game {
 	void RenderState::update() {
@@ -41,27 +44,27 @@ namespace game {
 			taur::core.window.draw(shape, states);
 		}*/
 
-		this->camera->render();
-		taur::core->window.setView(this->camera->get_view());
+		this->camera.render();
+		game::engine->window.setView(this->camera.get_view());
 
-		taur::core->render_module->draw();
-		taur::core->window.display();
-		taur::core->render_module->end();
+		game::engine->render_module->draw();
+		game::engine->window.display();
+		game::engine->render_module->end();
 	}
 
 	//TODO
 	void RenderState::onCreate() {
-		/*float width = taur::core.tilemap.width() * 16,
-			height = taur::core.tilemap.height() * 16,
+		float width = game::engine->tilemap->width() * 16,
+			height = game::engine->tilemap->height() * 16,
 			zoom = 1.f / 3;
 		auto& view = this->camera.get_view();
 
-		taur::core.window.create(sf::VideoMode(width / zoom, height / zoom), "Alone World");
+		game::engine->window.create(sf::VideoMode(width / zoom, height / zoom), "Alone World");
 
 		view.setCenter(width / 2, height / 2);
 		view.setSize(width / zoom, height / zoom);
 		view.zoom(zoom);
 
-		this->camera.link(&taur::core.tilemap);*/
+		this->camera.link(game::engine->tilemap);
 	}
 }

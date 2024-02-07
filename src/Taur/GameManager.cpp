@@ -5,7 +5,10 @@
 
 namespace taur {
 	//TODO: make dedicated function for loading files
-	void GameManager::init(bool is_alloc_thread_pool, bool is_start_script_engine) {
+	void GameManager::init(/*bool is_alloc_thread_pool, bool is_start_script_engine*/) {
+		bool is_alloc_thread_pool = false;
+		bool is_start_script_engine = false;
+
 		this->flag = true;
 		this->clock.restart();
 

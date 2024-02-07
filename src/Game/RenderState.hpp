@@ -2,8 +2,8 @@
 //taur
 #include <Taur/StateMachine.hpp>
 
-//game_objects
-#include <GameObjects/Camera.hpp>
+//game
+#include <Game/TilemapCamera.hpp>
 
 namespace game {
 	class RenderState : public taur::BaseState {
@@ -13,6 +13,6 @@ namespace game {
 		void onCreate() final override;
 
 	private:
-		game_objects::ICamera camera;
+		TilemapCamera camera;
 	};
 }

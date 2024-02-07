@@ -26,7 +26,7 @@ namespace taur {
 	//Singleton
 	class GameManager {
 	public:
-		virtual void init(bool is_alloc_thread_pool, bool is_start_script_engine);
+		virtual void init(/*bool is_alloc_thread_pool, bool is_start_script_engine*/);
 		virtual void release();
 
 		std::atomic_bool flag;

@@ -1,6 +1,7 @@
 #pragma once
 //std
 #include <algorithm>
+#include <memory>
 #include <vector>
 
 //sf
@@ -48,10 +49,9 @@ namespace game_objects {
 			if (!file.is_open())
 				return false;
 
-			file.write((char*)&this->m_width, sizeof(size_t)).write((char*)&this->m_height, sizeof(size_t));
-
-			for (size_t i = 0; i != this->m_content.size(); i++)
-				file.write((char*)&this->m_content[i], sizeof(_TileType));
+			file << this->m_width << ' ' << this->m_height << '\n';
+			for (auto& it : this->m_content)
+				it.write(file);
 
 			file.close();
 			return true;
@@ -62,11 +62,10 @@ namespace game_objects {
 			if (!file.is_open())
 				return false;
 
-			file.read((char*)&this->m_width, sizeof(size_t)).read((char*)&this->m_height, sizeof(size_t));
-			resize_and_clear(this->m_width, this->m_height);
-
-			for (size_t i = 0; i != this->m_content.size(); i++)
-				file.read((char*)&this->m_content[i], sizeof(_TileType));
+			file >> this->m_width >> this->m_height;
+			this->resize_and_clear(this->m_width, this->m_height);
+			for (auto& it : this->m_content)
+				it.read(file);
 
 			file.close();
 			return true;
@@ -85,4 +84,7 @@ namespace game_objects {
 		size_t m_width = 0, m_height = 0;
 		const size_t tile_size = 16;
 	};
+	
+	template <class _TileType>
+	using ITilemap = std::shared_ptr <BaseTilemap <_TileType>>;
 }
