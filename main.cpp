@@ -86,7 +86,7 @@ namespace util {
 		}
 	}
 	void init_console_functions(game::Console& console) {
-		console.add_function("start_game", [&](std::istream& is) {
+		console.add_function("start", [&](std::istream& is) {
 			taur::core->state_machine->add_state("render_state", std::make_shared <game::RenderState>());
 			taur::core->state_machine->set_render_level("render_state", 0);
 
@@ -96,25 +96,17 @@ namespace util {
 
 			return 0;
 		});
-		console.add_function("compile_atlas", [&](std::istream& is) {
-
-
+		console.add_function("stop", [&](std::istream& is) {
+			taur::core->flag = false;
 			return 0;
 		});
-		console.add_function("generate_texture", [&](std::istream& is) {
-
-
-			return 0;
-		});
-	}
-	void generate_atlas() {
-
 	}
 }
 
 int main() {
 	game::Console console;
 	taur::core->init(false, false);
+	util::init_console_functions(console);
 
 	do {
 		console.process(std::cin);

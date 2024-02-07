@@ -23,7 +23,7 @@ namespace chai = chaiscript;
 #endif
 
 namespace taur {
-	//Singletone
+	//Singleton
 	class GameManager {
 	public:
 		virtual void init(bool is_alloc_thread_pool, bool is_start_script_engine);

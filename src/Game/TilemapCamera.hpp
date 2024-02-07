@@ -27,7 +27,7 @@ namespace game {
 						x = i * tile_size,
 						y = j * tile_size,
 						tx = 2 + (tile.block_type % 8) * (tile_size + 2),
-						ty = 2 + (tile.block_id - 1) * (tile_size + 2) * 4 + size_t(tile.block_type / 8) * (tile_size + 2);
+						ty = 2 + (tile.block_id - 1) * (tile_size + 2) * 4 + size_t(tile.block_type % 8) * (tile_size + 2);
 
 					request[idx + 0] = util::create_vertex(x, y + tile_size, tx, ty + tile_size);
 					request[idx + 1] = util::create_vertex(x, y, tx, ty);

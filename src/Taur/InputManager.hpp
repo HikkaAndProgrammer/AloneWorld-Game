@@ -59,8 +59,8 @@ namespace taur {
 
 		void update();
 
-		void load_config();
-		void save_config();
+		void load_config(std::string filename);
+		void save_config(std::string filename) const;
 
 		std::shared_ptr <cursor_t> get_cursor() const;
 		std::shared_ptr <input_t> get_handler(std::string key) const;

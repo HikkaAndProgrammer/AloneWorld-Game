@@ -4,21 +4,28 @@
 #include <toml.hpp>
 
 namespace taur {
+	//TODO: make dedicated function for loading files
 	void GameManager::init(bool is_alloc_thread_pool, bool is_start_script_engine) {
 		this->flag = true;
 		this->clock.restart();
 
-		auto settings = toml::parse("./res/settings.toml");
-		auto texture_info = toml::find <std::string>(settings, "textures_path");
-		auto table = toml::find <toml::table>(settings, "shared_data");
-		for (auto& [key, val] : table)
+		auto settings = toml::parse("res/settings.toml");
+		auto engine_data = toml::find <toml::table>(settings, "engine_data");
+		auto shared_table = toml::find <toml::table>(settings, "shared_data");
+
+		//loading shared data
+		for (auto& [key, val] : shared_table)
 			this->shared_data.emplace(key, val.as_string());
 
+		//loading main systems
+		auto input_config_path = engine_data["input_config_path"].as_string();
 		this->input_manager.reset(new InputManager());
-		this->input_manager->add_input_handler("left_click", InputType::Mouse, (size_t)sf::Mouse::Left);
+		//this->input_manager->add_input_handler("left_click", InputType::Mouse, (size_t)sf::Mouse::Left);
+		this->input_manager->load_config(input_config_path);
 
+		auto textures_path = engine_data["textures_path"].as_string();
 		this->texture_manager.reset(new TextureManager());
-		this->texture_manager->load(texture_info);
+		this->texture_manager->load(textures_path);
 
 		this->render_module.reset(new RenderModule());
 		this->render_module->init();
@@ -35,6 +42,7 @@ namespace taur {
 			this->script_engine.reset(new chai::ChaiScript());
 #endif
 	}
+	//TODO: make dedicated function for saving files
 	void GameManager::release() {
 		if (this->window.isOpen())
 			this->window.close();
@@ -44,5 +52,14 @@ namespace taur {
 #ifdef INCLUDE_SCRIPT_ENGINE
 		this->script_engine.reset();
 #endif
+
+		auto settings = toml::parse("res/settings.toml");
+		auto engine_data = toml::find <toml::table>(settings, "engine_data");
+
+		//TODO: saving shared data
+
+		//saving main systems
+		auto input_config_info = engine_data["input_config_path"].as_string();
+		this->input_manager->save_config(input_config_info);
 	}
 }

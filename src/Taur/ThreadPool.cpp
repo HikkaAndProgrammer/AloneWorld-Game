@@ -37,10 +37,11 @@ namespace taur {
 					this->m_flags[i]->store(true);
 					this->m_threads[i]->detach();
 				}
-				{
-					std::unique_lock lock(this->m_mutex);
-					this->m_cv.notify_all();
-				}
+				
+				std::unique_lock lock(this->m_mutex);
+				this->m_cv.notify_all();
+				lock.unlock();
+
 				this->m_threads.resize(size);
 				this->m_flags.resize(size);
 			}

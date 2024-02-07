@@ -1,2 +1,5 @@
+[engine_data]
 textures_path = "res/textures/info.json"
+input_config_path = "res/input_config.toml"
+
 [shared_data]
