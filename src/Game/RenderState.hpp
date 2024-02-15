@@ -1,12 +1,12 @@
 #pragma once
-//taur
-#include <Taur/StateMachine.hpp>
+//engine
+#include <Engine/StateMachine.hpp>
 
 //game
 #include <Game/TilemapCamera.hpp>
 
 namespace game {
-	class RenderState : public taur::BaseState {
+	class RenderState : public engine::BaseState {
 	public:
 		void update() final override;
 

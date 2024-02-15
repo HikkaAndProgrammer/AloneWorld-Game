@@ -8,9 +8,9 @@
 //sf
 #include <SFML/Window.hpp>
 
-//taur
-#include <Taur/GameManager.hpp>
-#include <Taur/ThreadPool.hpp>
+//engine
+#include <Engine/GameManager.hpp>
+#include <Engine/ThreadPool.hpp>
 
 //game_objects
 #include <GameObjects/Camera.hpp>
@@ -25,14 +25,14 @@
 #include <Game/Console.hpp>
 #include <Game/RenderState.hpp>
 #include <Game/Tile.hpp>
-#include <Game/Engine.hpp>
+#include <Game/Core.hpp>
 
-namespace taur {
-	std::shared_ptr <GameManager> core = std::make_shared <game::Engine>();
+namespace engine {
+	std::shared_ptr <GameManager> core = std::make_shared <game::Core>();
 }
 
 namespace game {
-	std::shared_ptr <Engine> engine = std::dynamic_pointer_cast <Engine>(taur::core);
+	std::shared_ptr <Core> core = std::dynamic_pointer_cast <Core>(engine::core);
 }
 
 namespace util {
@@ -90,22 +90,22 @@ namespace util {
 	}
 	void init_console_functions(game::Console& console) {
 		console.add_function("start", [&](std::istream& is) {
-			taur::core->state_machine->add_state("render_state", std::make_shared <game::RenderState>());
-			taur::core->state_machine->set_render_level("render_state", 0);
+			engine::core->state_machine->add_state("render_state", std::make_shared <game::RenderState>());
+			engine::core->state_machine->set_render_level("render_state", 0);
 
-			while (taur::core->flag) {
-				taur::core->state_machine->update();
+			while (engine::core->flag) {
+				engine::core->state_machine->update();
 			}
 
 			return 0;
 		});
 		console.add_function("stop", [&](std::istream& is) {
-			taur::core->flag = false;
+			engine::core->flag = false;
 			return 0;
 		});
 		console.add_function("generate_tilemap", [&](std::istream& is) {
-			auto tm = std::dynamic_pointer_cast <game_objects::BaseTilemap <game::tile_t>>(game::engine->tilemap);
-			generate(tm, 10, 10);
+			auto tm = std::dynamic_pointer_cast <game_objects::BaseTilemap <game::tile_t>>(game::core->tilemap);
+			generate(game::core->tilemap, 10, 10);
 			return 0;
 		});
 	}
@@ -113,13 +113,13 @@ namespace util {
 
 int main() {
 	game::Console console;
-	game::engine->init(/*false, false*/);
+	game::core->init(/*false, false*/);
 	util::init_console_functions(console);
 
 	do {
 		console.process(std::cin);
-	} while (taur::core->flag);
+	} while (engine::core->flag);
 
-	game::engine->release();
+	game::core->release();
 	return 0;
 }

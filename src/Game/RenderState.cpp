@@ -1,22 +1,22 @@
 //game
 #include <Game/RenderState.hpp>
 
-//taur
-#include <Game/Engine.hpp>
+//engine
+#include <Game/Core.hpp>
 
 //game
 #include <Game/TilemapCamera.hpp>
 
 namespace game {
 	void RenderState::update() {
-		taur::core->render_module->begin();
-		taur::core->window.clear(sf::Color::White);
+		engine::core->render_module->begin();
+		engine::core->window.clear(sf::Color::White);
 
 		sf::Event event;
-		while (taur::core->window.pollEvent(event)) {
+		while (engine::core->window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
-				taur::core->window.close();
-				taur::core->flag.store(false);
+				engine::core->window.close();
+				engine::core->flag.store(false);
 			}
 		}
 
@@ -40,31 +40,31 @@ namespace game {
 			shape[5].texCoords = { 640, 640 };
 			
 			sf::RenderStates states;
-			states.texture = taur::core.texture_manager->at("sakura").get();
-			taur::core.window.draw(shape, states);
+			states.texture = engine::core.texture_manager->at("sakura").get();
+			engine::core.window.draw(shape, states);
 		}*/
 
 		this->camera.render();
-		game::engine->window.setView(this->camera.get_view());
+		game::core->window.setView(this->camera.get_view());
 
-		game::engine->render_module->draw();
-		game::engine->window.display();
-		game::engine->render_module->end();
+		game::core->render_module->draw();
+		game::core->window.display();
+		game::core->render_module->end();
 	}
 
 	//TODO
 	void RenderState::onCreate() {
-		float width = game::engine->tilemap->width() * 16,
-			height = game::engine->tilemap->height() * 16,
+		float width = game::core->tilemap->width() * 16,
+			height = game::core->tilemap->height() * 16,
 			zoom = 1.f / 3;
 		auto& view = this->camera.get_view();
 
-		game::engine->window.create(sf::VideoMode(width / zoom, height / zoom), "Alone World");
+		game::core->window.create(sf::VideoMode(width / zoom, height / zoom), "Alone World");
 
 		view.setCenter(width / 2, height / 2);
 		view.setSize(width / zoom, height / zoom);
 		view.zoom(zoom);
 
-		this->camera.link(game::engine->tilemap);
+		this->camera.link(game::core->tilemap);
 	}
 }

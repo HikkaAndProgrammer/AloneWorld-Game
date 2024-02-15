@@ -1,9 +1,9 @@
-#include <Taur/RenderModule.hpp>
+#include <Engine/RenderModule.hpp>
 
-//taur
-#include <Taur/GameManager.hpp>
+//engine
+#include <Engine/GameManager.hpp>
 
-namespace taur {
+namespace engine {
 	void RenderModule::init() {
 		this->m_target = &core->window;
 	}

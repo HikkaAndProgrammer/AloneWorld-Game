@@ -6,7 +6,7 @@
 //sf
 #include <SFML/Graphics.hpp>
 
-namespace taur {
+namespace engine {
 	struct request_t {
 		sf::VertexArray vertices;
 		std::shared_ptr <sf::Texture> texture;

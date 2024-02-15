@@ -2,38 +2,87 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\Taur\GameManager.cpp" />
-    <ClCompile Include="src\Taur\RenderModule.cpp" />
-    <ClCompile Include="src\Taur\TextureModule.cpp" />
+    <ClCompile Include="src\Engine\GameManager.cpp" />
+    <ClCompile Include="src\Engine\RenderModule.cpp" />
+    <ClCompile Include="src\Engine\TextureModule.cpp" />
     <ClCompile Include="src\GameObjects\Camera.cpp" />
-    <ClCompile Include="src\Taur\Util.cpp" />
-    <ClCompile Include="src\Taur\ThreadPool.cpp" />
-    <ClCompile Include="src\Taur\StateMachine.cpp" />
+    <ClCompile Include="src\Engine\Util.cpp" />
+    <ClCompile Include="src\Engine\ThreadPool.cpp" />
+    <ClCompile Include="src\Engine\StateMachine.cpp" />
     <ClCompile Include="src\Game\RenderState.cpp" />
-    <ClCompile Include="src\Taur\InputManager.cpp" />
+    <ClCompile Include="src\Engine\InputManager.cpp" />
     <ClCompile Include="src\Game\Console.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Taur\RenderModule.hpp" />
-    <ClInclude Include="src\Taur\GameManager.hpp" />
-    <ClInclude Include="src\Taur\TextureModule.hpp" />
+    <ClInclude Include="src\Engine\RenderModule.hpp" />
+    <ClInclude Include="src\Engine\GameManager.hpp" />
+    <ClInclude Include="src\Engine\TextureModule.hpp" />
     <ClInclude Include="src\GameObjects\Tilemap.hpp" />
     <ClInclude Include="src\GameObjects\Camera.hpp" />
-    <ClInclude Include="src\Taur\Util.hpp" />
-    <ClInclude Include="src\Taur\ThreadPool.hpp" />
-    <ClInclude Include="src\Taur\StateMachine.hpp" />
+    <ClInclude Include="src\Engine\Util.hpp" />
+    <ClInclude Include="src\Engine\ThreadPool.hpp" />
+    <ClInclude Include="src\Engine\StateMachine.hpp" />
     <ClInclude Include="src\Game\RenderState.hpp" />
-    <ClInclude Include="src\Taur\InputManager.hpp" />
+    <ClInclude Include="src\Engine\InputManager.hpp" />
     <ClInclude Include="src\Game\Console.hpp" />
     <ClInclude Include="src\Game\Tile.hpp" />
-    <ClInclude Include="src\Game\GameEngine.hpp" />
+    <ClInclude Include="src\Game\TilemapCamera.hpp" />
+    <ClInclude Include="src\Game\Core.hpp" />
+    <ClInclude Include="src\Engine\EventSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include=".gitattributes" />
     <None Include="README.md" />
+    <None Include="res\input_config.toml" />
+    <None Include="res\saves_description.psd" />
+    <None Include="res\settings.toml" />
+    <None Include="res\textures\info.json" />
+    <None Include="res\textures\tiles.psd" />
+    <None Include="res\textures\tiles_test.psd" />
+    <None Include="res\saves\Admin\main.sav" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\example.jpg" />
+    <Image Include="res\textures\grid.png" />
+    <Image Include="res\textures\mask.png" />
+    <Image Include="res\textures\tile1.png" />
+    <Image Include="res\textures\tiles.png" />
+    <Image Include="res\textures\Tiles_267.png" />
+    <Image Include="res\textures\tiles_test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\flac.lib" />
+    <Library Include="lib\freetype.lib" />
+    <Library Include="lib\ogg.lib" />
+    <Library Include="lib\openal32.lib" />
+    <Library Include="lib\sfml-audio.lib" />
+    <Library Include="lib\sfml-audio-d.lib" />
+    <Library Include="lib\sfml-audio-s.lib" />
+    <Library Include="lib\sfml-audio-s-d.lib" />
+    <Library Include="lib\sfml-graphics.lib" />
+    <Library Include="lib\sfml-graphics-d.lib" />
+    <Library Include="lib\sfml-graphics-s.lib" />
+    <Library Include="lib\sfml-graphics-s-d.lib" />
+    <Library Include="lib\sfml-main.lib" />
+    <Library Include="lib\sfml-main-d.lib" />
+    <Library Include="lib\sfml-network.lib" />
+    <Library Include="lib\sfml-network-d.lib" />
+    <Library Include="lib\sfml-network-s.lib" />
+    <Library Include="lib\sfml-network-s-d.lib" />
+    <Library Include="lib\sfml-system.lib" />
+    <Library Include="lib\sfml-system-d.lib" />
+    <Library Include="lib\sfml-system-s.lib" />
+    <Library Include="lib\sfml-system-s-d.lib" />
+    <Library Include="lib\sfml-window.lib" />
+    <Library Include="lib\sfml-window-d.lib" />
+    <Library Include="lib\sfml-window-s.lib" />
+    <Library Include="lib\sfml-window-s-d.lib" />
+    <Library Include="lib\vorbis.lib" />
+    <Library Include="lib\vorbisenc.lib" />
+    <Library Include="lib\vorbisfile.lib" />
   </ItemGroup>
 </Project>

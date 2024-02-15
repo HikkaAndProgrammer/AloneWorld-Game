@@ -1,13 +1,13 @@
-//taur
-#include <Taur/InputManager.hpp>
+//engine
+#include <Engine/InputManager.hpp>
 
 //toml
 #include <toml.hpp>
 
-//taur
-#include <Taur/GameManager.hpp>
+//engine
+#include <Engine/GameManager.hpp>
 
-namespace taur {
+namespace engine {
 	//input_t
 
 	void input_t::update() {
@@ -37,7 +37,7 @@ namespace taur {
 
 	void cursor_t::update() {
 		this->prev = this->curr;
-		this->curr = sf::Mouse::getPosition(taur::core->window);
+		this->curr = sf::Mouse::getPosition(engine::core->window);
 	}
 
 	sf::Vector2i cursor_t::get_position() const { 

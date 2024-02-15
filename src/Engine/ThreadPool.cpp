@@ -1,6 +1,6 @@
-#include <Taur/ThreadPool.hpp>
+#include <Engine/ThreadPool.hpp>
 
-namespace taur {
+namespace engine {
 	ThreadPool::ThreadPool(size_t queue_size) : m_queue(queue_size) {}
 	ThreadPool::~ThreadPool() { 
 		this->stop(true); 

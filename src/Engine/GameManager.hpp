@@ -9,12 +9,12 @@
 //sf
 #include <SFML/Graphics/RenderWindow.hpp>
 
-//taur
-#include <Taur/InputManager.hpp>
-#include <Taur/RenderModule.hpp>
-#include <Taur/StateMachine.hpp>
-#include <Taur/TextureModule.hpp>
-#include <Taur/ThreadPool.hpp>
+//engine
+#include <Engine/InputManager.hpp>
+#include <Engine/RenderModule.hpp>
+#include <Engine/StateMachine.hpp>
+#include <Engine/TextureModule.hpp>
+#include <Engine/ThreadPool.hpp>
 
 //chaiscript
 #ifdef INCLUDE_SCRIPT_ENGINE
@@ -22,7 +22,7 @@
 namespace chai = chaiscript;
 #endif
 
-namespace taur {
+namespace engine {
 	//Singleton
 	class GameManager {
 	public:

@@ -10,10 +10,10 @@
 #include <vector>
 #include <queue>
 
-//taur
-#include <Taur/Util.hpp>
+//engine
+#include <Engine/Util.hpp>
 
-namespace taur {
+namespace engine {
 	enum class StateStatus {
 		OnEnable = 0,
 		OnDisable = 1,

@@ -1,17 +1,17 @@
 #pragma once
-//taur
+//engine
 #include <GameObjects/Camera.hpp>
 #include <GameObjects/Tilemap.hpp>
 
 //game
 #include <Game/Tile.hpp>
-#include <Game/Engine.hpp>
+#include <Game/Core.hpp>
 
 namespace game {
 	class TilemapCamera : public game_objects::BaseCamera {
 	public:
 		void render() override {
-			const auto& tile_size = engine->tile_size;
+			const auto& tile_size = core->tile_size;
 			auto& tilemap = *this->m_observed;
 			auto width = tilemap.width(), height = tilemap.height();
 			//every quad tile consists of 2 triangles, triangle consists of 3 points
@@ -38,7 +38,7 @@ namespace game {
 				}
 			}
 
-			engine->render_module->request(std::move(request), engine->texture_manager->at("tiles"));
+			core->render_module->request(std::move(request), core->texture_manager->at("tiles"));
 		}
 
 		void link(Tilemap tilemap) {

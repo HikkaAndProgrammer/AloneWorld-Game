@@ -9,7 +9,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-namespace taur {
+namespace engine {
 	enum class InputType : bool {
 		Keyboard = 0,
 		Mouse = 1

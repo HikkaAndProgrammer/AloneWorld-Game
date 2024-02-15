@@ -1,9 +1,9 @@
-#include <Taur/GameManager.hpp>
+#include <Engine/GameManager.hpp>
 
 //toml
 #include <toml.hpp>
 
-namespace taur {
+namespace engine {
 	//TODO: make dedicated function for loading files
 	void GameManager::init(/*bool is_alloc_thread_pool, bool is_start_script_engine*/) {
 		bool is_alloc_thread_pool = false;
