@@ -32,7 +32,9 @@ namespace engine {
 	class EventControlBlock {
 	public:
 		void insert_listener(event_id id, IListener listener);
+		void insert_listener(std::string event_name, IListener listener);
 		void remove_listener(event_id id, IListener listener);
+		void remove_listener(std::string event_name, IListener listener);
 
 		void insert_event(IEvent event);
 		void remove_event(IEvent event);
@@ -43,6 +45,7 @@ namespace engine {
 		void update();
 
 		void call(event_id id, std::any data);
+		void call(std::string event_name, std::any data);
 
 	protected:
 		std::unordered_multimap <event_id, IListener> m_listeners;

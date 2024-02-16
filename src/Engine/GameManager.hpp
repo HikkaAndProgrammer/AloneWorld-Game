@@ -27,7 +27,7 @@ namespace engine {
 	//Singleton
 	class GameManager {
 	public:
-		virtual void init(/*bool is_alloc_thread_pool, bool is_start_script_engine*/);
+		virtual void init();
 		virtual void release();
 
 		std::atomic_bool flag;
@@ -36,12 +36,17 @@ namespace engine {
 		sf::RenderWindow window;
 		sf::Clock clock;
 
-		std::shared_ptr <InputManager> input_manager;
-		std::shared_ptr <RenderModule> render_module;
-		std::shared_ptr <TextureManager> texture_manager;
+		//core systems
 		std::shared_ptr <ThreadPool> thread_pool;
 		std::shared_ptr <StateMachine> state_machine;
+
+		//logic systems
+		std::shared_ptr <InputManager> input_manager;
 		std::shared_ptr <EventControlBlock> event_system;
+
+		//graphics systems
+		std::shared_ptr <RenderModule> render_module;
+		std::shared_ptr <TextureManager> texture_manager;
 
 #ifdef INCLUDE_CHAI_SCRIPT
 		std::unique_ptr <chai::ChaiScript> script_engine;

@@ -7,10 +7,18 @@ namespace engine {
 	void EventControlBlock::insert_listener(event_id id, IListener listener) {
 		this->m_listeners.emplace(id, listener);
 	}
+	void EventControlBlock::insert_listener(std::string event_name, IListener listener) {
+		event_id id = this->get_event_id(event_name);
+		this->insert_listener(id, listener);
+	}
 	void EventControlBlock::remove_listener(event_id id, IListener listener) {
 		auto range = this->m_listeners.equal_range(id);
 		for (auto it = range.first; it != range.second; it++)
 			this->m_listeners.erase(it);
+	}
+	void EventControlBlock::remove_listener(std::string event_name, IListener listener) {
+		event_id id = this->get_event_id(event_name);
+		this->remove_listener(id, listener);
 	}
 
 	void EventControlBlock::insert_event(IEvent event) {
@@ -37,5 +45,9 @@ namespace engine {
 		auto range = this->m_listeners.equal_range(id);
 		for (auto it = range.first; it != range.second; it++)
 			it->second->call(data);
+	}
+	void EventControlBlock::call(std::string event_name, std::any data) {
+		event_id id = this->get_event_id(event_name);
+		this->call(id, data);
 	}
 }

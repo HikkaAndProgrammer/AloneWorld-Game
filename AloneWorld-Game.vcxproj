@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Engine\EventSystem.cpp" />
+    <ClCompile Include="src\GameObjects\MainState.cpp" />
     <ClCompile Include="src\Game\Console.cpp" />
     <ClCompile Include="src\Game\RenderState.cpp" />
     <ClCompile Include="src\GameObjects\Camera.cpp" />
@@ -155,7 +156,9 @@
     <ClCompile Include="src\Engine\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObjects\MainState.hpp" />
     <ClInclude Include="src\GameObjects\SfmlEvent.hpp" />
+    <ClInclude Include="src\Game\GameState.hpp" />
     <ClInclude Include="src\Game\TilemapCamera.hpp" />
     <ClInclude Include="src\Game\Console.hpp" />
     <ClInclude Include="src\Game\Core.hpp" />

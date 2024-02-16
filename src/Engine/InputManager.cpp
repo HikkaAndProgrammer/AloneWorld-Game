@@ -6,22 +6,10 @@
 
 //engine
 #include <Engine/GameManager.hpp>
+#include <Engine/Util.hpp>
 
 namespace engine {
 	//input_t
-
-	void input_t::update() {
-		using enum InputType;
-		this->prev = this->curr;
-		switch (this->type) {
-		case Keyboard:
-			this->curr = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->id);
-			break;
-		case Mouse:
-			this->curr = sf::Mouse::isButtonPressed((sf::Mouse::Button)this->id);
-			break;
-		}
-	}
 
 	bool input_t::is_key_pressing() const {
 		return this->curr; 
@@ -29,16 +17,11 @@ namespace engine {
 	bool input_t::is_key_pressed() const { 
 		return this->curr && !this->prev; 
 	}
-	bool input_t::is_key_upped() const { 
+	bool input_t::is_key_released() const { 
 		return !this->curr && this->prev; 
 	}
 
 	//cursor_t
-
-	void cursor_t::update() {
-		this->prev = this->curr;
-		this->curr = sf::Mouse::getPosition(engine::core->window);
-	}
 
 	sf::Vector2i cursor_t::get_position() const { 
 		return this->curr; 
@@ -49,44 +32,29 @@ namespace engine {
 
 	//DragDistanceHandler
 
-	void DragDistanceHandler::update() {
-		auto current_position = this->cursor->get_position();
-
-		if (this->input->is_key_pressed())
-			this->start_position = current_position;
-		else if (this->input->is_key_upped())
-			this->difference = this->start_position - current_position;
-		else
-			this->difference = { 0, 0 };
-	}
-
 	sf::Vector2i DragDistanceHandler::get_drag_distance() const { 
 		return this->difference; 
 	}
 
 	//InputManager
 
-	void InputManager::add_input_handler(std::string key, InputType type, uint8_t id) {
-		this->m_handlers.emplace(key, std::make_shared <input_t>(type, id));
-	}
-
-	void InputManager::update() {
-		for (auto& [id, input] : this->m_handlers)
-			input->update();
+	void InputManager::add_input_handler(std::string key, InputDetail detail) {
+		Input temp(new input_t(detail));
+		this->m_handlers.emplace(key, temp);
 	}
 
 	void InputManager::load_config(std::string filename) {
 		auto config = toml::parse(filename).as_table();
 		for (const auto& [key, val] : config) {
 			auto info = val.as_table();
-			InputType type;
+			InputDetail detail;
 			if (info["type"].as_string() == "mouse") {
-				type = InputType::Mouse;
+				detail = (sf::Mouse::Button)info["button_id"].as_integer();
 			} else if (info["type"].as_string() == "keyboard") {
-				type = InputType::Keyboard;
+				detail = (sf::Keyboard::Key)info["button_id"].as_integer();
 			} else
 				continue;
-			this->add_input_handler(key, type, info["button_id"].as_integer());
+			this->add_input_handler(key, detail);
 		}
 	}
 	void InputManager::save_config(std::string filename) const {
@@ -95,22 +63,16 @@ namespace engine {
 		toml::table& table = config.as_table();
 		
 		for (const auto& [key, val] : this->m_handlers) {
-			//toml::value on_insert;
 			toml::table cell;
 			std::string type;
-			
-			switch (val->type) {
-			case InputType::Keyboard:
-				type = "keyboard";
-				break;
-			case InputType::Mouse:
-				type = "mouse";
-				break;
-			default:
-				continue;
-			}
+			uint32_t id;
 
-			cell.emplace("button_id", (uint32_t)val->id);
+			std::visit(util::overload{
+				[&](sf::Keyboard::Key& key) { type = "keyboard"; id = key; },
+				[&](sf::Mouse::Button& button) { type = "mouse"; id = button; }
+			}, val->detail);
+
+			cell.emplace("button_id", id);
 			cell.emplace("type", type);
 			table.emplace(key, cell);
 		}
@@ -120,6 +82,16 @@ namespace engine {
 			return;
 		file << config;
 		file.close();
+	}
+
+	void InputManager::update() const {
+		for (const auto& [_, input] : this->m_handlers) {
+			input->prev = input->curr;
+			std::visit(util::overload{
+				[&](sf::Keyboard::Key& key) { input->curr = sf::Keyboard::isKeyPressed(key); },
+				[&](sf::Mouse::Button& button) { input->curr = sf::Mouse::isButtonPressed(button); }
+			}, input->detail);
+		}
 	}
 
 	std::shared_ptr <cursor_t> InputManager::get_cursor() const { 

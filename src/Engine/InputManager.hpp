@@ -4,69 +4,72 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <variant>
 
 //sf
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 
+//engine
+#include <Engine/EventSystem.hpp>
+
 namespace engine {
-	enum class InputType : bool {
-		Keyboard = 0,
-		Mouse = 1
+	enum class InputType {
+		Mouse = 0,
+		Keyboard
 	};
+	using InputDetail = std::variant <sf::Mouse::Button, sf::Keyboard::Key>;
 
 	struct input_t {
-		InputType type;
-		uint8_t id;
+		InputDetail detail;
 		bool prev = false, curr = false;
 
-		input_t(InputType type, uint8_t id) : type(type), id(id) {}
-
-		void update();
+		input_t() : detail(sf::Keyboard::Unknown) {}
+		input_t(InputDetail detail) : detail(detail) {}
 
 		bool is_key_pressing() const;
 		bool is_key_pressed() const;
-		bool is_key_upped() const;
+		bool is_key_released() const;
 	};
+	using Input = std::shared_ptr <input_t>;
 
 	struct cursor_t {
 		sf::Vector2i prev, curr;
 
-		void update();
-
 		sf::Vector2i get_position() const;
 		sf::Vector2i get_difference() const;
 	};
+	using Cursor = std::shared_ptr <cursor_t>;
 
 	class DragDistanceHandler {
 	public:
-		DragDistanceHandler(std::shared_ptr <cursor_t> cursor, std::shared_ptr <input_t> input) : input(input), cursor(cursor) {}
-
-		void update();
+		DragDistanceHandler(Cursor cursor, Input input) : input(input), cursor(cursor) {}
 
 		sf::Vector2i get_drag_distance() const;
 
 	private:
 		sf::Vector2i start_position, difference;
-		std::shared_ptr <cursor_t> cursor;
-		std::shared_ptr <input_t> input;
+		Cursor cursor;
+		Input input;
 	};
+
+	//TODO: update for cursor and distance handler
 
 	//every keyboard/mouse event has to be unique
 	class InputManager {
 	public:
-		void add_input_handler(std::string key, InputType type, uint8_t id);
-
-		void update();
+		void add_input_handler(std::string key, InputDetail detail);
 
 		void load_config(std::string filename);
 		void save_config(std::string filename) const;
 
-		std::shared_ptr <cursor_t> get_cursor() const;
-		std::shared_ptr <input_t> get_handler(std::string key) const;
+		void update() const;
+
+		Cursor get_cursor() const;
+		Input get_handler(std::string key) const;
 
 	protected:
-		std::unordered_map <std::string, std::shared_ptr <input_t>> m_handlers;
-		std::shared_ptr <cursor_t> m_cursor;
+		std::unordered_map <std::string, Input> m_handlers;
+		Cursor m_cursor;
 	};
 }

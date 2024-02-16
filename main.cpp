@@ -113,7 +113,7 @@ namespace util {
 
 int main() {
 	game::Console console;
-	game::core->init(/*false, false*/);
+	game::core->init();
 	util::init_console_functions(console);
 
 	do {
