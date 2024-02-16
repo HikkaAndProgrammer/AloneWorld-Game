@@ -15,6 +15,7 @@
 #include <Engine/StateMachine.hpp>
 #include <Engine/TextureModule.hpp>
 #include <Engine/ThreadPool.hpp>
+#include <Engine/EventSystem.hpp>
 
 //chaiscript
 #ifdef INCLUDE_SCRIPT_ENGINE
@@ -40,6 +41,7 @@ namespace engine {
 		std::shared_ptr <TextureManager> texture_manager;
 		std::shared_ptr <ThreadPool> thread_pool;
 		std::shared_ptr <StateMachine> state_machine;
+		std::shared_ptr <EventControlBlock> event_system;
 
 #ifdef INCLUDE_CHAI_SCRIPT
 		std::unique_ptr <chai::ChaiScript> script_engine;

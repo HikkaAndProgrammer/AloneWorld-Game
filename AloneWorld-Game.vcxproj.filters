@@ -12,6 +12,7 @@
     <ClCompile Include="src\Game\RenderState.cpp" />
     <ClCompile Include="src\Engine\InputManager.cpp" />
     <ClCompile Include="src\Game\Console.cpp" />
+    <ClCompile Include="src\Engine\EventSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\RenderModule.hpp" />
@@ -29,6 +30,7 @@
     <ClInclude Include="src\Game\TilemapCamera.hpp" />
     <ClInclude Include="src\Game\Core.hpp" />
     <ClInclude Include="src\Engine\EventSystem.hpp" />
+    <ClInclude Include="src\GameObjects\SfmlEvent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
