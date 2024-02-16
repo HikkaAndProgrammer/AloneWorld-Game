@@ -1,4 +1,3 @@
-//engine
 #include <Engine/EventSystem.hpp>
 
 namespace engine {

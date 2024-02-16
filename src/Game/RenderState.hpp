@@ -10,7 +10,7 @@ namespace game {
 	public:
 		void update() final override;
 
-		void onCreate() final override;
+		void on_create() final override;
 
 	private:
 		TilemapCamera camera;

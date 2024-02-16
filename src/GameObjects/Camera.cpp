@@ -1,4 +1,3 @@
-//game_objects
 #include <GameObjects/Camera.hpp>
 
 //sf

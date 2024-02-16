@@ -1,4 +1,3 @@
-//game
 #include <Game/RenderState.hpp>
 
 //engine
@@ -20,13 +19,8 @@ namespace game {
 		game::core->render_module->end();
 	}
 
-	void RenderState::onCreate() {
-		float width = game::core->tilemap->width() * 16,
-			height = game::core->tilemap->height() * 16,
-			zoom = 1.f / 3;
+	void RenderState::on_create() {
 		auto& view = this->camera.get_view();
-
-		game::core->window.create(sf::VideoMode(width / zoom, height / zoom), "Alone World");
 
 		view.setCenter(width / 2, height / 2);
 		view.setSize(width / zoom, height / zoom);

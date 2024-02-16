@@ -17,19 +17,19 @@ namespace engine {
 			using enum StateStatus;
 			switch (status) {
 			case OnCreate:
-				state->onCreate();
+				state->on_create();
 				state->is_active = true;
 				break;
 			case OnDelete:
-				state->onDelete();
+				state->on_delete();
 				state->is_active = false;
 				break;
 			case OnEnable:
-				state->onEnable();
+				state->on_enable();
 				state->is_active = true;
 				break;
 			case OnDisable:
-				state->onDisable();
+				state->on_disable();
 				state->is_active = false;
 				break;
 			}

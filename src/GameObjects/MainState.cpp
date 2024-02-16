@@ -1,4 +1,3 @@
-//game_objects
 #include <GameObjects/MainState.hpp>
 
 namespace game_objects {

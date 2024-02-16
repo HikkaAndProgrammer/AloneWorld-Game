@@ -27,11 +27,11 @@ namespace engine {
 	public:
 		virtual ~BaseState () {}
 
-		virtual void onEnable() {}
-		virtual void onDisable() {}
+		virtual void on_enable() {}
+		virtual void on_disable() {}
 
-		virtual void onCreate() {}
-		virtual void onDelete() {}
+		virtual void on_create() {}
+		virtual void on_delete() {}
 
 	private:
 		bool is_active;
