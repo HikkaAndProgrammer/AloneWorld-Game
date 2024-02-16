@@ -1,9 +1,9 @@
-#include <Taur/StateMachine.hpp>
+#include <Engine/StateMachine.hpp>
 
-//taur
-#include <Taur/GameManager.hpp>
+//engine
+#include <Engine/GameManager.hpp>
 
-namespace taur {
+namespace engine {
 	void StateMachine::init(size_t process_levels) {
 		this->m_process_levels.resize(process_levels);
 	}

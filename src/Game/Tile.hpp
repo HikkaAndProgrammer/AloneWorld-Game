@@ -57,5 +57,12 @@ namespace game {
 
 		size_t block_id, wall_id;
 		uint8_t block_type, wall_type;
+
+		void read(std::istream& is) {
+			is >> block_id >> block_type >> wall_id >> wall_type;
+		}
+		void write(std::ostream& os) const {
+			os << block_id << ' ' << (int)block_type << ' ' << wall_id << ' ' << (int)wall_type << ' ';
+		}
 	};
 }

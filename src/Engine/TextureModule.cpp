@@ -1,10 +1,10 @@
-//taur
-#include <Taur/TextureModule.hpp>
+//engine
+#include <Engine/TextureModule.hpp>
 
 //json
 #include <nlohmann/json.hpp>
 
-namespace taur {
+namespace engine {
 	std::shared_ptr <sf::Texture> TextureManager::operator[](KeyType id) {
 		return this->m_storage[id];
 	}

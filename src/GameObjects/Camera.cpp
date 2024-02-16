@@ -4,9 +4,9 @@
 //sf
 #include <SFML/Graphics/VertexArray.hpp>
 
-//taur
-#include <Taur/GameManager.hpp>
-#include <Taur/Util.hpp>
+//engine
+#include <Engine/GameManager.hpp>
+#include <Engine/Util.hpp>
 
 namespace game_objects {
 	void BaseCamera::set_offset(sf::Vector2f offset) {

@@ -8,7 +8,7 @@
 //sf
 #include <SFML/Graphics/Texture.hpp>
 
-namespace taur {
+namespace engine {
 	
 
 	class TextureManager {

@@ -22,4 +22,7 @@ namespace util {
 	private:
 		sf::Clock clock;
 	};
+
+	template <class... Ts> 
+	struct overload : Ts... { using Ts::operator()...; };
 }

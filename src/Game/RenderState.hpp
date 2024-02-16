@@ -1,18 +1,18 @@
 #pragma once
-//taur
-#include <Taur/StateMachine.hpp>
+//engine
+#include <Engine/StateMachine.hpp>
 
-//game_objects
-#include <GameObjects/Camera.hpp>
+//game
+#include <Game/TilemapCamera.hpp>
 
 namespace game {
-	class RenderState : public taur::BaseState {
+	class RenderState : public engine::BaseState {
 	public:
 		void update() final override;
 
 		void onCreate() final override;
 
 	private:
-		game_objects::ICamera camera;
+		TilemapCamera camera;
 	};
 }

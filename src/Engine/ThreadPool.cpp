@@ -1,6 +1,6 @@
-#include <Taur/ThreadPool.hpp>
+#include <Engine/ThreadPool.hpp>
 
-namespace taur {
+namespace engine {
 	ThreadPool::ThreadPool(size_t queue_size) : m_queue(queue_size) {}
 	ThreadPool::~ThreadPool() { 
 		this->stop(true); 
@@ -37,10 +37,11 @@ namespace taur {
 					this->m_flags[i]->store(true);
 					this->m_threads[i]->detach();
 				}
-				{
-					std::unique_lock lock(this->m_mutex);
-					this->m_cv.notify_all();
-				}
+				
+				std::unique_lock lock(this->m_mutex);
+				this->m_cv.notify_all();
+				lock.unlock();
+
 				this->m_threads.resize(size);
 				this->m_flags.resize(size);
 			}

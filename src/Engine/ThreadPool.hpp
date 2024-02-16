@@ -12,7 +12,7 @@
 //boost
 #include <boost/lockfree/queue.hpp>
 
-namespace taur {
+namespace engine {
 	using Task = std::function <void(size_t id)>;
 
 	class ThreadPool {
