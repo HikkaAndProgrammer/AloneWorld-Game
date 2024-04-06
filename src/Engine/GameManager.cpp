@@ -11,7 +11,7 @@ namespace engine {
 			this->shared_data.emplace(key, val.as_string());
 
 		this->load_systems();
-		//this->load_window();
+		this->load_window();
 		this->load_thread_pool();
 		this->load_script_engine();
 	}
@@ -37,7 +37,7 @@ namespace engine {
 		this->texture_manager.reset(new TextureManager());
 		this->texture_manager->load(textures_path);
 
-		size_t process_levels = this->m_settings["engine_data"]["process_levels"].as_integer();
+		size_t process_levels = this->m_settings["engine_data"]["state_machine"]["process_levels"].as_integer();
 		this->state_machine.reset(new StateMachine());
 		this->state_machine->init(1);
 

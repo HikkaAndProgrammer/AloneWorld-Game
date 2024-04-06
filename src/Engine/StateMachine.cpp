@@ -46,7 +46,13 @@ namespace engine {
 			}
 		}
 
-		auto& active = this->m_active_states;
+		for (auto& [container, active_count] : this->m_process_levels) {
+			auto& state = container.front();
+			if (state->is_active)
+				state->update();
+		}
+
+		/*auto& active = this->m_active_states;
 		auto& mutex = this->m_mutex;
 		auto& cv = this->m_cv;
 
@@ -74,7 +80,7 @@ namespace engine {
 				std::unique_lock lock(mutex);
 				this->m_cv.wait(lock, [&active]() { return active == 0; });
 			}
-		}
+		}*/
 	}
 
 	void StateMachine::add_state(std::string id, IState state) {

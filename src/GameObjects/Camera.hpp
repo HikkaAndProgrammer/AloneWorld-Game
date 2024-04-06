@@ -9,14 +9,23 @@
 namespace game_objects {
 	class BaseCamera {
 	public:
-		void set_offset(sf::Vector2f offset);
 		void set_size(sf::Vector2f size);
+		void set_size(float width, float height);
 		void set_position(sf::Vector2f position);
+		void set_position(float x, float y);
 
-		sf::View& get_view();
-		const sf::View& get_view() const;
-
-		void move(sf::Vector2f offset);
+		sf::Vector2f& offset() {
+			return this->m_offset;
+		}
+		const sf::Vector2f& offset() const {
+			return this->m_offset;
+		}
+		sf::View& view() {
+			return this->m_view;
+		}
+		const sf::View& view() const {
+			return this->m_view;
+		}
 
 		virtual void render() = 0;
 

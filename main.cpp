@@ -113,13 +113,16 @@ namespace util {
 
 int main() {
 	game::Console console;
+	std::ifstream startup_file("res/startup.txt");
+
 	game::core->init();
 	util::init_console_functions(console);
 
 	do {
-		console.process(std::cin);
+		console.process(startup_file);
 	} while (engine::core->flag);
 
+	startup_file.close();
 	game::core->release();
 	return 0;
 }

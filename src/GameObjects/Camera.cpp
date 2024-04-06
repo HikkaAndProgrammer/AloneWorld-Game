@@ -8,27 +8,20 @@
 #include <Engine/Util.hpp>
 
 namespace game_objects {
-	void BaseCamera::set_offset(sf::Vector2f offset) {
-		this->m_offset = offset;
-	}
 	void BaseCamera::set_size(sf::Vector2f size) {
 		this->m_size = size;
-		this->m_view.setSize(size);
+		this->m_view.setSize(this->m_size);
+	}
+	void BaseCamera::set_size(float width, float height) {
+		this->m_size = sf::Vector2f(width, height);
+		this->m_view.setSize(this->m_size);
 	}
 	void BaseCamera::set_position(sf::Vector2f position) {
 		this->m_position = position;
-		this->m_view.setCenter(position);
+		this->m_view.setCenter(this->m_position);
 	}
-
-	sf::View& BaseCamera::get_view() {
-		return this->m_view;
-	}
-	const sf::View& BaseCamera::get_view() const {
-		return this->m_view;
-	}
-
-	void BaseCamera::move(sf::Vector2f offset) {
-		this->m_position.x += offset.x;
-		this->m_position.y += offset.y;
+	void BaseCamera::set_position(float x, float y) {
+		this->m_position = sf::Vector2f(x, y);
+		this->m_view.setCenter(this->m_position);
 	}
 }
