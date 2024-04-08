@@ -17,8 +17,8 @@ namespace game {
 		void render() override {
 			auto tile_size = core->tile_size;
 			auto& tilemap = this->m_observed;
-			auto size = this->get_size();
-			auto position = this->get_position();
+			auto size = this->m_view.getSize();
+			auto position = this->m_view.getCenter();
 			int64_t x0 = std::floor((position.x - size.x / 2) / tile_size), 
 				x1 = std::ceil((position.x + size.x / 2) / tile_size),
 				y0 = std::floor((position.y - size.y / 2) / tile_size),
@@ -32,8 +32,8 @@ namespace game {
 					if (!tile.block_id)
 						continue;
 
-					size_t idx = (i + j * (x1 - x0)) * 6,
-						x = i * tile_size,
+					size_t idx = (i + j * (x1 - x0)) * 6;
+					float x = i * tile_size,
 						y = j * tile_size,
 						tx = 2 + (tile.block_type % 8) * (tile_size + 2),
 						ty = 2 + (tile.block_id - 1) * (tile_size + 2) * 4 + size_t(tile.block_type / 8) * (tile_size + 2);

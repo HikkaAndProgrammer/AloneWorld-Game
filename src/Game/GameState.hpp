@@ -13,9 +13,9 @@ namespace game {
 			engine::core->event_system->update();
 
 			if (this->move_left->is_key_pressing())
-				this->camera.move(-0.01f, 0);
+				this->camera.move(-0.1, 0);
 			if (this->move_right->is_key_pressing())
-				this->camera.move(0.01f, 0);
+				this->camera.move(0.1, 0);
 
 			this->camera.update();
 			
