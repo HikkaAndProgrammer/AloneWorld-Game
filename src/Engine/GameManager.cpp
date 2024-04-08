@@ -53,9 +53,11 @@ namespace engine {
 
 		std::string title = window_data["title"].as_string();
 		size_t width = window_data["width"].as_integer(),
-			height = window_data["height"].as_integer();
+			height = window_data["height"].as_integer(),
+			framerate = window_data["framerate"].as_integer();
 
 		core->window.create(sf::VideoMode(width, height), title);
+		core->window.setFramerateLimit(framerate);
 	}
 	void GameManager::load_thread_pool() {
 		auto thread_pool_data = this->m_settings["engine_data"]["thread_pool"];
