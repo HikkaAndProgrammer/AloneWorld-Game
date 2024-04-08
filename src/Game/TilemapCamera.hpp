@@ -1,30 +1,39 @@
 #pragma once
+//std
+#include <cmath>
+#include <cstdint>
+
 //engine
 #include <GameObjects/Camera.hpp>
 #include <GameObjects/Tilemap.hpp>
 
 //game
-#include <Game/Tile.hpp>
 #include <Game/Core.hpp>
+#include <Game/Tile.hpp>
 
 namespace game {
 	class TilemapCamera : public game_objects::BaseCamera {
 	public:
 		void render() override {
-			const auto& tile_size = core->tile_size;
-			auto& tilemap = *this->m_observed;
-			auto width = tilemap.width(), height = tilemap.height();
+			auto tile_size = core->tile_size;
+			auto& tilemap = this->m_observed;
+			auto size = this->m_view.getSize();
+			auto position = this->m_view.getCenter();
+			int64_t x0 = std::floor((position.x - size.x / 2) / tile_size), 
+				x1 = std::ceil((position.x + size.x / 2) / tile_size),
+				y0 = std::floor((position.y - size.y / 2) / tile_size),
+				y1 = std::ceil((position.y + size.y / 2) / tile_size);
 			//every quad tile consists of 2 triangles, triangle consists of 3 points
-			auto request = sf::VertexArray(sf::Triangles, width * height * 6);
+			auto request = sf::VertexArray(sf::Triangles, (x1 - x0) * (y1 - y0) * 6);
 
-			for (size_t i = 0; i != width; i++) {
-				for (size_t j = 0; j != height; j++) {
-					tile_t tile = tilemap.at_try(i, j);
+			for (int64_t i = x0; i <= x1; i++) {
+				for (int64_t j = y0; j <= y1; j++) {
+					tile_t tile = tilemap->at_try(i, j);
 					if (!tile.block_id)
 						continue;
 
-					size_t idx = (i + j * width) * 6,
-						x = i * tile_size,
+					size_t idx = (i + j * (x1 - x0)) * 6;
+					float x = i * tile_size,
 						y = j * tile_size,
 						tx = 2 + (tile.block_type % 8) * (tile_size + 2),
 						ty = 2 + (tile.block_id - 1) * (tile_size + 2) * 4 + size_t(tile.block_type / 8) * (tile_size + 2);
@@ -41,9 +50,8 @@ namespace game {
 			core->render_module->request(std::move(request), core->texture_manager->at("tiles"));
 		}
 
-		void link(Tilemap tilemap) {
-			this->m_observed = tilemap;
-		}
+		Tilemap& tilemap() { return this->m_observed; }
+		const Tilemap& tilemap() const { return this->m_observed; }
 
 	protected:
 		Tilemap m_observed = nullptr;

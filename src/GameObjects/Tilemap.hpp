@@ -82,7 +82,6 @@ namespace game_objects {
 		std::vector <_TileType> m_content;
 		std::vector <TileBlank> m_catalog;
 		size_t m_width = 0, m_height = 0;
-		const size_t tile_size = 16;
 	};
 	
 	template <class _TileType>

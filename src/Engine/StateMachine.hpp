@@ -27,11 +27,11 @@ namespace engine {
 	public:
 		virtual ~BaseState () {}
 
-		virtual void onEnable() {}
-		virtual void onDisable() {}
+		virtual void on_enable() {}
+		virtual void on_disable() {}
 
-		virtual void onCreate() {}
-		virtual void onDelete() {}
+		virtual void on_create() {}
+		virtual void on_delete() {}
 
 	private:
 		bool is_active;
@@ -47,8 +47,8 @@ namespace engine {
 
 		void request_status_change(std::string id, StateStatus status);
 
-		void set_render_level(std::string state_id, size_t level);
-		void clear_render_level(size_t level);
+		void set_update_level(std::string state_id, size_t level);
+		void clear_update_level(size_t level);
 
 	protected:
 		std::unordered_map <std::string, IState> m_states;

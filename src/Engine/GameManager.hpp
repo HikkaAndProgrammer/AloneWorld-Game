@@ -23,18 +23,28 @@
 namespace chai = chaiscript;
 #endif
 
+//toml
+#include <toml.hpp>
+
 namespace engine {
-	//Singleton
+	//Singleton and you can call load and save functions only once after init
 	class GameManager {
 	public:
 		virtual void init();
 		virtual void release();
 
+		void load_systems();
+		void load_window();
+		void load_thread_pool();
+		void load_script_engine();
+
+		void save_systems();
+
 		std::atomic_bool flag;
 		std::unordered_map <std::string, std::string> shared_data;
 		
 		sf::RenderWindow window;
-		sf::Clock clock;
+		sf::Vector2u window_size;
 
 		//core systems
 		std::shared_ptr <ThreadPool> thread_pool;
@@ -42,6 +52,7 @@ namespace engine {
 
 		//logic systems
 		std::shared_ptr <InputManager> input_manager;
+		std::shared_ptr <InputEvent> input_event;
 		std::shared_ptr <EventControlBlock> event_system;
 
 		//graphics systems
@@ -51,6 +62,8 @@ namespace engine {
 #ifdef INCLUDE_CHAI_SCRIPT
 		std::unique_ptr <chai::ChaiScript> script_engine;
 #endif
+	protected:
+		toml::value m_settings;
 	};
 
 	extern std::shared_ptr <GameManager> core;

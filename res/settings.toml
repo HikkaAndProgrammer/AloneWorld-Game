@@ -6,7 +6,16 @@ input_config_path = "res/input_config.toml"
 threads_count = 0
 queue_size = 0
 
+[engine_data.state_machine]
+process_levels = 1
+
 [engine_data.script_engine]
 is_start_script_engine = false
+
+[engine_data.window]
+title = "Alone World"
+width = 900
+height = 600
+framerate = 60
 
 [shared_data]

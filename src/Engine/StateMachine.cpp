@@ -17,19 +17,19 @@ namespace engine {
 			using enum StateStatus;
 			switch (status) {
 			case OnCreate:
-				state->onCreate();
+				state->on_create();
 				state->is_active = true;
 				break;
 			case OnDelete:
-				state->onDelete();
+				state->on_delete();
 				state->is_active = false;
 				break;
 			case OnEnable:
-				state->onEnable();
+				state->on_enable();
 				state->is_active = true;
 				break;
 			case OnDisable:
-				state->onDisable();
+				state->on_disable();
 				state->is_active = false;
 				break;
 			}
@@ -46,7 +46,13 @@ namespace engine {
 			}
 		}
 
-		auto& active = this->m_active_states;
+		for (auto& [container, active_count] : this->m_process_levels) {
+			auto& state = container.front();
+			if (state->is_active)
+				state->update();
+		}
+
+		/*auto& active = this->m_active_states;
 		auto& mutex = this->m_mutex;
 		auto& cv = this->m_cv;
 
@@ -74,7 +80,7 @@ namespace engine {
 				std::unique_lock lock(mutex);
 				this->m_cv.wait(lock, [&active]() { return active == 0; });
 			}
-		}
+		}*/
 	}
 
 	void StateMachine::add_state(std::string id, IState state) {
@@ -87,12 +93,12 @@ namespace engine {
 		this->m_requested_updates.emplace(this->m_states[id], status);
 	}
 
-	void StateMachine::set_render_level(std::string state_id, size_t level) {
+	void StateMachine::set_update_level(std::string state_id, size_t level) {
 		auto state = m_states[state_id];
 		auto& [container, flag] = this->m_process_levels[level];
 		container.push_back(state);
 	}
-	void StateMachine::clear_render_level(size_t level) {
+	void StateMachine::clear_update_level(size_t level) {
 		auto& [container, flag] = this->m_process_levels[level];
 		container.clear();
 		flag = 0;

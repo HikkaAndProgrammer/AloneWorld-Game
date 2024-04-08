@@ -1,4 +1,3 @@
-//engine
 #include <Engine/InputManager.hpp>
 
 //toml
@@ -84,20 +83,22 @@ namespace engine {
 		file.close();
 	}
 
-	void InputManager::update() const {
-		for (const auto& [_, input] : this->m_handlers) {
+	std::shared_ptr <cursor_t> InputManager::get_cursor() const { 
+		return this->m_cursor; 
+	}
+	std::shared_ptr <input_t> InputManager::get_handler(std::string key) const { 
+		return this->m_handlers.at(key); 
+	}
+
+	//InputEvent
+
+	void InputEvent::update() {
+		for (const auto& [_, input] : this->m_input_manager.m_handlers) {
 			input->prev = input->curr;
 			std::visit(util::overload{
 				[&](sf::Keyboard::Key& key) { input->curr = sf::Keyboard::isKeyPressed(key); },
 				[&](sf::Mouse::Button& button) { input->curr = sf::Mouse::isButtonPressed(button); }
 			}, input->detail);
 		}
-	}
-
-	std::shared_ptr <cursor_t> InputManager::get_cursor() const { 
-		return this->m_cursor; 
-	}
-	std::shared_ptr <input_t> InputManager::get_handler(std::string key) const { 
-		return this->m_handlers.at(key); 
 	}
 }
