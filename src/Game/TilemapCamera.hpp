@@ -17,11 +17,12 @@ namespace game {
 		void render() override {
 			auto tile_size = core->tile_size;
 			auto& tilemap = this->m_observed;
-			auto width = tilemap->width(), height = tilemap->height();
-			int64_t x0 = std::floor((this->m_position.x - m_size.x / 2) / tile_size), 
-				x1 = std::ceil((this->m_position.x + m_size.x / 2) / tile_size),
-				y0 = std::floor((this->m_position.y - m_size.y / 2) / tile_size),
-				y1 = std::ceil((this->m_position.y + m_size.y / 2) / tile_size);
+			auto size = this->get_size();
+			auto position = this->get_position();
+			int64_t x0 = std::floor((position.x - size.x / 2) / tile_size), 
+				x1 = std::ceil((position.x + size.x / 2) / tile_size),
+				y0 = std::floor((position.y - size.y / 2) / tile_size),
+				y1 = std::ceil((position.y + size.y / 2) / tile_size);
 			//every quad tile consists of 2 triangles, triangle consists of 3 points
 			auto request = sf::VertexArray(sf::Triangles, (x1 - x0) * (y1 - y0) * 6);
 
@@ -31,7 +32,7 @@ namespace game {
 					if (!tile.block_id)
 						continue;
 
-					size_t idx = (i + j * width) * 6,
+					size_t idx = (i + j * (x1 - x0)) * 6,
 						x = i * tile_size,
 						y = j * tile_size,
 						tx = 2 + (tile.block_type % 8) * (tile_size + 2),

@@ -23,7 +23,7 @@
 
 //game
 #include <Game/Console.hpp>
-#include <Game/RenderState.hpp>
+#include <Game/GameState.hpp>
 #include <Game/Tile.hpp>
 #include <Game/Core.hpp>
 
@@ -76,7 +76,7 @@ namespace util {
 					tm->at_try(i, j + 1),
 					tm->at_try(i - 1, j)
 				};
-				current.block_type = (uint8_t) choose_type(current, adjacent);
+				current.block_type = (uint8_t)choose_type(current, adjacent);
 			}
 		}
 	}
@@ -90,12 +90,11 @@ namespace util {
 	}
 	void init_console_functions(game::Console& console) {
 		console.add_function("start", [&](std::istream& is) {
-			engine::core->state_machine->add_state("render_state", std::make_shared <game::RenderState>());
-			engine::core->state_machine->set_render_level("render_state", 0);
+			engine::core->state_machine->add_state("game_state", std::make_shared <game::GameState>());
+			engine::core->state_machine->set_update_level("game_state", 0);
 
-			while (engine::core->flag) {
+			while (engine::core->flag)
 				engine::core->state_machine->update();
-			}
 
 			return 0;
 		});
@@ -105,7 +104,7 @@ namespace util {
 		});
 		console.add_function("generate_tilemap", [&](std::istream& is) {
 			auto tm = std::dynamic_pointer_cast <game_objects::BaseTilemap <game::tile_t>>(game::core->tilemap);
-			generate(game::core->tilemap, 10, 10);
+			generate(tm, 10, 10);
 			return 0;
 		});
 	}

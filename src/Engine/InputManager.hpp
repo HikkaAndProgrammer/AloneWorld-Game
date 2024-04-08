@@ -57,13 +57,12 @@ namespace engine {
 
 	//every keyboard/mouse event has to be unique
 	class InputManager {
+		friend class InputEvent;
 	public:
 		void add_input_handler(std::string key, InputDetail detail);
 
 		void load_config(std::string filename);
 		void save_config(std::string filename) const;
-
-		void update() const;
 
 		Cursor get_cursor() const;
 		Input get_handler(std::string key) const;
@@ -71,5 +70,15 @@ namespace engine {
 	protected:
 		std::unordered_map <std::string, Input> m_handlers;
 		Cursor m_cursor;
+	};
+
+	class InputEvent : public engine::BaseEvent {
+	public:
+		InputEvent(InputManager& input_manager) : m_input_manager(input_manager) {}
+
+		void update() override;
+
+	protected:
+		InputManager& m_input_manager;
 	};
 }

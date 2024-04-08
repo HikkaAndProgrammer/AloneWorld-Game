@@ -26,7 +26,7 @@ namespace engine {
 	void RenderModule::draw() const {
 		sf::RenderStates states;
 		for (const auto& request : this->m_requests) {
-			states.texture = request.texture.get();
+			states.texture = request.texture.get(); 
 			this->m_target->draw(request.vertices, states);
 		}
 	}

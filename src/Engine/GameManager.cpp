@@ -32,6 +32,7 @@ namespace engine {
 		auto input_config_path = this->m_settings["engine_data"]["input_config_path"].as_string();
 		this->input_manager.reset(new InputManager());
 		this->input_manager->load_config(input_config_path);
+		this->input_event.reset(new InputEvent(*this->input_manager));
 
 		auto textures_path = this->m_settings["engine_data"]["textures_path"].as_string();
 		this->texture_manager.reset(new TextureManager());
@@ -39,10 +40,13 @@ namespace engine {
 
 		size_t process_levels = this->m_settings["engine_data"]["state_machine"]["process_levels"].as_integer();
 		this->state_machine.reset(new StateMachine());
-		this->state_machine->init(1);
+		this->state_machine->init(process_levels);
 
 		this->render_module.reset(new RenderModule());
 		this->render_module->init();
+
+		this->event_system.reset(new EventControlBlock());
+		this->event_system->insert_event(this->input_event);
 	}
 	void GameManager::load_window() {
 		auto window_data = this->m_settings["engine_data"]["window"];

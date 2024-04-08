@@ -52,6 +52,7 @@ namespace engine {
 
 		//logic systems
 		std::shared_ptr <InputManager> input_manager;
+		std::shared_ptr <InputEvent> input_event;
 		std::shared_ptr <EventControlBlock> event_system;
 
 		//graphics systems

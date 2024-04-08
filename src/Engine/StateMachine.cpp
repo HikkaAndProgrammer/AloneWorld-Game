@@ -93,12 +93,12 @@ namespace engine {
 		this->m_requested_updates.emplace(this->m_states[id], status);
 	}
 
-	void StateMachine::set_render_level(std::string state_id, size_t level) {
+	void StateMachine::set_update_level(std::string state_id, size_t level) {
 		auto state = m_states[state_id];
 		auto& [container, flag] = this->m_process_levels[level];
 		container.push_back(state);
 	}
-	void StateMachine::clear_render_level(size_t level) {
+	void StateMachine::clear_update_level(size_t level) {
 		auto& [container, flag] = this->m_process_levels[level];
 		container.clear();
 		flag = 0;

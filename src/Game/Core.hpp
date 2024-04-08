@@ -4,6 +4,7 @@
 
 //game_objects
 #include <GameObjects/Tilemap.hpp>
+#include <GameObjects/SfmlEvent.hpp>
 
 //game
 #include <Game/Tile.hpp>
@@ -23,6 +24,8 @@ namespace game {
 			engine::GameManager::init();
 			this->tilemap.reset(new game_objects::BaseTilemap <tile_t>());
 			this->tilemap->load("res/saves/Admin/main.sav");
+
+			this->event_system->insert_event(std::make_shared <game_objects::SfmlEvent>());
 		}
 
 		void release() override {
