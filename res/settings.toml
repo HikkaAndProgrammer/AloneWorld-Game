@@ -16,6 +16,6 @@ is_start_script_engine = false
 title = "Alone World"
 width = 900
 height = 600
-framerate = 60
+framerate = 144
 
 [shared_data]
