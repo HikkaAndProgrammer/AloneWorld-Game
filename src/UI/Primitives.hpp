@@ -1,4 +1,8 @@
 #pragma once
+//std
+#include <vector>
+#include <list>
+
 //sf
 #include <SFML/Graphics.hpp>
 
@@ -11,6 +15,14 @@ namespace engine::ui {
 	public:
 		virtual bool is_clicked(sf::Vector2i point) = 0;
 		virtual void on_click() = 0;
+	};
+
+	class UiPage {
+	public:
+
+
+	protected:
+		std::vector <std::list <BasicUiUnit>> m_elements;
 	};
 
 	class RectangleUiUnit : public BasicUiUnit {
@@ -26,6 +38,13 @@ namespace engine::ui {
 				this->m_text->setCharacterSize(size);
 				this->m_text->setString(text);
 			}
+		}
+		
+		sf::RectangleShape& box() { return this->m_box; }
+		const sf::RectangleShape& box() const { return this->m_box; }
+
+		void render() const override {
+			
 		}
 
 	protected:

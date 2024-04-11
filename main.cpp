@@ -9,9 +9,9 @@
 #include <SFML/Window.hpp>
 
 //engine
+#include <Engine/Camera.hpp>
 #include <Engine/GameManager.hpp>
 #include <Engine/ThreadPool.hpp>
-#include <Engine/Camera.hpp>
 
 //game_objects
 #include <GameObjects/TilemapSystem.hpp>

@@ -1,14 +1,7 @@
 #pragma once
 //std
-#include <algorithm>
 #include <memory>
 #include <vector>
-
-//sf
-#include <SFML/Graphics.hpp>
-
-//nlohman
-#include <nlohmann/json.hpp>
 
 //engine
 #include "Engine/Util.hpp"

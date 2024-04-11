@@ -1,8 +1,5 @@
 #include "Engine/StateMachine.hpp"
 
-//engine
-#include "Engine/GameManager.hpp"
-
 namespace engine {
 	void StateMachine::init(size_t process_levels) {
 		this->m_process_levels.resize(process_levels);
@@ -51,36 +48,6 @@ namespace engine {
 			if (state->is_active)
 				state->update();
 		}
-
-		/*auto& active = this->m_active_states;
-		auto& mutex = this->m_mutex;
-		auto& cv = this->m_cv;
-
-		for (auto& [container, active_count] : this->m_process_levels) {
-			if (active_count > 1) {
-				for (size_t i = 1; i < container.size(); i++) {
-					auto& state = container[i];
-					if (state->is_active) {
-						core->thread_pool->push([state, &active, &mutex, &cv](size_t id) {
-							std::unique_lock lock(mutex);
-							active++;
-							state->update();
-							active--;
-							cv.notify_one();
-						});
-					}
-				}
-			}
-
-			auto& state = container.front();
-			if (state->is_active)
-				state->update();
-
-			if (active_count > 1) {
-				std::unique_lock lock(mutex);
-				this->m_cv.wait(lock, [&active]() { return active == 0; });
-			}
-		}*/
 	}
 
 	void StateMachine::add_state(std::string id, IState state) {

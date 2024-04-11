@@ -3,8 +3,8 @@
 #include "Engine/GameManager.hpp"
 
 //game_objects
-#include "GameObjects/SfmlEvent.hpp"
 #include "Game/GameTilemap.hpp"
+#include "GameObjects/SfmlEvent.hpp"
 
 namespace game {
 	class Core : public engine::GameManager {

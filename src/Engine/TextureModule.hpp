@@ -1,6 +1,5 @@
 #pragma once
 //std
-#include <fstream>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -9,8 +8,6 @@
 #include <SFML/Graphics/Texture.hpp>
 
 namespace engine {
-	
-
 	class TextureManager {
 	public:
 		using KeyType = std::string;

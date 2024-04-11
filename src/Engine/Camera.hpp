@@ -1,11 +1,10 @@
 #pragma once
 //std
 #include <memory>
-#include <cmath>
 
 //sf
-#include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/View.hpp>
+#include <SFML/System/Vector2.hpp>
 
 namespace engine {
 	class Camera {

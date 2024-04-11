@@ -1,5 +1,8 @@
 #include "Engine/TextureModule.hpp"
 
+//std
+#include <fstream>
+
 //json
 #include <nlohmann/json.hpp>
 

@@ -1,14 +1,12 @@
 #pragma once
 //std
 #include <atomic>
-#include <condition_variable>
-#include <list>
 #include <memory>
 #include <mutex>
+#include <queue>
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <queue>
 
 //engine
 #include "Engine/Util.hpp"

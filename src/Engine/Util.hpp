@@ -1,7 +1,10 @@
 #pragma once
+//std
+#include <memory>
+
 //sf
+#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Vertex.hpp>
-#include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Clock.hpp>
 
 namespace util {
@@ -32,4 +35,8 @@ namespace util {
 
 	template <class... Ts> 
 	struct overload : Ts... { using Ts::operator()...; };
+
+	using IUpdatable = std::shared_ptr <Updatable>;
+	using IRenderable = std::shared_ptr <Renderable>;
+	using IDrawable = std::shared_ptr <sf::Drawable>;
 }

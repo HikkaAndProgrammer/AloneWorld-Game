@@ -1,5 +1,8 @@
 #include "Engine/Camera.hpp"
 
+//std
+#include <cmath>
+
 namespace engine {
 	sf::Vector2f Camera::get_size() const { 
 		return this->m_view.getSize(); 

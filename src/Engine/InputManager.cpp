@@ -4,7 +4,6 @@
 #include <toml.hpp>
 
 //engine
-#include "Engine/GameManager.hpp"
 #include "Engine/Util.hpp"
 
 namespace engine {

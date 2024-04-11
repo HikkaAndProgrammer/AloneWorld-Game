@@ -1,6 +1,4 @@
 #pragma once
-//std
-#include <list>
 
 //sf
 #include <SFML/Window/Event.hpp>

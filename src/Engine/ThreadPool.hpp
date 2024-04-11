@@ -1,7 +1,6 @@
 #pragma once
 //std
 #include <atomic>
-#include <exception>
 #include <functional>
 #include <future>
 #include <memory>
