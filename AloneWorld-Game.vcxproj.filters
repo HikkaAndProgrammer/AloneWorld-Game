@@ -11,24 +11,25 @@
     <ClCompile Include="src\Engine\InputManager.cpp" />
     <ClCompile Include="src\Game\Console.cpp" />
     <ClCompile Include="src\Engine\EventSystem.cpp" />
+    <ClCompile Include="src\Engine\Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\RenderModule.hpp" />
     <ClInclude Include="src\Engine\GameManager.hpp" />
     <ClInclude Include="src\Engine\TextureModule.hpp" />
-    <ClInclude Include="src\GameObjects\Tilemap.hpp" />
-    <ClInclude Include="src\GameObjects\Camera.hpp" />
+    <ClInclude Include="src\GameObjects\TilemapSystem.hpp" />
+    <ClInclude Include="src\Engine\Camera.hpp" />
     <ClInclude Include="src\Engine\Util.hpp" />
     <ClInclude Include="src\Engine\ThreadPool.hpp" />
     <ClInclude Include="src\Engine\StateMachine.hpp" />
     <ClInclude Include="src\Engine\InputManager.hpp" />
     <ClInclude Include="src\Game\Console.hpp" />
-    <ClInclude Include="src\Game\Tile.hpp" />
-    <ClInclude Include="src\Game\TilemapCamera.hpp" />
     <ClInclude Include="src\Game\Core.hpp" />
     <ClInclude Include="src\Engine\EventSystem.hpp" />
     <ClInclude Include="src\GameObjects\SfmlEvent.hpp" />
     <ClInclude Include="src\Game\GameState.hpp" />
+    <ClInclude Include="src\UI\Primitives.hpp" />
+    <ClInclude Include="src\Game\GameTilemap.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

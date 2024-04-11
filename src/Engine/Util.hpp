@@ -1,6 +1,7 @@
 #pragma once
 //sf
 #include <SFML/Graphics/Vertex.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Clock.hpp>
 
 namespace util {
@@ -21,6 +22,12 @@ namespace util {
 
 	private:
 		sf::Clock clock;
+	};
+
+	class Renderable {
+	public:
+		//you have to call render_module.request(VertexArray&&) at the end
+		virtual void render() const = 0;
 	};
 
 	template <class... Ts> 

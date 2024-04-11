@@ -26,7 +26,7 @@ namespace engine {
 		void draw() const;
 
 	protected:
-		sf::RenderTarget* m_target;
+		std::shared_ptr <sf::RenderTarget> m_target;
 		std::list <request_t> m_requests;
 	};
 }

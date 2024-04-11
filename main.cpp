@@ -11,10 +11,10 @@
 //engine
 #include <Engine/GameManager.hpp>
 #include <Engine/ThreadPool.hpp>
+#include <Engine/Camera.hpp>
 
 //game_objects
-#include <GameObjects/Camera.hpp>
-#include <GameObjects/Tilemap.hpp>
+#include <GameObjects/TilemapSystem.hpp>
 
 //script
 #ifdef INCLUDE_SCRIPT_ENGINE
@@ -24,7 +24,7 @@
 //game
 #include <Game/Console.hpp>
 #include <Game/GameState.hpp>
-#include <Game/Tile.hpp>
+#include <Game/GameTilemap.hpp>
 #include <Game/Core.hpp>
 
 namespace engine {
@@ -36,7 +36,7 @@ namespace game {
 }
 
 namespace util {
-	void generate(game::Tilemap& tm, size_t width, size_t height) {
+	void generate(std::shared_ptr <game::GameTilemap> tm, size_t width, size_t height) {
 		//adjacent 3 - left, 2 - down, 1 - right, 0 - upper
 		std::function choose_type = [](game::tile_t original, std::array <game::tile_t, 4> adjacent) {
 			using enum game::block_state_t;
@@ -80,7 +80,7 @@ namespace util {
 			}
 		}
 	}
-	void print(std::ostream& os, game::Tilemap& tm) {
+	void print(std::ostream& os, std::shared_ptr <game::GameTilemap> tm) {
 		os << "width: " << tm->width() << "\nheight: " << tm->height() << '\n';
 		for (size_t i = 0; i != tm->height(); i++) {
 			for (size_t j = 0; j != tm->width(); j++)
@@ -103,7 +103,7 @@ namespace util {
 			return 0;
 		});
 		console.add_function("generate_tilemap", [&](std::istream& is) {
-			auto tm = std::dynamic_pointer_cast <game_objects::BaseTilemap <game::tile_t>>(game::core->tilemap);
+			auto tm = std::dynamic_pointer_cast <game::GameTilemap>(game::core->tilemap);
 			generate(tm, 10, 10);
 			return 0;
 		});

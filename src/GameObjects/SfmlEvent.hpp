@@ -6,8 +6,8 @@
 #include <SFML/Window/Event.hpp>
 
 //engine
-#include <Engine/EventSystem.hpp>
-#include <Engine/GameManager.hpp>
+#include "Engine/EventSystem.hpp"
+#include "Engine/GameManager.hpp"
 
 namespace game_objects {
 	class SfmlEvent : public engine::BaseEvent {
@@ -15,10 +15,10 @@ namespace game_objects {
 		//TODO: make every sfml event handling
 		void update() final override {
 			sf::Event event;
-			while (engine::core->window.pollEvent(event)) {
+			while (engine::core->window->pollEvent(event)) {
 				switch (event.type) {
 				case sf::Event::Closed:
-					engine::core->window.close();
+					engine::core->window->close();
 					break;
 				}
 			}

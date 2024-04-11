@@ -1,4 +1,4 @@
-#include <Engine/GameManager.hpp>
+#include "Engine/GameManager.hpp"
 
 namespace engine {
 	void GameManager::init() {
@@ -16,8 +16,8 @@ namespace engine {
 		this->load_script_engine();
 	}
 	void GameManager::release() {
-		if (this->window.isOpen())
-			this->window.close();
+		if (this->window->isOpen())
+			this->window->close();
 
 		this->thread_pool->stop(true);
 
@@ -33,6 +33,8 @@ namespace engine {
 		this->input_manager.reset(new InputManager());
 		this->input_manager->load_config(input_config_path);
 		this->input_event.reset(new InputEvent(*this->input_manager));
+		this->font.reset(new sf::Font());
+		this->font->loadFromFile(this->m_settings["engine_data"]["font_path"].as_string());
 
 		auto textures_path = this->m_settings["engine_data"]["textures_path"].as_string();
 		this->texture_manager.reset(new TextureManager());
@@ -42,6 +44,7 @@ namespace engine {
 		this->state_machine.reset(new StateMachine());
 		this->state_machine->init(process_levels);
 
+		this->window.reset(new sf::RenderWindow());
 		this->render_module.reset(new RenderModule());
 		this->render_module->init();
 
@@ -56,8 +59,9 @@ namespace engine {
 			height = window_data["height"].as_integer(),
 			framerate = window_data["framerate"].as_integer();
 
-		core->window.create(sf::VideoMode(width, height), title);
-		core->window.setFramerateLimit(framerate);
+		this->window->create(sf::VideoMode(width, height), title);
+		this->window->setFramerateLimit(framerate);
+		this->camera.reset(new Camera());
 	}
 	void GameManager::load_thread_pool() {
 		auto thread_pool_data = this->m_settings["engine_data"]["thread_pool"];

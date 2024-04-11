@@ -1,7 +1,7 @@
-#include <Engine/StateMachine.hpp>
+#include "Engine/StateMachine.hpp"
 
 //engine
-#include <Engine/GameManager.hpp>
+#include "Engine/GameManager.hpp"
 
 namespace engine {
 	void StateMachine::init(size_t process_levels) {

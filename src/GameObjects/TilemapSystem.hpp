@@ -10,6 +10,9 @@
 //nlohman
 #include <nlohmann/json.hpp>
 
+//engine
+#include "Engine/Util.hpp"
+
 namespace game_objects {
 	class TileBlank {
 		template <class _TileType>
@@ -20,8 +23,9 @@ namespace game_objects {
 		std::shared_ptr <sf::Texture> m_texture;
 	};
 
+	//TODO: remake it with toml
 	template <class _TileType>
-	class BaseTilemap {
+	class BaseTilemap : public util::Renderable {
 	public:
 		_TileType& at(size_t x, size_t y) {
 			return this->m_content.at(x + y * this->m_width);

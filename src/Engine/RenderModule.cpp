@@ -1,11 +1,11 @@
-#include <Engine/RenderModule.hpp>
+#include "Engine/RenderModule.hpp"
 
 //engine
-#include <Engine/GameManager.hpp>
+#include "Engine/GameManager.hpp"
 
 namespace engine {
 	void RenderModule::init() {
-		this->m_target = &core->window;
+		this->m_target = core->window;
 	}
 
 	sf::RenderTarget& RenderModule::get_target() {

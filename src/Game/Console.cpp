@@ -1,4 +1,4 @@
-#include <Game/Console.hpp>
+#include "Game/Console.hpp"
 
 namespace game {
 	int64_t Console::process(std::istream& is) {
