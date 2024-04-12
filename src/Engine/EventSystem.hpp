@@ -11,12 +11,16 @@ namespace engine {
 
 	class BaseListener {
 	public:
+		virtual ~BaseListener() = default;
+
 		virtual void call(std::any data) = 0;
 	};
 	using IListener = std::shared_ptr <BaseListener>;
 
 	class BasePublisher {
 	public:
+		virtual ~BasePublisher() = default;
+
 		virtual void post() = 0;
 	};
 	using IPublisher = std::shared_ptr <BasePublisher>;
@@ -25,27 +29,29 @@ namespace engine {
 	//needed to make external event systems works
 	class BaseEvent {
 	public:
+		virtual ~BaseEvent() = default;
+
 		virtual void update() = 0;
 	};
 	using IEvent = std::shared_ptr <BaseEvent>;
 
 	class EventControlBlock {
 	public:
-		void insert_listener(event_id_t id, IListener listener);
-		void insert_listener(std::string event_name, IListener listener);
-		void remove_listener(event_id_t id, IListener listener);
-		void remove_listener(std::string event_name, IListener listener);
+		void insert_listener(event_id_t id, const IListener& listener);
+		void insert_listener(const std::string& event_name, const IListener& listener);
+		void remove_listener(event_id_t id);
+		void remove_listener(const std::string& event_name, const IListener& listener);
 
-		void insert_event(IEvent event);
-		void remove_event(IEvent event);
+		void insert_event(const IEvent& event);
+		void remove_event(const IEvent& event);
 
 		//TODO: custom inserting ids for event's names
-		event_id_t get_event_id(std::string event_name);
+		event_id_t get_event_id(const std::string& event_name);
 
 		void update();
 
-		void call(event_id_t id, std::any data);
-		void call(std::string event_name, std::any data);
+		void call(event_id_t id, const std::any& data);
+		void call(const std::string& event_name, const std::any& data);
 
 	protected:
 		std::unordered_multimap <event_id_t, IListener> m_listeners;

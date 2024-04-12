@@ -1,28 +1,23 @@
 #pragma once
 //engine
-#include <Engine/GameManager.hpp>
+#include "Engine/GameManager.hpp"
 
 //game_objects
-#include <GameObjects/Tilemap.hpp>
-#include <GameObjects/SfmlEvent.hpp>
-
-//game
-#include <Game/Tile.hpp>
+#include "Game/GameTilemap.hpp"
+#include "GameObjects/SfmlEvent.hpp"
 
 namespace game {
-	using Tilemap = game_objects::ITilemap <tile_t>;
-
 	class Core : public engine::GameManager {
 		friend class engine::BaseState;
 	public:
 		size_t tile_size = 16; //in px
 
-		Tilemap tilemap;
+		std::shared_ptr <GameTilemap> tilemap;
 
 		//TODO: remake tilemap io
 		void init() override {
 			engine::GameManager::init();
-			this->tilemap.reset(new game_objects::BaseTilemap <tile_t>());
+			this->tilemap.reset(new GameTilemap());
 			this->tilemap->load("res/saves/Admin/main.sav");
 
 			this->event_system->insert_event(std::make_shared <game_objects::SfmlEvent>());

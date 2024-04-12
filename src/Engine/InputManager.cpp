@@ -1,11 +1,12 @@
-#include <Engine/InputManager.hpp>
+#include "Engine/InputManager.hpp"
 
 //toml
 #include <toml.hpp>
 
 //engine
-#include <Engine/GameManager.hpp>
-#include <Engine/Util.hpp>
+#include <ranges>
+
+#include "Engine/Util.hpp"
 
 namespace engine {
 	//input_t
@@ -37,12 +38,12 @@ namespace engine {
 
 	//InputManager
 
-	void InputManager::add_input_handler(std::string key, InputDetail detail) {
+	void InputManager::add_input_handler(const std::string& key, InputDetail detail) {
 		Input temp(new input_t(detail));
 		this->m_handlers.emplace(key, temp);
 	}
 
-	void InputManager::load_config(std::string filename) {
+	void InputManager::load_config(const std::string& filename) {
 		auto config = toml::parse(filename).as_table();
 		for (const auto& [key, val] : config) {
 			auto info = val.as_table();
@@ -56,7 +57,7 @@ namespace engine {
 			this->add_input_handler(key, detail);
 		}
 	}
-	void InputManager::save_config(std::string filename) const {
+	void InputManager::save_config(const std::string& filename) const {
 		std::ofstream file;
 		toml::value config = toml::table();
 		toml::table& table = config.as_table();
@@ -67,8 +68,8 @@ namespace engine {
 			uint32_t id;
 
 			std::visit(util::overload{
-				[&](sf::Keyboard::Key& key) { type = "keyboard"; id = key; },
-				[&](sf::Mouse::Button& button) { type = "mouse"; id = button; }
+				[&](const sf::Keyboard::Key& key) { type = "keyboard"; id = key; },
+				[&](const sf::Mouse::Button& button) { type = "mouse"; id = button; }
 			}, val->detail);
 
 			cell.emplace("button_id", id);
@@ -86,18 +87,18 @@ namespace engine {
 	std::shared_ptr <cursor_t> InputManager::get_cursor() const { 
 		return this->m_cursor; 
 	}
-	std::shared_ptr <input_t> InputManager::get_handler(std::string key) const { 
+	std::shared_ptr <input_t> InputManager::get_handler(const std::string& key) const { 
 		return this->m_handlers.at(key); 
 	}
 
 	//InputEvent
 
 	void InputEvent::update() {
-		for (const auto& [_, input] : this->m_input_manager.m_handlers) {
+		for (const auto& input : this->m_input_manager.m_handlers | std::views::values) {
 			input->prev = input->curr;
 			std::visit(util::overload{
-				[&](sf::Keyboard::Key& key) { input->curr = sf::Keyboard::isKeyPressed(key); },
-				[&](sf::Mouse::Button& button) { input->curr = sf::Mouse::isButtonPressed(button); }
+				[&](const sf::Keyboard::Key& key) { input->curr = sf::Keyboard::isKeyPressed(key); },
+				[&](const sf::Mouse::Button& button) { input->curr = sf::Mouse::isButtonPressed(button); }
 			}, input->detail);
 		}
 	}

@@ -1,17 +1,15 @@
 #pragma once
 //std
 #include <atomic>
-#include <condition_variable>
-#include <list>
 #include <memory>
 #include <mutex>
+#include <queue>
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <queue>
 
 //engine
-#include <Engine/Util.hpp>
+#include "Engine/Util.hpp"
 
 namespace engine {
 	enum class StateStatus {
@@ -25,7 +23,7 @@ namespace engine {
 	class BaseState : public util::Updatable {
 		friend class StateMachine;
 	public:
-		virtual ~BaseState () {}
+		virtual ~BaseState () = default;
 
 		virtual void on_enable() {}
 		virtual void on_disable() {}
@@ -34,7 +32,7 @@ namespace engine {
 		virtual void on_delete() {}
 
 	private:
-		bool is_active;
+		bool is_active = false;
 	};
 	using IState = std::shared_ptr <BaseState>;
 
@@ -45,9 +43,9 @@ namespace engine {
 
 		void add_state(std::string id, IState state);
 
-		void request_status_change(std::string id, StateStatus status);
+		void request_status_change(const std::string& id, StateStatus status);
 
-		void set_update_level(std::string state_id, size_t level);
+		void set_update_level(const std::string& state_id, size_t level);
 		void clear_update_level(size_t level);
 
 	protected:

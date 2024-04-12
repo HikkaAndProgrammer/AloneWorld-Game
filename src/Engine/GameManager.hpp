@@ -10,12 +10,13 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 //engine
-#include <Engine/InputManager.hpp>
-#include <Engine/RenderModule.hpp>
-#include <Engine/StateMachine.hpp>
-#include <Engine/TextureModule.hpp>
-#include <Engine/ThreadPool.hpp>
-#include <Engine/EventSystem.hpp>
+#include "Engine/Camera.hpp"
+#include "Engine/EventSystem.hpp"
+#include "Engine/InputManager.hpp"
+#include "Engine/RenderModule.hpp"
+#include "Engine/StateMachine.hpp"
+#include "Engine/TextureModule.hpp"
+#include "Engine/ThreadPool.hpp"
 
 //chaiscript
 #ifdef INCLUDE_SCRIPT_ENGINE
@@ -30,6 +31,8 @@ namespace engine {
 	//Singleton and you can call load and save functions only once after init
 	class GameManager {
 	public:
+		virtual ~GameManager() = default;
+
 		virtual void init();
 		virtual void release();
 
@@ -43,8 +46,9 @@ namespace engine {
 		std::atomic_bool flag;
 		std::unordered_map <std::string, std::string> shared_data;
 		
-		sf::RenderWindow window;
+		std::shared_ptr <sf::RenderWindow> window;
 		sf::Vector2u window_size;
+		std::shared_ptr <sf::Font> font;
 
 		//core systems
 		std::shared_ptr <ThreadPool> thread_pool;
@@ -58,6 +62,7 @@ namespace engine {
 		//graphics systems
 		std::shared_ptr <RenderModule> render_module;
 		std::shared_ptr <TextureManager> texture_manager;
+		std::shared_ptr <Camera> camera;
 
 #ifdef INCLUDE_CHAI_SCRIPT
 		std::unique_ptr <chai::ChaiScript> script_engine;

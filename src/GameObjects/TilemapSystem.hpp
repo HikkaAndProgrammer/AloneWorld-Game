@@ -1,14 +1,10 @@
 #pragma once
 //std
-#include <algorithm>
 #include <memory>
 #include <vector>
 
-//sf
-#include <SFML/Graphics.hpp>
-
-//nlohman
-#include <nlohmann/json.hpp>
+//engine
+#include "Engine/Util.hpp"
 
 namespace game_objects {
 	class TileBlank {
@@ -20,30 +16,31 @@ namespace game_objects {
 		std::shared_ptr <sf::Texture> m_texture;
 	};
 
+	//TODO: remake it with toml
 	template <class _TileType>
-	class BaseTilemap {
+	class BaseTilemap : public util::Renderable {
 	public:
-		_TileType& at(size_t x, size_t y) {
+		_TileType& at(int64_t x, int64_t y) {
 			return this->m_content.at(x + y * this->m_width);
 		}
-		const _TileType& at(size_t x, size_t y) const {
+		const _TileType& at(int64_t x, int64_t y) const {
 			return this->m_content.at(x + y * this->m_width);
 		}
 
-		_TileType at_try(size_t x, size_t y) const {
+		_TileType at_try(int64_t x, int64_t y) const {
 			if (x >= 0 && x < this->m_width && y >= 0 && y < this->m_height)
 				return at(x, y);
 			return _TileType();
 		}
 
-		void resize_and_clear(size_t width, size_t height) {
+		void resize_and_clear(int64_t width, int64_t height) {
 			this->m_width = width;
 			this->m_height = height;
 			this->m_content.clear();
 			this->m_content.resize(this->m_width * this->m_height);
 		}
 
-		bool save(std::string filename) const {
+		bool save(const std::string& filename) const {
 			std::ofstream file(filename, std::ios::binary);
 
 			if (!file.is_open())
@@ -56,7 +53,7 @@ namespace game_objects {
 			file.close();
 			return true;
 		}
-		bool load(std::string filename) {
+		bool load(const std::string& filename) {
 			std::ifstream file(filename);
 
 			if (!file.is_open())

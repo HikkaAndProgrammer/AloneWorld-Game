@@ -1,0 +1,8 @@
+path_prefix = "res/textures/"
+atlas = [
+    { key = "sakura", filename = "example.jpg" },
+    { key = "tiles", filename = "tiles.png" },
+    { key = "mask", filename = "mask.png" },
+    { key = "grid", filename = "grid.png" },
+    { key = "tile_1", filename = "tile1.png" }
+]
