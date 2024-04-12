@@ -19,11 +19,11 @@ namespace engine {
 
 	class RenderModule {
 	public:
-		sf::RenderTarget& get_target();
+		sf::RenderTarget& get_target() const;
 
 		void init();
 
-		void request(sf::VertexArray&& data, std::shared_ptr <sf::Texture> atlas);
+		void request(sf::VertexArray&& data, const std::shared_ptr <sf::Texture>& atlas);
 		void request(util::IDrawable drawable);
 
 		void begin();

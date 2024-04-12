@@ -3,27 +3,27 @@
 button_id = 0
 type = "mouse"
 
+[esc]
+button_id = 36
+type = "keyboard"
+
 [right_click]
 button_id = 1
 type = "mouse"
 
-[move_left]
-button_id = 0
-type = "keyboard"
-
-[move_right]
-button_id = 3
-type = "keyboard"
-
 [move_up]
 button_id = 22
+type = "keyboard"
+
+[move_left]
+button_id = 0
 type = "keyboard"
 
 [move_down]
 button_id = 18
 type = "keyboard"
 
-[esc]
-button_id = 36
+[move_right]
+button_id = 3
 type = "keyboard"
 

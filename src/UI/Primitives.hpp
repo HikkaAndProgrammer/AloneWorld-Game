@@ -31,7 +31,7 @@ namespace engine::ui {
 			return this->m_box.getLocalBounds().contains(point.x, point.y);
 		}
 
-		void set_text(std::string text, uint16_t size) {
+		void set_text(const std::string& text, uint16_t size) {
 			if (text.empty())
 				this->m_text.reset(new sf::Text(text, *core->font, size));
 			else {

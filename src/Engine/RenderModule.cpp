@@ -8,21 +8,19 @@ namespace engine {
 		this->m_target = core->window;
 	}
 
-	sf::RenderTarget& RenderModule::get_target() {
+	sf::RenderTarget& RenderModule::get_target() const {
 		return *this->m_target;
 	}
 
-	void RenderModule::request(sf::VertexArray&& data, std::shared_ptr <sf::Texture> atlas) {
-		this->m_requests.push_back(batch_t{ data, atlas });
+	void RenderModule::request(sf::VertexArray&& data, const std::shared_ptr <sf::Texture>& atlas) {
+		this->m_requests.emplace_back(batch_t{ data, atlas });
 	}
 
 	void RenderModule::request(util::IDrawable drawable) {
-		this->m_requests.push_back(drawable);
+		this->m_requests.emplace_back(drawable);
 	}
 	
-	void RenderModule::begin() {
-
-	}
+	void RenderModule::begin() {}
 	void RenderModule::end() {
 		this->m_requests.clear();
 	}

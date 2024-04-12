@@ -9,6 +9,8 @@
 namespace engine {
 	class Camera {
 	public:
+		virtual ~Camera() = default;
+
 		sf::Vector2f get_size() const;
 		void set_size(float width, float height);
 		sf::Vector2f get_position() const;

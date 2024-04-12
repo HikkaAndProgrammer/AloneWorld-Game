@@ -66,7 +66,7 @@ namespace engine {
 	}
 
 	void ThreadPool::stop(bool is_wait) {
-		if (this->m_threads.size() == 0)
+		if (this->m_threads.empty())
 			return;
 
 		if (!is_wait) {
@@ -87,9 +87,9 @@ namespace engine {
 			this->m_cv.notify_all();
 		}
 		
-		for (size_t i = 0; i != this->m_threads.size(); i++)
-			if (this->m_threads[i]->joinable())
-				this->m_threads[i]->join();
+		for (const auto& m_thread : this->m_threads)
+			if (m_thread->joinable())
+				m_thread->join();
 
 		clear_queue();
 		this->m_threads.clear();
@@ -109,7 +109,7 @@ namespace engine {
 					(*task)(id);
 
 					if (_flag)
-						return;;
+						return;
 					is_pop = this->m_queue.pop(task);
 				}
 

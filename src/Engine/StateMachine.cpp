@@ -1,5 +1,7 @@
 #include "Engine/StateMachine.hpp"
 
+#include <ranges>
+
 namespace engine {
 	void StateMachine::init(size_t process_levels) {
 		this->m_process_levels.resize(process_levels);
@@ -37,13 +39,13 @@ namespace engine {
 		if (is_recalculate_active_states) {
 			for (auto& [container, active_count] : this->m_process_levels) {
 				active_count = 0;
-				for (auto state : container)
+				for (const auto& state : container)
 					if (state->is_active)
 						active_count++;
 			}
 		}
 
-		for (auto& [container, active_count] : this->m_process_levels) {
+		for (auto& container : this->m_process_levels | std::views::keys) {
 			auto& state = container.front();
 			if (state->is_active)
 				state->update();
@@ -56,11 +58,11 @@ namespace engine {
 		state->is_active = false;
 	}
 
-	void StateMachine::request_status_change(std::string id, StateStatus status) {
+	void StateMachine::request_status_change(const std::string& id, StateStatus status) {
 		this->m_requested_updates.emplace(this->m_states[id], status);
 	}
 
-	void StateMachine::set_update_level(std::string state_id, size_t level) {
+	void StateMachine::set_update_level(const std::string& state_id, size_t level) {
 		auto state = m_states[state_id];
 		auto& [container, flag] = this->m_process_levels[level];
 		container.push_back(state);

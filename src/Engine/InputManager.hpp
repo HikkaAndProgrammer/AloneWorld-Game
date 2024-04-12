@@ -42,7 +42,7 @@ namespace engine {
 
 	class DragDistanceHandler {
 	public:
-		DragDistanceHandler(Cursor cursor, Input input) : input(input), cursor(cursor) {}
+		DragDistanceHandler(const Cursor& cursor, const Input& input) : input(input), cursor(cursor) {}
 
 		sf::Vector2i get_drag_distance() const;
 
@@ -58,13 +58,13 @@ namespace engine {
 	class InputManager {
 		friend class InputEvent;
 	public:
-		void add_input_handler(std::string key, InputDetail detail);
+		void add_input_handler(const std::string& key, InputDetail detail);
 
-		void load_config(std::string filename);
-		void save_config(std::string filename) const;
+		void load_config(const std::string& filename);
+		void save_config(const std::string& filename) const;
 
 		Cursor get_cursor() const;
-		Input get_handler(std::string key) const;
+		Input get_handler(const std::string& key) const;
 
 	protected:
 		std::unordered_map <std::string, Input> m_handlers;

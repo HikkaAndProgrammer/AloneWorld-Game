@@ -15,11 +15,12 @@ namespace util {
 		Updatable() {
 			clock.restart();
 		}
+		virtual ~Updatable() = default;
 
 		virtual void update() = 0;
 
 	protected:
-		sf::Time get_elapsed_time() {
+		sf::Time get_elapsed_time() const {
 			return this->clock.getElapsedTime();
 		}
 
@@ -29,12 +30,14 @@ namespace util {
 
 	class Renderable {
 	public:
+		virtual ~Renderable() = default;
+
 		//you have to call render_module.request(VertexArray&&) at the end
 		virtual void render() const = 0;
 	};
 
-	template <class... Ts> 
-	struct overload : Ts... { using Ts::operator()...; };
+	template <class... _Ts> 
+	struct overload : _Ts... { using _Ts::operator()...; };
 
 	using IUpdatable = std::shared_ptr <Updatable>;
 	using IRenderable = std::shared_ptr <Renderable>;

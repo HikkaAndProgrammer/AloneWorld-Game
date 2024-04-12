@@ -23,7 +23,7 @@ namespace engine {
 	class BaseState : public util::Updatable {
 		friend class StateMachine;
 	public:
-		virtual ~BaseState () {}
+		virtual ~BaseState () = default;
 
 		virtual void on_enable() {}
 		virtual void on_disable() {}
@@ -43,9 +43,9 @@ namespace engine {
 
 		void add_state(std::string id, IState state);
 
-		void request_status_change(std::string id, StateStatus status);
+		void request_status_change(const std::string& id, StateStatus status);
 
-		void set_update_level(std::string state_id, size_t level);
+		void set_update_level(const std::string& state_id, size_t level);
 		void clear_update_level(size_t level);
 
 	protected:

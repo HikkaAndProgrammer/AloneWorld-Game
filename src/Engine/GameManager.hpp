@@ -31,6 +31,8 @@ namespace engine {
 	//Singleton and you can call load and save functions only once after init
 	class GameManager {
 	public:
+		virtual ~GameManager() = default;
+
 		virtual void init();
 		virtual void release();
 

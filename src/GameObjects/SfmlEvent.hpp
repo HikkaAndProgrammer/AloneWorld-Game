@@ -17,7 +17,9 @@ namespace game_objects {
 				switch (event.type) {
 				case sf::Event::Closed:
 					engine::core->window->close();
+					engine::core->flag = false;
 					break;
+				default:;
 				}
 			}
 		}
