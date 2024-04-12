@@ -32,7 +32,7 @@ namespace engine {
 		virtual void on_delete() {}
 
 	private:
-		bool is_active;
+		bool is_active = false;
 	};
 	using IState = std::shared_ptr <BaseState>;
 

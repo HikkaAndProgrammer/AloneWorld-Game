@@ -9,12 +9,12 @@
 #include <SFML/Window.hpp>
 
 //engine
-#include <Engine/Camera.hpp>
-#include <Engine/GameManager.hpp>
-#include <Engine/ThreadPool.hpp>
+#include "Engine/Camera.hpp"
+#include "Engine/GameManager.hpp"
+#include "Engine/ThreadPool.hpp"
 
 //game_objects
-#include <GameObjects/TilemapSystem.hpp>
+#include "GameObjects/TilemapSystem.hpp"
 
 //script
 #ifdef INCLUDE_SCRIPT_ENGINE
@@ -22,10 +22,10 @@
 #endif
 
 //game
-#include <Game/Console.hpp>
-#include <Game/GameState.hpp>
-#include <Game/GameTilemap.hpp>
-#include <Game/Core.hpp>
+#include "Game/Console.hpp"
+#include "Game/GameState.hpp"
+#include "Game/GameTilemap.hpp"
+#include "Game/Core.hpp"
 
 namespace engine {
 	std::shared_ptr <GameManager> core = std::make_shared <game::Core>();
