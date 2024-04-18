@@ -5,7 +5,7 @@
 
 namespace engine {
 	void RenderModule::init() {
-		this->m_target = core->window;
+		this->m_target = game_manager->window;
 	}
 
 	sf::RenderTarget& RenderModule::get_target() const {

@@ -22,11 +22,11 @@
 #include "Game/Core.hpp"
 
 namespace engine {
-	std::shared_ptr <GameManager> core = std::make_shared <game::Core>();
+	std::shared_ptr <GameManager> game_manager = std::make_shared <game::Core>();
 }
 
 namespace game {
-	std::shared_ptr <Core> core = std::dynamic_pointer_cast <Core>(engine::core);
+	std::shared_ptr <Core> core = std::dynamic_pointer_cast <Core>(engine::game_manager);
 }
 
 namespace util {
@@ -84,16 +84,16 @@ namespace util {
 	}
 	void init_console_functions(game::Console& console) {
 		console.add_function("start", [&](std::istream& is) {
-			engine::core->state_machine->add_state("game_state", std::make_shared <game::GameState>());
-			engine::core->state_machine->set_update_level("game_state", 0);
+			engine::game_manager->state_machine->add_state("game_state", std::make_shared <game::GameState>());
+			engine::game_manager->state_machine->set_update_level("game_state", 0);
 
-			while (engine::core->flag)
-				engine::core->state_machine->update();
+			while (engine::game_manager->flag)
+				engine::game_manager->state_machine->update();
 
 			return 0;
 		});
 		console.add_function("stop", [&](std::istream& is) {
-			engine::core->flag = false;
+			engine::game_manager->flag = false;
 			return 0;
 		});
 		console.add_function("generate_tilemap", [&](std::istream& is) {
@@ -113,7 +113,7 @@ int main() {
 
 	do {
 		console.process(startup_file);
-	} while (engine::core->flag);
+	} while (game::core->flag);
 
 	startup_file.close();
 	game::core->release();

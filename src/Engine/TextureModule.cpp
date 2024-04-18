@@ -17,11 +17,11 @@ namespace engine {
 
 	void TextureManager::load(const std::string& path) {
 		toml::value data = toml::parse(path);
-		auto& path_prefix = data["path_prefix"].as_string();
+		auto path_prefix = data["path_prefix"].as_string();
 
-		for (auto& it : data["atlas"].as_array()) {
-			auto& key = it["key"].as_string();
-			auto& filename = it["filename"].as_string();
+		for (auto it : data["atlas"].as_array()) {
+			auto key = it["key"].as_string();
+			auto filename = it["filename"].as_string();
 			std::shared_ptr <sf::Texture> value(new sf::Texture());
 
 			value->loadFromFile(path_prefix.str + filename.str);

@@ -50,7 +50,7 @@ namespace engine {
 		sf::Vector2u window_size;
 		std::shared_ptr <sf::Font> font;
 
-		//core systems
+		//game systems
 		std::shared_ptr <ThreadPool> thread_pool;
 		std::shared_ptr <StateMachine> state_machine;
 
@@ -71,5 +71,5 @@ namespace engine {
 		toml::value m_settings;
 	};
 
-	extern std::shared_ptr <GameManager> core;
+	extern std::shared_ptr <GameManager> game_manager;
 }

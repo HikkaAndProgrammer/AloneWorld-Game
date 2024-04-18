@@ -1,0 +1,7 @@
+pages = ["main_menu"]
+starting_page = "main_menu"
+[[main_menu]]
+type = "rect_button"
+rect = [-80, -45, 160, 90]
+text = { content = "Play Game", size = 16 }
+on_click = ""

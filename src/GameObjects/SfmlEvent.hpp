@@ -13,11 +13,11 @@ namespace game_objects {
 		//TODO: make every sfml event handling
 		void update() final override {
 			sf::Event event;
-			while (engine::core->window->pollEvent(event)) {
+			while (engine::game_manager->window->pollEvent(event)) {
 				switch (event.type) {
 				case sf::Event::Closed:
-					engine::core->window->close();
-					engine::core->flag = false;
+					engine::game_manager->window->close();
+					engine::game_manager->flag = false;
 					break;
 				default:;
 				}

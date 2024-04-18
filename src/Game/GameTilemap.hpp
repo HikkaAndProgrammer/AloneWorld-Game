@@ -76,7 +76,7 @@ namespace game {
 	public:
 		void render() const override {
 			auto tile_size = this->tile_size;
-			const auto& view = engine::core->camera->view();
+			const auto& view = engine::game_manager->camera->view();
 			auto size = view.getSize();
 			auto position = view.getCenter();
 			int64_t x0 = std::floor((position.x - size.x / 2) / tile_size),
@@ -107,7 +107,7 @@ namespace game {
 				}
 			}
 
-			engine::core->render_module->request(std::move(request), engine::core->texture_manager->at("tiles"));
+			engine::game_manager->render_module->request(std::move(request), engine::game_manager->texture_manager->at("tiles"));
 		}
 
 	private:

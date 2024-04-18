@@ -1,6 +1,7 @@
 [engine_data]
-textures_path = "res/textures/info.json"
+textures_path = "res/textures/info.toml"
 input_config_path = "res/input_config.toml"
+ui_path = "res/ui.toml"
 font_path = "res/andy_bold.ttf"
 
 [engine_data.thread_pool]

@@ -11,7 +11,7 @@ namespace game {
 	public:
 		void update() override {
 			//update things
-			engine::core->event_system->update();
+			engine::game_manager->event_system->update();
 
 			if (this->move_left->is_key_pressing())
 				core->camera->move(-1, 0);
