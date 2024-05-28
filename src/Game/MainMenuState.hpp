@@ -17,10 +17,13 @@ namespace game {
 
 		void update() override {
 			//firstly update
-			auto cursor_position = game::core->input_manager->get_cursor()->get_position();
 			for (auto it : *this->m_page) {
-				if (it->is_clicked(cursor_position))
-					it->on_click();
+				if (it->type() == ui::UiUnitType::Clickable) {
+					auto cursor_position = game::core->input_manager->get_cursor()->get_position();
+					auto clickable = std::dynamic_pointer_cast <ui::IClickable>(it);
+					if (clickable->is_clicked(cursor_position))
+						clickable->on_click();
+				}
 			}
 
 			//than render

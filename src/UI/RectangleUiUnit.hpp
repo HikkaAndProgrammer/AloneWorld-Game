@@ -6,6 +6,8 @@
 namespace ui {
 	class RectangleUiUnit : public BasicUiUnit, public IClickable {
 	public:
+		RectangleUiUnit() : BasicUiUnit(UiUnitType::Clickable) {}
+
 		bool is_clicked(sf::Vector2i point) override {
 			return this->m_box.getLocalBounds().contains(point.x, point.y);
 		}

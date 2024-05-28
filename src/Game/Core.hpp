@@ -70,9 +70,9 @@ namespace game {
 				result->box().setPosition(rect[0].as_integer(), rect[1].as_integer());
 				result->box().setFillColor(util::to_color(value["fill_color"]));
 				result->box().setSize(rect_size);
-				if (value.contains("text")) {
+				/*if (value.contains("text")) {
 					result->set_text(value["text"]["content"].as_string(), value["text"]["size"].as_integer());
-				}
+				}*/
 				return result;
 			});
 			this->ui_manager->load(this->m_settings["engine_data"]["ui_path"].as_string());

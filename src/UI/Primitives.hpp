@@ -15,10 +15,21 @@
 #include "Engine/Util.hpp"
 
 namespace ui {
+	enum class UiUnitType {
+		None = 0,
+		Clickable
+	};
+
 	//TODO: make every event to be triggered with std::function and chaiscript
 	class BasicUiUnit : public util::Renderable {
 	public:
+		BasicUiUnit(UiUnitType type = UiUnitType::None) : _type(type) {}
 		virtual ~BasicUiUnit() = default;
+
+		UiUnitType type() const { return this->_type; }
+
+	private:
+		UiUnitType _type;
 	};
 	using IUiUnit = std::shared_ptr <BasicUiUnit>;
 	using ui_page_t = std::list <IUiUnit>;
