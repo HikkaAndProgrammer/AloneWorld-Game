@@ -12,8 +12,7 @@ namespace engine {
 	public:
 		using KeyType = std::string;
 
-		std::shared_ptr <sf::Texture> operator[](const KeyType& id);
-		std::shared_ptr <sf::Texture> at(const KeyType& id);
+		std::shared_ptr <sf::Texture> at(const KeyType& id) const;
 
 		//void init();
 		void load(const std::string& path);

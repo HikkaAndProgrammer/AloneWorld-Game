@@ -5,6 +5,7 @@
 #include <mutex>
 #include <queue>
 #include <string>
+#include <tuple>
 #include <unordered_map>
 #include <vector>
 
@@ -50,8 +51,8 @@ namespace engine {
 
 	protected:
 		std::unordered_map <std::string, IState> m_states;
-		std::vector <std::pair <std::vector <IState>, size_t>> m_process_levels;
-		std::queue <std::pair <IState, StateStatus>> m_requested_updates;
+		std::vector <std::tuple <std::vector <IState>, size_t>> m_process_levels;
+		std::queue <std::tuple <IState, StateStatus>> m_requested_updates;
 
 		std::mutex m_mutex;
 		std::condition_variable m_cv;

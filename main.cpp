@@ -20,6 +20,7 @@
 #include "Game/GameState.hpp"
 #include "Game/GameTilemap.hpp"
 #include "Game/Core.hpp"
+#include "Game/MainMenuState.hpp"
 
 namespace engine {
 	std::shared_ptr <GameManager> game_manager = std::make_shared <game::Core>();
@@ -84,11 +85,16 @@ namespace util {
 	}
 	void init_console_functions(game::Console& console) {
 		console.add_function("start", [&](std::istream& is) {
-			engine::game_manager->state_machine->add_state("game_state", std::make_shared <game::GameState>());
-			engine::game_manager->state_machine->set_update_level("game_state", 0);
+			auto& sm = engine::game_manager->state_machine;
+			auto mms = std::make_shared <game::MainMenuState>();
+			sm->add_state("main_menu_state", mms);
+			sm->set_update_level("main_menu_state", 0);
+			sm->request_status_change("main_menu_state", engine::StateStatus::OnEnable);
+			sm->add_state("game_state", std::make_shared <game::GameState>());
+			sm->set_update_level("game_state", 1);
 
 			while (engine::game_manager->flag)
-				engine::game_manager->state_machine->update();
+				game::core->update();
 
 			return 0;
 		});

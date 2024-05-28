@@ -35,6 +35,8 @@ namespace engine {
 	struct cursor_t {
 		sf::Vector2i prev, curr;
 
+		cursor_t() : prev(0, 0), curr(0, 0) {}
+
 		sf::Vector2i get_position() const;
 		sf::Vector2i get_difference() const;
 	};
@@ -58,6 +60,8 @@ namespace engine {
 	class InputManager {
 		friend class InputEvent;
 	public:
+		void init();
+
 		void add_input_handler(const std::string& key, InputDetail detail);
 
 		void load_config(const std::string& filename);

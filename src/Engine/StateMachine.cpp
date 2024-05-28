@@ -17,11 +17,9 @@ namespace engine {
 			switch (status) {
 			case OnCreate:
 				state->on_create();
-				state->is_active = true;
 				break;
 			case OnDelete:
 				state->on_delete();
-				state->is_active = false;
 				break;
 			case OnEnable:
 				state->on_enable();

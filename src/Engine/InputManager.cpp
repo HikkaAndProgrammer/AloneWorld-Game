@@ -6,7 +6,9 @@
 //engine
 #include <ranges>
 
+//util
 #include "Engine/Util.hpp"
+#include "Engine/GameManager.hpp"
 
 namespace engine {
 	//input_t
@@ -37,6 +39,10 @@ namespace engine {
 	}
 
 	//InputManager
+
+	void InputManager::init() {
+		this->m_cursor.reset(new cursor_t());
+	}
 
 	void InputManager::add_input_handler(const std::string& key, InputDetail detail) {
 		Input temp(new input_t(detail));
@@ -94,6 +100,12 @@ namespace engine {
 	//InputEvent
 
 	void InputEvent::update() {
+		//update cursor
+		auto cursor = this->m_input_manager.m_cursor;
+		cursor->prev = cursor->curr;
+		cursor->curr = sf::Mouse::getPosition(*engine::game_manager->window);
+
+		//update button clicks
 		for (const auto& input : this->m_input_manager.m_handlers | std::views::values) {
 			input->prev = input->curr;
 			std::visit(util::overload{

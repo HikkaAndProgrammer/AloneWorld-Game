@@ -31,6 +31,7 @@ namespace engine {
 	void GameManager::load_systems() {
 		auto input_config_path = this->m_settings["engine_data"]["input_config_path"].as_string();
 		this->input_manager.reset(new InputManager());
+		this->input_manager->init();
 		this->input_manager->load_config(input_config_path);
 		this->input_event.reset(new InputEvent(*this->input_manager));
 		this->font.reset(new sf::Font());

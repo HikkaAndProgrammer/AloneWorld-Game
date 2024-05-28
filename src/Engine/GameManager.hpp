@@ -9,6 +9,9 @@
 //sf
 #include <SFML/Graphics/RenderWindow.hpp>
 
+//util
+#include "Engine/Util.hpp"
+
 //engine
 #include "Engine/Camera.hpp"
 #include "Engine/EventSystem.hpp"
@@ -29,7 +32,7 @@ namespace chai = chaiscript;
 
 namespace engine {
 	//Singleton and you can call load and save functions only once after init
-	class GameManager {
+	class GameManager : public util::Updatable {
 	public:
 		virtual ~GameManager() = default;
 

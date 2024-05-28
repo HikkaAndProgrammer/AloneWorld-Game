@@ -7,12 +7,8 @@
 #include <toml.hpp>
 
 namespace engine {
-	std::shared_ptr <sf::Texture> TextureManager::operator[](const KeyType& id) {
-		return this->m_storage[id];
-	}
-
-	std::shared_ptr <sf::Texture> TextureManager::at(const KeyType& id) {
-		return this->m_storage[id];
+	std::shared_ptr <sf::Texture> TextureManager::at(const KeyType& id) const {
+		return this->m_storage.at(id);
 	}
 
 	void TextureManager::load(const std::string& path) {

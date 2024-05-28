@@ -12,6 +12,7 @@
     <ClCompile Include="src\Game\Console.cpp" />
     <ClCompile Include="src\Engine\EventSystem.cpp" />
     <ClCompile Include="src\Engine\Camera.cpp" />
+    <ClCompile Include="src\UI\Primitives.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\RenderModule.hpp" />
@@ -30,6 +31,9 @@
     <ClInclude Include="src\Game\GameState.hpp" />
     <ClInclude Include="src\UI\Primitives.hpp" />
     <ClInclude Include="src\Game\GameTilemap.hpp" />
+    <ClInclude Include="src\Game\MainMenuState.hpp" />
+    <ClInclude Include="src\UI\TextUiUnit.hpp" />
+    <ClInclude Include="src\UI\RectangleUiUnit.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

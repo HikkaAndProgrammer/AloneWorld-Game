@@ -11,8 +11,6 @@ namespace game {
 	public:
 		void update() override {
 			//update things
-			engine::game_manager->event_system->update();
-
 			if (this->move_left->is_key_pressing())
 				core->camera->move(-1, 0);
 			if (this->move_right->is_key_pressing())
@@ -20,18 +18,9 @@ namespace game {
 
 			core->camera->update();
 			
-			//render begin
-			core->render_module->begin();
-			core->window->clear(sf::Color::White);
-			
 			//render things
 			core->window->setView(core->camera->view());
 			core->tilemap->render();
-
-			//render end
-			core->render_module->draw();
-			core->window->display();
-			core->render_module->end();
 		}
 
 		void on_create() override {

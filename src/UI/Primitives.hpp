@@ -14,18 +14,27 @@
 #include "Engine/GameManager.hpp"
 #include "Engine/Util.hpp"
 
-namespace engine::ui {
+namespace ui {
 	//TODO: make every event to be triggered with std::function and chaiscript
-	class BasicUiUnit : public sf::Transformable, public util::Renderable {
+	class BasicUiUnit : public util::Renderable {
 	public:
+		virtual ~BasicUiUnit() = default;
+	};
+	using IUiUnit = std::shared_ptr <BasicUiUnit>;
+	using ui_page_t = std::list <IUiUnit>;
+
+	class IClickable {
+	public:
+		virtual ~IClickable() = default;
+
 		virtual bool is_clicked(sf::Vector2i point) = 0;
 		virtual void on_click() {}
 	};
-	using IUiUnit = std::shared_ptr <BasicUiUnit>;
 
+	//TODO: layers of rendering of ui_pages
 	class UiManager {
 	public:
-		void add_constructor(const std::string& key, const std::function <IUiUnit(toml::value)>& value) {
+		void add_constructor(const std::string& key, const std::function <IUiUnit(toml::value&)>& value) {
 			this->m_constructors.emplace(key, value);
 		}
 
@@ -42,44 +51,14 @@ namespace engine::ui {
 			}
 		}
 
-	protected:
-		std::unordered_map <std::string, std::list <IUiUnit>> m_elements;
-		std::unordered_map <std::string, std::function <IUiUnit(const toml::value&)>> m_constructors;
-	};
-
-	class RectangleUiUnit : public BasicUiUnit {
-	public:
-		bool is_clicked(sf::Vector2i point) override {
-			return this->m_box.getLocalBounds().contains(point.x, point.y);
-		}
-
-		const sf::String& get_text() const {
-			return this->m_text.getString();
-		}
-		void set_text(const std::string& text, uint16_t size) {
-			this->m_text.setCharacterSize(size);
-			this->m_text.setString(text);
-			this->_set_text_to_center();
-		}
-		
-		sf::RectangleShape& box() { return this->m_box; }
-		const sf::RectangleShape& box() const { return this->m_box; }
-
-		void render() const override {
-			game_manager->window->draw(this->m_box);
-			game_manager->window->draw(this->m_text);
-		}
+		const ui_page_t& at(const std::string& key) const { return this->m_elements.at(key); }
 
 	protected:
-		sf::RectangleShape m_box;
-		sf::Text m_text;
-
-	private:
-		void _set_text_to_center() {
-			auto box_position = this->m_box.getLocalBounds();
-			auto text_position = this->m_text.getLocalBounds();
-			this->m_text.setPosition(box_position.left + (box_position.width - text_position.width) / 2, 
-				box_position.top + (box_position.height - text_position.height) / 2);
-		}
+		std::unordered_map <std::string, ui_page_t> m_elements;
+		std::unordered_map <std::string, std::function <IUiUnit(toml::value&)>> m_constructors;
 	};
+}
+
+namespace util {
+	sf::Color to_color(const toml::value& value);
 }
