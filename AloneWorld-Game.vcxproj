@@ -178,19 +178,38 @@
   <ItemGroup>
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
+    <None Include="docs\change_save_ui.psd" />
+    <None Include="docs\features_ru.docx" />
+    <None Include="docs\interactions.psd" />
+    <None Include="docs\main_gameplay_ui.psd" />
+    <None Include="docs\main_menu_ui.psd" />
+    <None Include="docs\pause_ui.psd" />
+    <None Include="docs\settings_ui.psd" />
     <None Include="README.md" />
     <None Include="res\input_config.toml" />
     <None Include="res\saves\Admin\main.sav" />
     <None Include="res\saves_description.psd" />
     <None Include="res\settings.toml" />
     <None Include="res\textures\info.json" />
+    <None Include="res\textures\info.toml" />
     <None Include="res\textures\tiles.psd" />
     <None Include="res\textures\tiles_test.psd" />
+    <None Include="res\ui.toml" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />
+    <Text Include="res\startup.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="docs\change_save_ui копия.png" />
+    <Image Include="docs\interactions копия.png" />
+    <Image Include="docs\main_gameplay_ui копия.png" />
+    <Image Include="docs\main_menu_ui копия.png" />
+    <Image Include="docs\pause_ui копия.png" />
+    <Image Include="docs\ror2_game.png" />
+    <Image Include="docs\ror2_main_menu.png" />
+    <Image Include="docs\ror2_options.png" />
+    <Image Include="docs\settings_ui копия.png" />
     <Image Include="res\textures\example.jpg" />
     <Image Include="res\textures\grid.png" />
     <Image Include="res\textures\mask.png" />
@@ -229,6 +248,9 @@
     <Library Include="lib\vorbis.lib" />
     <Library Include="lib\vorbisenc.lib" />
     <Library Include="lib\vorbisfile.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\andy_bold.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

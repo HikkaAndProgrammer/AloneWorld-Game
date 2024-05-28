@@ -46,9 +46,19 @@
     <None Include="res\textures\tiles.psd" />
     <None Include="res\textures\tiles_test.psd" />
     <None Include="res\saves\Admin\main.sav" />
+    <None Include="res\ui.toml" />
+    <None Include="res\textures\info.toml" />
+    <None Include="docs\change_save_ui.psd" />
+    <None Include="docs\features_ru.docx" />
+    <None Include="docs\interactions.psd" />
+    <None Include="docs\main_gameplay_ui.psd" />
+    <None Include="docs\main_menu_ui.psd" />
+    <None Include="docs\pause_ui.psd" />
+    <None Include="docs\settings_ui.psd" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />
+    <Text Include="res\startup.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\example.jpg" />
@@ -58,6 +68,15 @@
     <Image Include="res\textures\tiles.png" />
     <Image Include="res\textures\Tiles_267.png" />
     <Image Include="res\textures\tiles_test.png" />
+    <Image Include="docs\change_save_ui копия.png" />
+    <Image Include="docs\interactions копия.png" />
+    <Image Include="docs\main_gameplay_ui копия.png" />
+    <Image Include="docs\main_menu_ui копия.png" />
+    <Image Include="docs\pause_ui копия.png" />
+    <Image Include="docs\ror2_game.png" />
+    <Image Include="docs\ror2_main_menu.png" />
+    <Image Include="docs\ror2_options.png" />
+    <Image Include="docs\settings_ui копия.png" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\flac.lib" />
@@ -89,5 +108,8 @@
     <Library Include="lib\vorbis.lib" />
     <Library Include="lib\vorbisenc.lib" />
     <Library Include="lib\vorbisfile.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\andy_bold.ttf" />
   </ItemGroup>
 </Project>
