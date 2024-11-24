@@ -78,10 +78,13 @@
       <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>D:\lib\boost_1_83_0;D:\lib\SFML-2.6.1-x64\include;D:\lib\toml11\include;D:\programming\cpp\AloneWorld-Game\lib\imgui;D:\programming\cpp\AloneWorld-Game\lib\eil_engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\lib\SFML-2.6.1-x64\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-system-d.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -94,12 +97,15 @@
       <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>D:\lib\boost_1_83_0\boost;D:\lib\SFML-2.6.1-x64\include;D:\lib\toml11_fork;D:\lib\imgui-1.90.8;D:\programming\cpp\AloneWorld-Game\lib\imgui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\lib\SFML-2.6.1-x64\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -108,18 +114,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\eilrovisoft\programming\cpp\AloneWorld-Game\src;C:\eilrovisoft\lib\ChaiScript-6.1.0\include;C:\eilrovisoft\lib\SFML-2.6.1\include;C:\eilrovisoft\lib\toml11_fork;C:\eilrovisoft\lib\boost_1_83_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/Zc:__cplusplus /bigobj %(AdditionalOptions)</AdditionalOptions>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>D:\lib\boost_1_83_0;D:\lib\SFML-2.6.1-x64\include;D:\lib\toml11\include;D:\programming\cpp\AloneWorld-Game\lib\imgui;D:\programming\cpp\AloneWorld-Game\lib\eil_engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\eilrovisoft\programming\cpp\AloneWorld-Game\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\lib\SFML-2.6.1-x64\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-system-d.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -132,48 +138,27 @@
       <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>D:\lib\boost_1_83_0\boost;D:\lib\SFML-2.6.1-x64\include;D:\lib\toml11_fork;D:\lib\imgui-1.90.8;D:\programming\cpp\AloneWorld-Game\lib\imgui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\lib\SFML-2.6.1-x64\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\eil_engine\EventSystem.cpp" />
+    <ClCompile Include="lib\eil_engine\InputSystem.cpp" />
+    <ClCompile Include="lib\eil_engine\TextureManager.cpp" />
+    <ClCompile Include="lib\imgui\imgui-SFML.cpp" />
+    <ClCompile Include="lib\imgui\imgui.cpp" />
+    <ClCompile Include="lib\imgui\imgui_draw.cpp" />
+    <ClCompile Include="lib\imgui\imgui_tables.cpp" />
+    <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\Engine\Camera.cpp" />
-    <ClCompile Include="src\Engine\EventSystem.cpp" />
-    <ClCompile Include="src\Game\Console.cpp" />
-    <ClCompile Include="src\Engine\InputManager.cpp" />
-    <ClCompile Include="src\Engine\StateMachine.cpp" />
-    <ClCompile Include="src\Engine\ThreadPool.cpp" />
-    <ClCompile Include="src\Engine\GameManager.cpp" />
-    <ClCompile Include="src\Engine\RenderModule.cpp" />
-    <ClCompile Include="src\Engine\TextureModule.cpp" />
-    <ClCompile Include="src\Engine\Util.cpp" />
-    <ClCompile Include="src\UI\Primitives.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\GameObjects\SfmlEvent.hpp" />
-    <ClInclude Include="src\Game\GameState.hpp" />
-    <ClInclude Include="src\Game\GameTilemap.hpp" />
-    <ClInclude Include="src\Game\Console.hpp" />
-    <ClInclude Include="src\Game\Core.hpp" />
-    <ClInclude Include="src\Engine\Camera.hpp" />
-    <ClInclude Include="src\Engine\EventSystem.hpp" />
-    <ClInclude Include="src\Engine\InputManager.hpp" />
-    <ClInclude Include="src\Engine\StateMachine.hpp" />
-    <ClInclude Include="src\Engine\ThreadPool.hpp" />
-    <ClInclude Include="src\GameObjects\TilemapSystem.hpp" />
-    <ClInclude Include="src\Engine\GameManager.hpp" />
-    <ClInclude Include="src\Engine\RenderModule.hpp" />
-    <ClInclude Include="src\Engine\TextureModule.hpp" />
-    <ClInclude Include="src\Engine\Util.hpp" />
-    <ClInclude Include="src\Game\MainMenuState.hpp" />
-    <ClInclude Include="src\UI\Primitives.hpp" />
-    <ClInclude Include="src\UI\RectangleUiUnit.hpp" />
-    <ClInclude Include="src\UI\TextUiUnit.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
@@ -185,6 +170,7 @@
     <None Include="docs\main_menu_ui.psd" />
     <None Include="docs\pause_ui.psd" />
     <None Include="docs\settings_ui.psd" />
+    <None Include="imgui.ini" />
     <None Include="README.md" />
     <None Include="res\input_config.toml" />
     <None Include="res\saves\Admin\main.sav" />
@@ -219,38 +205,22 @@
     <Image Include="res\textures\tiles_test.png" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib\flac.lib" />
-    <Library Include="lib\freetype.lib" />
-    <Library Include="lib\ogg.lib" />
-    <Library Include="lib\openal32.lib" />
-    <Library Include="lib\sfml-audio-d.lib" />
-    <Library Include="lib\sfml-audio-s-d.lib" />
-    <Library Include="lib\sfml-audio-s.lib" />
-    <Library Include="lib\sfml-audio.lib" />
-    <Library Include="lib\sfml-graphics-d.lib" />
-    <Library Include="lib\sfml-graphics-s-d.lib" />
-    <Library Include="lib\sfml-graphics-s.lib" />
-    <Library Include="lib\sfml-graphics.lib" />
-    <Library Include="lib\sfml-main-d.lib" />
-    <Library Include="lib\sfml-main.lib" />
-    <Library Include="lib\sfml-network-d.lib" />
-    <Library Include="lib\sfml-network-s-d.lib" />
-    <Library Include="lib\sfml-network-s.lib" />
-    <Library Include="lib\sfml-network.lib" />
-    <Library Include="lib\sfml-system-d.lib" />
-    <Library Include="lib\sfml-system-s-d.lib" />
-    <Library Include="lib\sfml-system-s.lib" />
-    <Library Include="lib\sfml-system.lib" />
-    <Library Include="lib\sfml-window-d.lib" />
-    <Library Include="lib\sfml-window-s-d.lib" />
-    <Library Include="lib\sfml-window-s.lib" />
-    <Library Include="lib\sfml-window.lib" />
-    <Library Include="lib\vorbis.lib" />
-    <Library Include="lib\vorbisenc.lib" />
-    <Library Include="lib\vorbisfile.lib" />
+    <Font Include="res\andy_bold.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="res\andy_bold.ttf" />
+    <ClInclude Include="lib\eil_engine\EventSystem.hpp" />
+    <ClInclude Include="lib\eil_engine\InputSystem.hpp" />
+    <ClInclude Include="lib\eil_engine\TextureManager.hpp" />
+    <ClInclude Include="lib\eil_engine\Util.hpp" />
+    <ClInclude Include="lib\imgui\imconfig-SFML.h" />
+    <ClInclude Include="lib\imgui\imconfig.h" />
+    <ClInclude Include="lib\imgui\imgui-SFML.h" />
+    <ClInclude Include="lib\imgui\imgui-SFML_export.h" />
+    <ClInclude Include="lib\imgui\imgui.h" />
+    <ClInclude Include="lib\imgui\imgui_internal.h" />
+    <ClInclude Include="lib\imgui\imstb_rectpack.h" />
+    <ClInclude Include="lib\imgui\imstb_textedit.h" />
+    <ClInclude Include="lib\imgui\imstb_truetype.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
