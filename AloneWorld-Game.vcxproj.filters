@@ -2,88 +2,203 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\Engine\GameManager.cpp" />
-    <ClCompile Include="src\Engine\RenderModule.cpp" />
-    <ClCompile Include="src\Engine\TextureModule.cpp" />
-    <ClCompile Include="src\Engine\Util.cpp" />
-    <ClCompile Include="src\Engine\ThreadPool.cpp" />
-    <ClCompile Include="src\Engine\StateMachine.cpp" />
-    <ClCompile Include="src\Engine\InputManager.cpp" />
-    <ClCompile Include="src\Game\Console.cpp" />
-    <ClCompile Include="src\Engine\EventSystem.cpp" />
-    <ClCompile Include="src\Engine\Camera.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Engine\RenderModule.hpp" />
-    <ClInclude Include="src\Engine\GameManager.hpp" />
-    <ClInclude Include="src\Engine\TextureModule.hpp" />
-    <ClInclude Include="src\GameObjects\TilemapSystem.hpp" />
-    <ClInclude Include="src\Engine\Camera.hpp" />
-    <ClInclude Include="src\Engine\Util.hpp" />
-    <ClInclude Include="src\Engine\ThreadPool.hpp" />
-    <ClInclude Include="src\Engine\StateMachine.hpp" />
-    <ClInclude Include="src\Engine\InputManager.hpp" />
-    <ClInclude Include="src\Game\Console.hpp" />
-    <ClInclude Include="src\Game\Core.hpp" />
-    <ClInclude Include="src\Engine\EventSystem.hpp" />
-    <ClInclude Include="src\GameObjects\SfmlEvent.hpp" />
-    <ClInclude Include="src\Game\GameState.hpp" />
-    <ClInclude Include="src\UI\Primitives.hpp" />
-    <ClInclude Include="src\Game\GameTilemap.hpp" />
+    <ClCompile Include="lib\imgui\imgui.cpp">
+      <Filter>libraries\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_draw.cpp">
+      <Filter>libraries\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_tables.cpp">
+      <Filter>libraries\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_widgets.cpp">
+      <Filter>libraries\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui-SFML.cpp">
+      <Filter>libraries\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\eil_engine\TextureManager.cpp" />
+    <ClCompile Include="lib\eil_engine\EventSystem.cpp" />
+    <ClCompile Include="lib\eil_engine\InputSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include=".gitattributes" />
     <None Include="README.md" />
-    <None Include="res\input_config.toml" />
-    <None Include="res\saves_description.psd" />
-    <None Include="res\settings.toml" />
-    <None Include="res\textures\info.json" />
-    <None Include="res\textures\tiles.psd" />
-    <None Include="res\textures\tiles_test.psd" />
-    <None Include="res\saves\Admin\main.sav" />
+    <None Include="res\textures\info.json">
+      <Filter>resources</Filter>
+    </None>
+    <None Include="res\textures\info.toml">
+      <Filter>resources</Filter>
+    </None>
+    <None Include="res\input_config.toml">
+      <Filter>resources</Filter>
+    </None>
+    <None Include="res\ui.toml">
+      <Filter>resources</Filter>
+    </None>
+    <None Include="res\settings.toml">
+      <Filter>resources</Filter>
+    </None>
+    <None Include="docs\change_save_ui.psd">
+      <Filter>resources\info</Filter>
+    </None>
+    <None Include="docs\interactions.psd">
+      <Filter>resources\info</Filter>
+    </None>
+    <None Include="docs\features_ru.docx">
+      <Filter>resources\info</Filter>
+    </None>
+    <None Include="docs\main_gameplay_ui.psd">
+      <Filter>resources\info</Filter>
+    </None>
+    <None Include="docs\main_menu_ui.psd">
+      <Filter>resources\info</Filter>
+    </None>
+    <None Include="docs\pause_ui.psd">
+      <Filter>resources\info</Filter>
+    </None>
+    <None Include="res\saves_description.psd">
+      <Filter>resources\info</Filter>
+    </None>
+    <None Include="docs\settings_ui.psd">
+      <Filter>resources\info</Filter>
+    </None>
+    <None Include="res\textures\tiles.psd">
+      <Filter>resources\textures</Filter>
+    </None>
+    <None Include="res\textures\tiles_test.psd">
+      <Filter>resources\textures</Filter>
+    </None>
+    <None Include="res\saves\Admin\main.sav">
+      <Filter>resources\saves</Filter>
+    </None>
+    <None Include="imgui.ini" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />
+    <Text Include="res\startup.txt">
+      <Filter>resources</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\textures\example.jpg" />
-    <Image Include="res\textures\grid.png" />
-    <Image Include="res\textures\mask.png" />
-    <Image Include="res\textures\tile1.png" />
-    <Image Include="res\textures\tiles.png" />
-    <Image Include="res\textures\Tiles_267.png" />
-    <Image Include="res\textures\tiles_test.png" />
+    <Image Include="docs\change_save_ui копия.png">
+      <Filter>resources\info</Filter>
+    </Image>
+    <Image Include="docs\interactions копия.png">
+      <Filter>resources\info</Filter>
+    </Image>
+    <Image Include="docs\main_gameplay_ui копия.png">
+      <Filter>resources\info</Filter>
+    </Image>
+    <Image Include="docs\main_menu_ui копия.png">
+      <Filter>resources\info</Filter>
+    </Image>
+    <Image Include="docs\pause_ui копия.png">
+      <Filter>resources\info</Filter>
+    </Image>
+    <Image Include="docs\ror2_game.png">
+      <Filter>resources\info</Filter>
+    </Image>
+    <Image Include="docs\ror2_main_menu.png">
+      <Filter>resources\info</Filter>
+    </Image>
+    <Image Include="docs\ror2_options.png">
+      <Filter>resources\info</Filter>
+    </Image>
+    <Image Include="docs\settings_ui копия.png">
+      <Filter>resources\info</Filter>
+    </Image>
+    <Image Include="res\textures\example.jpg">
+      <Filter>resources\textures</Filter>
+    </Image>
+    <Image Include="res\textures\grid.png">
+      <Filter>resources\textures</Filter>
+    </Image>
+    <Image Include="res\textures\mask.png">
+      <Filter>resources\textures</Filter>
+    </Image>
+    <Image Include="res\textures\tile1.png">
+      <Filter>resources\textures</Filter>
+    </Image>
+    <Image Include="res\textures\tiles.png">
+      <Filter>resources\textures</Filter>
+    </Image>
+    <Image Include="res\textures\Tiles_267.png">
+      <Filter>resources\textures</Filter>
+    </Image>
+    <Image Include="res\textures\tiles_test.png">
+      <Filter>resources\textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib\flac.lib" />
-    <Library Include="lib\freetype.lib" />
-    <Library Include="lib\ogg.lib" />
-    <Library Include="lib\openal32.lib" />
-    <Library Include="lib\sfml-audio.lib" />
-    <Library Include="lib\sfml-audio-d.lib" />
-    <Library Include="lib\sfml-audio-s.lib" />
-    <Library Include="lib\sfml-audio-s-d.lib" />
-    <Library Include="lib\sfml-graphics.lib" />
-    <Library Include="lib\sfml-graphics-d.lib" />
-    <Library Include="lib\sfml-graphics-s.lib" />
-    <Library Include="lib\sfml-graphics-s-d.lib" />
-    <Library Include="lib\sfml-main.lib" />
-    <Library Include="lib\sfml-main-d.lib" />
-    <Library Include="lib\sfml-network.lib" />
-    <Library Include="lib\sfml-network-d.lib" />
-    <Library Include="lib\sfml-network-s.lib" />
-    <Library Include="lib\sfml-network-s-d.lib" />
-    <Library Include="lib\sfml-system.lib" />
-    <Library Include="lib\sfml-system-d.lib" />
-    <Library Include="lib\sfml-system-s.lib" />
-    <Library Include="lib\sfml-system-s-d.lib" />
-    <Library Include="lib\sfml-window.lib" />
-    <Library Include="lib\sfml-window-d.lib" />
-    <Library Include="lib\sfml-window-s.lib" />
-    <Library Include="lib\sfml-window-s-d.lib" />
-    <Library Include="lib\vorbis.lib" />
-    <Library Include="lib\vorbisenc.lib" />
-    <Library Include="lib\vorbisfile.lib" />
+    <Filter Include="libraries">
+      <UniqueIdentifier>{c232c413-cb55-413c-96f0-3602dd57de47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{861d9f48-dd77-4761-b9f6-ed19399015e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\saves">
+      <UniqueIdentifier>{2a83faf1-693b-498d-846e-0e77cf268c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\textures">
+      <UniqueIdentifier>{b6af1617-5fe8-468d-a795-213d006b6b63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\info">
+      <UniqueIdentifier>{df246b6d-8218-4649-acd9-e641ae716f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{49f70260-86af-4292-a141-49621d8d3389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\engine">
+      <UniqueIdentifier>{857bad3d-2148-4b87-aaf5-271d6e51afe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\game">
+      <UniqueIdentifier>{95916161-7fb6-40e8-91ed-4c773853dbcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\imgui">
+      <UniqueIdentifier>{85da2991-caef-4ca5-b5fe-88edc2941ee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\toml++">
+      <UniqueIdentifier>{fecbe272-f057-4529-8bcb-2efa60ebc247}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\andy_bold.ttf">
+      <Filter>resources</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lib\imgui\imconfig.h">
+      <Filter>libraries\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imconfig-SFML.h">
+      <Filter>libraries\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imgui.h">
+      <Filter>libraries\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imgui_internal.h">
+      <Filter>libraries\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imgui-SFML.h">
+      <Filter>libraries\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imgui-SFML_export.h">
+      <Filter>libraries\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imstb_rectpack.h">
+      <Filter>libraries\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imstb_textedit.h">
+      <Filter>libraries\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imstb_truetype.h">
+      <Filter>libraries\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\eil_engine\EventSystem.hpp" />
+    <ClInclude Include="lib\eil_engine\TextureManager.hpp" />
+    <ClInclude Include="lib\eil_engine\InputSystem.hpp" />
+    <ClInclude Include="lib\eil_engine\Util.hpp" />
   </ItemGroup>
 </Project>
